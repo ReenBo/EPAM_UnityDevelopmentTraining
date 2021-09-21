@@ -56,9 +56,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ScriptsCamera\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\BaseObjectScene.cs" />
     <Compile Include="Assets\Scripts\ScriptsPlayer\PlayerMovingController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsCamera\CameraFollowPlayer.cs" />
+    <Compile Include="Assets\Scripts\AnimationsTags.cs" />
+    <Compile Include="Assets\Scripts\AnimationsPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />

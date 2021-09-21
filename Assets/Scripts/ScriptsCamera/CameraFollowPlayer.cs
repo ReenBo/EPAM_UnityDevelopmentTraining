@@ -8,6 +8,8 @@ namespace ET
     {
         [SerializeField] private Transform _player;
         private Vector3 _distance;
+        [Header("Camera parameters")]
+        [Range(0, 10)]
         [SerializeField] private float _speed = 1;
 
         private void Start()
