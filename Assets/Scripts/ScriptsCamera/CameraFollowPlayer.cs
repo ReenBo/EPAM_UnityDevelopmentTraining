@@ -6,12 +6,15 @@ namespace ET
 {
     public class CameraFollowPlayer : MonoBehaviour
     {
+        #region Variables
         [SerializeField] private Transform _player;
         private Vector3 _distance;
         [Header("Camera parameters")]
         [Range(0, 10)]
         [SerializeField] private float _speed = 1;
+        #endregion
 
+        #region Methods
         private void Start()
         {
             _distance = transform.position - _player.position;
@@ -29,5 +32,6 @@ namespace ET
                 _player.position + _distance,
                 _speed * Time.deltaTime);
         }
+        #endregion
     }
 }
