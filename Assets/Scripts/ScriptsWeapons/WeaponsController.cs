@@ -13,7 +13,7 @@ namespace ET
         [SerializeField] private GameObject[] _arrayBullets = new GameObject[4];
 
         private Transform _bulletSpawn;
-        private float _delayTime = 3f;
+        private float _delayTime = 1f;
         private bool _getAmmo = true;
 
         private int _ammoCounter = 40;
@@ -39,8 +39,9 @@ namespace ET
                 CreateProjectile(_arrayBullets[num]);
                 CalculateCartridges();
 
-                yield return new WaitForSeconds(_delayTime);
+                //yield return new WaitForSeconds(_delayTime);
             }
+            yield return null;
         }
 
         public void ReloadingWeapons()

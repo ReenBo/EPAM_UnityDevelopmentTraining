@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - ShotTargetPosition
   - EnemyZombie
+  - PlayerPosition
   layers:
   - Default
   - TransparentFX

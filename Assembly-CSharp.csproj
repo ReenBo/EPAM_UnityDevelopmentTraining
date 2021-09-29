@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ScriptsCamera\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\ScriptsEnemy\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\ScriptsInterfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\BaseObjectScene.cs" />
     <Compile Include="Assets\Scripts\ScriptsEnemy\EnemyStateController.cs" />
     <Compile Include="Assets\Scripts\ScriptsWeapons\WeaponsController.cs" />
@@ -65,7 +66,7 @@
     <Compile Include="Assets\Scripts\ScriptsPlayer\PlayerMovingController.cs" />
     <Compile Include="Assets\Scripts\ScriptsAnimations\AnimationsCharacters.cs" />
     <Compile Include="Assets\Scripts\ScriptsAnimations\AnimationsTags.cs" />
-    <Compile Include="Assets\Scripts\ScriptsInterfaces\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\ScriptsEnemy\EnemyManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />

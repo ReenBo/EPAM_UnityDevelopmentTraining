@@ -21,6 +21,7 @@ namespace ET
         #region Properties
         public EnemyController EnemyController { get => _enemyController; set => _enemyController = value; }
         public GameObject EnemyObject { get => _enemyObject; set => _enemyObject = value; }
+        public float DamageBullet { get => _damageBullet; }
         #endregion
 
         private void Awake()
@@ -47,7 +48,7 @@ namespace ET
 
             if(damageable != null)
             {
-                damageable.Damage();
+                damageable.Damage(DamageBullet);
 
                 EnemyObject.GetComponentInChildren<Renderer>().material.color =
                     Color.red;

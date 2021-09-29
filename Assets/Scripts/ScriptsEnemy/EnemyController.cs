@@ -32,17 +32,21 @@ namespace ET
             EnemyState = GetComponent<EnemyStateController>();
         }
 
-        public void Damage()
+        #region Methods
+        public void Damage(float count)
         {
-            if (IsDeath) return;
-            else if (AmountHealth > 0)
+            if(this.gameObject != null)
             {
-                AmountHealth -= 5f;
-            }
-            else if(AmountHealth <= 0)
-            {
-                AmountHealth = 0f;
-                EnemyIsDying();
+                if (IsDeath) return;
+                else if (AmountHealth > 0)
+                {
+                    AmountHealth -= count;
+                }
+                else if (AmountHealth <= 0)
+                {
+                    AmountHealth = 0f;
+                    EnemyIsDying();
+                }
             }
         }
 
@@ -55,8 +59,7 @@ namespace ET
             if (IsDeath) return;
             else if(bullet != null)
             {
-                int num = 0;
-                num = Random.Range(0, 10);
+                int num = Random.Range(0, 10);
 
                 Debug.Log($"Probability = {num}");
 
@@ -78,7 +81,9 @@ namespace ET
         private void EnemyIsDying()
         {
             IsDeath = true;
+            StopAllCoroutines();
             StartCoroutine(EnemyState.StateDeath());
         }
+        #endregion
     }
 }

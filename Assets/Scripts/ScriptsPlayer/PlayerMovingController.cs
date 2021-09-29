@@ -14,6 +14,7 @@ namespace ET
 
         private bool _shoot = false;
         private bool _reload = false;
+        //private float reloadTimer = 0f;
 
         private float _coolDown = 0f;
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
@@ -49,11 +50,11 @@ namespace ET
         {
             MovingAxis();
             RotationAxisY();
-            ShootWeapon();
         }
 
         private void Update()
         {
+            ShootWeapon();
             AnimationPlayer();
             ReloadAmmo();
             SwitchBullets();
@@ -64,12 +65,15 @@ namespace ET
             if (_shoot || _reload) Rigidbody.velocity = Vector3.zero;
             else
             {
+                _animPlayer.StopAnimation(_animPlayer.Shooting, false);
+
                 Vector3 vector3 = new Vector3(
                     Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) * (_zSpeed),
                     Rigidbody.velocity.y,
                     Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (_xSpeed));
 
                 Rigidbody.velocity = vector3;
+                //reloadTimer = 0f;
             }
         }
 
@@ -95,7 +99,7 @@ namespace ET
 
         private void ShootWeapon()
         {
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 _shoot = true;
                 _animPlayer.PlayAnimation(_animPlayer.Shooting);

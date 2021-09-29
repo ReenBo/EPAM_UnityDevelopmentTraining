@@ -2,6 +2,6 @@ namespace ET
 {
     public interface IDamageable
     {
-        void Damage();
+        void Damage(float count);
     }
 }
