@@ -9,8 +9,8 @@ namespace ET
         #region Variables
         private static EnemyManager instance = null;
         private Transform _playerTransform;
-        private List<GameObject> _enemy = null;
-        private Transform[] _spawnPoints = null;
+        private List<GameObject> _enemy = new List<GameObject>();
+        private Transform[] _spawnTarget = null;
 
         private int _childCountParent = 0;
 
@@ -21,59 +21,54 @@ namespace ET
 
         #region Properties
         public static EnemyManager Instance { get => instance; set => instance = value; }
-        public GameObject EnemyPrefab { get => _enemyPrefab; set => _enemyPrefab = value; }
-        public Transform PlayerTransform { get => _playerTransform; set => _playerTransform = value; }
         #endregion
 
         private void Awake()
         {
-            if (Instance is null) Instance = this;
-            else Destroy(this.gameObject);
-            DontDestroyOnLoad(gameObject);
+            //if (Instance is null) Instance = this;
+            //else Destroy(this.gameObject);
+            //DontDestroyOnLoad(gameObject);
 
-            _enemy = new List<GameObject>();
+            _childCountParent = transform.childCount;
 
-            _childCountParent = this.transform.childCount;
-
-            _spawnPoints = new Transform[_childCountParent];
+            _spawnTarget = new Transform[_childCountParent];
 
             for (int i = 0; i < _childCountParent; i++)
             {
-                _spawnPoints[i] = gameObject.GetComponentInChildren<Transform>().GetChild(i);
-                Debug.Log(_spawnPoints[i].name);
+                _spawnTarget[i] = gameObject.GetComponentInChildren<Transform>().GetChild(i);
             }
-
         }
 
         private void Start()
         {
-            PlayerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
+            _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
 
             StartCoroutine(CreateSpawnPoints());
         }
 
         private void FixedUpdate()
         {
-            this.transform.position = PlayerTransform.position;
+            transform.position = _playerTransform.position;
 
             CalculateNumberEnemies();
             Debug.Log(_enemy.Count);
         }
 
+        #region Methods
         private IEnumerator CreateSpawnPoints()
         {
-            for (int i = 0; i < _spawnPoints.Length; i++)
+            for (int i = 0; i < _spawnTarget.Length; i++)
             {
-                _enemy.Add(CreateEnemy(_spawnPoints[i]));
+                _enemy.Add(CreateEnemy(_spawnTarget[i]));
 
                 yield return new WaitForSeconds(1f);
             }
             yield return null;
         }
 
-        private GameObject CreateEnemy(Transform point)
+        private GameObject CreateEnemy(Transform target)
         {
-            var enemy = Instantiate(EnemyPrefab, point.position, Quaternion.identity);
+            var enemy = Instantiate(_enemyPrefab, target.position, Quaternion.identity);
 
             return enemy;
         }
@@ -82,9 +77,6 @@ namespace ET
         {
             if(_enemy.Count == 0) StartCoroutine(CreateSpawnPoints());
         }
-
-        #region Methods
-
         #endregion
     }
 }

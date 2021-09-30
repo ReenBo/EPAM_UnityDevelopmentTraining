@@ -9,7 +9,6 @@ namespace ET
         #region Variables
         IDamageable damageable;
 
-        private EnemyController _enemyController = null;
         private GameObject _enemyObject = null;
 
         [Header("Settings Bullet:")]
@@ -19,20 +18,21 @@ namespace ET
         #endregion
 
         #region Properties
-        public EnemyController EnemyController { get => _enemyController; set => _enemyController = value; }
         public GameObject EnemyObject { get => _enemyObject; set => _enemyObject = value; }
         public float DamageBullet { get => _damageBullet; }
         #endregion
 
         private void Awake()
         {
-            EnemyController = GetComponentInChildren<EnemyController>();
             EnemyObject = GameObject.FindGameObjectWithTag("EnemyZombie");
 
-            if(this.gameObject != null) Destroy(this.gameObject, _lifeTimeBullet);
+            if(this.gameObject != null)
+            {
+                Destroy(this.gameObject, _lifeTimeBullet);
+            }
         }
 
-        private void FixedUpdate()
+        protected void Update()
         {
             BulletMovements();
         }

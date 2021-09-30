@@ -20,10 +20,9 @@ namespace ET
     public class EnemyStateController : MonoBehaviour
     {
         #region Variables
-        private AnimationsCharacters _animations = null;
+        private Animator _animator = null;
         private NavMeshAgent _navMeshAgent = null;
         private EnemyController _enemyController = null;
-        //private Rigidbody _rigidbody = null;
         private BoxCollider _boxCollider = null;
 
         private Transform _playerTransform = null;
@@ -40,31 +39,55 @@ namespace ET
         #endregion
 
         #region Properties
-        public AnimationsCharacters ThisAnimations { get => _animations; set => _animations = value; }
         public AI_ENEMY_STATE CurrentState { get => _currentState; set => _currentState = value; }
-        public bool CanSeePlayer { get => _canSeePlayer; set => _canSeePlayer = value; }
-        public NavMeshAgent NavMeshAgent { get => _navMeshAgent; set => _navMeshAgent = value; }
-        public Transform PlayerTransform { get => _playerTransform; set => _playerTransform = value; }
-        public EnemyController EnemyController { get => _enemyController; set => _enemyController = value; }
+        #endregion
+
+        #region Hash Code Animations
+        private int _idle = Animator.StringToHash(AnimationsTags.IDLE_ANIMATION);
+        private int _death = Animator.StringToHash(AnimationsTags.DEATH_TRIGGER);
+        private int _hit = Animator.StringToHash(AnimationsTags.HIT_TRIGGER);
+        private int _walk = Animator.StringToHash(AnimationsTags.WALK);
+        private int _attack1 = Animator.StringToHash(AnimationsTags.ATTACK_1_TRIGGER);
+        private int _attack2 = Animator.StringToHash(AnimationsTags.ATTACK_2_TRIGGER);
+        private int _crawl = Animator.StringToHash(AnimationsTags.CRAWL_TRIGGER);
+        private int _fallingBack = Animator.StringToHash(AnimationsTags.FALLING_BACK_TRIGGER);
+        private int _standUp = Animator.StringToHash(AnimationsTags.CRAWL_TRIGGER);
         #endregion
 
         private void Awake()
         {
-            ThisAnimations = GetComponent<AnimationsCharacters>();
-            NavMeshAgent = GetComponent<NavMeshAgent>();
-            EnemyController = GetComponent<EnemyController>();
+            _animator = GetComponent<Animator>();
+            _navMeshAgent = GetComponent<NavMeshAgent>();
+            _enemyController = GetComponent<EnemyController>();
             //_rigidbody = GetComponent<Rigidbody>();
             _boxCollider = GetComponent<BoxCollider>();
         }
 
         private void Start()
         {
-            PlayerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
+            _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
 
             StartCoroutine(StateIdle());
 
-            _deadNow = EnemyController.IsDeath;
+            _deadNow = _enemyController.IsDeath;
         }
+
+        #region Methods
+        public void SwitchAttackEnemy(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    _animator.SetTrigger(_attack1);
+                    break;
+                case 1:
+                    _animator.SetTrigger(_attack2);
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
 
         #region State
         public IEnumerator StateIdle()
@@ -73,13 +96,13 @@ namespace ET
 
             CurrentState = AI_ENEMY_STATE.IDLE;
 
-            ThisAnimations.PlayAnimation(ThisAnimations.Idle);
+            _animator.SetTrigger(_idle);
 
             while (CurrentState == AI_ENEMY_STATE.IDLE)
             {
-                if (CanSeePlayer)
+                if (_canSeePlayer)
                 {
-                    ThisAnimations.StopAnimation(ThisAnimations.Idle, false);
+                    _animator.SetBool(_idle, false);
                     StartCoroutine(StateChase());
                     yield break;
                 }
@@ -93,21 +116,21 @@ namespace ET
 
             CurrentState = AI_ENEMY_STATE.CHASE;
 
-            ThisAnimations.PlayAnimation(ThisAnimations.Walk, true);
+            _animator.SetBool(_walk, true);
 
-            NavMeshAgent.isStopped = false;
+            _navMeshAgent.isStopped = false;
 
             while (CurrentState == AI_ENEMY_STATE.CHASE)
             {
-                Vector3 direction = PlayerTransform.position - transform.position;
+                Vector3 direction = _playerTransform.position - transform.position;
                 Quaternion NewRotantion = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.RotateTowards(
                     transform.rotation, NewRotantion, _rotateSpeed * Time.deltaTime);
 
-                NavMeshAgent.SetDestination(PlayerTransform.position);
+                _navMeshAgent.SetDestination(_playerTransform.position);
 
                 #region NotCanSeePlayer
-                //if (!CanSeePlayer)
+                //if (!_canSeePlayer)
                 //{
                 //    float ElapsedTime = 0f;
 
@@ -121,9 +144,9 @@ namespace ET
 
                 //        if (ElapsedTime >= _chaseTimeOut)
                 //        {
-                //            if (!CanSeePlayer)
+                //            if (!_canSeePlayer)
                 //            {
-                //                ThisAnimations.StopAnimation(ThisAnimations.Walk, false);
+                //                _animCharacters.StopAnimation(_animCharacters.Walk, false);
                 //                NavMeshAgent.isStopped = true;
                 //                StartCoroutine(StateWait());
                 //                yield break;
@@ -135,7 +158,7 @@ namespace ET
                 #endregion
 
                 if (Vector3.Distance(
-                    transform.position, PlayerTransform.position) <= _attackDistance)
+                    transform.position, _playerTransform.position) <= _attackDistance)
                 {
                     StartCoroutine(StateAttack());
                     yield break;
@@ -150,9 +173,9 @@ namespace ET
 
             CurrentState = AI_ENEMY_STATE.ATTACK;
 
-            ThisAnimations.StopAnimation(ThisAnimations.Walk, false);
+            _animator.SetBool(_walk, false);
 
-            NavMeshAgent.isStopped = true;
+            _navMeshAgent.isStopped = true;
 
             float ElapsedTime = 0f;
 
@@ -161,7 +184,7 @@ namespace ET
                 ElapsedTime += Time.deltaTime;
 
                 if (Vector3.Distance(
-                    transform.position, PlayerTransform.position) > _attackDistance)
+                    transform.position, _playerTransform.position) > _attackDistance)
                 {
                     yield return new WaitForSeconds(1f);
                     StartCoroutine(StateChase());
@@ -172,7 +195,7 @@ namespace ET
                 {
                     ElapsedTime = 0f;
                     yield return new WaitForSeconds(1f);
-                    ThisAnimations.SwitchAttackEnemy(Random.Range(0, 2));
+                    SwitchAttackEnemy(Random.Range(0, 2));
                 }
                 yield return null;
             }
@@ -186,9 +209,8 @@ namespace ET
 
             while(CurrentState == AI_ENEMY_STATE.HIT)
             {
-                ThisAnimations.PlayAnimation(ThisAnimations.Hit);
-
-                NavMeshAgent.isStopped = true;
+                _animator.SetTrigger(_hit);
+                _navMeshAgent.isStopped = true;
                 yield return new WaitForSeconds(1f);
                 StartCoroutine(StateChase());
             }
@@ -203,9 +225,8 @@ namespace ET
 
             while (CurrentState == AI_ENEMY_STATE.KNOCKDOWN)
             {
-                NavMeshAgent.isStopped = true;
-
-                ThisAnimations.PlayAnimation(ThisAnimations.FallingBack);
+                _navMeshAgent.isStopped = true;
+                _animator.SetTrigger(_fallingBack);
                 yield return new WaitForSeconds(3f);
                 StartCoroutine(StateChase());
             }
@@ -216,14 +237,14 @@ namespace ET
         {
             CurrentState = AI_ENEMY_STATE.DEATH;
 
-            NavMeshAgent.isStopped = true;
+            _navMeshAgent.isStopped = true;
             _boxCollider.isTrigger = true;
 
             while (CurrentState == AI_ENEMY_STATE.DEATH)
             {
-                ThisAnimations.PlayAnimation(ThisAnimations.Death);
+                _animator.SetTrigger(_death);
                 yield return new WaitForSeconds(4f);
-                NavMeshAgent.enabled = false;
+                _navMeshAgent.enabled = false;
                 Destroy(this.gameObject);
             }
             yield return null;

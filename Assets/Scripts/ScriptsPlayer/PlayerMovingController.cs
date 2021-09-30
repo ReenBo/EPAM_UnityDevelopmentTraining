@@ -7,18 +7,18 @@ namespace ET
     public class PlayerMovingController : MonoBehaviour
     {
         #region Variables
-        private AnimationsCharacters _animPlayer;
-        private Rigidbody _rigidbody;
-        private Camera _camera;
-        private WeaponsController _weaponsController;
+        private Animator _animator = null;
+        private Rigidbody _rigidbody = null;
+        private Camera _camera = null;
+        private WeaponsController _weaponsController = null;
 
         private bool _shoot = false;
         private bool _reload = false;
-        //private float reloadTimer = 0f;
+        private float reloadTimer = 0f;
 
         private float _coolDown = 0f;
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
-        private int _bulletTypeNumber = 0;
+        private int _bulletIDNumber = 0;
         private int _enumNumber = 0;
 
         [Header("Speed parameters")]
@@ -34,13 +34,23 @@ namespace ET
 
         #region Properties
         public Rigidbody Rigidbody { get => _rigidbody; set => _rigidbody = value; }
-        public int BulletTypeNumber { 
-            get => _bulletTypeNumber; set => _bulletTypeNumber = Mathf.Clamp(value, 0, 3); }
+
+        public int BulletIDNumber
+        { 
+            get => _bulletIDNumber; 
+            set => _bulletIDNumber = Mathf.Clamp(value, 0, 3);
+        }
+        #endregion
+
+        #region Animations Hash Code
+        private int _run = Animator.StringToHash(AnimationsTags.RUN);
+        private int _shooting = Animator.StringToHash(AnimationsTags.SHOOTING);
+        private int _reloadWeapons = Animator.StringToHash(AnimationsTags.RELODING_WEAPONS);
         #endregion
 
         private void Awake()
         {
-            _animPlayer = GetComponent<AnimationsCharacters>();
+            _animator = GetComponent<Animator>();
             Rigidbody = GetComponent<Rigidbody>();
             _camera = Camera.main;
             _weaponsController = GetComponentInChildren<WeaponsController>();
@@ -65,7 +75,7 @@ namespace ET
             if (_shoot || _reload) Rigidbody.velocity = Vector3.zero;
             else
             {
-                _animPlayer.StopAnimation(_animPlayer.Shooting, false);
+                _animator.SetBool(_shooting, false);
 
                 Vector3 vector3 = new Vector3(
                     Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) * (_zSpeed),
@@ -73,7 +83,7 @@ namespace ET
                     Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (_xSpeed));
 
                 Rigidbody.velocity = vector3;
-                //reloadTimer = 0f;
+                reloadTimer = 0f;
             }
         }
 
@@ -102,8 +112,8 @@ namespace ET
             if (Input.GetButtonDown("Fire1"))
             {
                 _shoot = true;
-                _animPlayer.PlayAnimation(_animPlayer.Shooting);
-                StartCoroutine(_weaponsController.TakeShot(_bulletArray[BulletTypeNumber]));
+                _animator.SetTrigger(_shooting);
+                StartCoroutine(_weaponsController.TakeShot(_bulletArray[BulletIDNumber]));
             }
             else _shoot = false;
         }
@@ -112,7 +122,7 @@ namespace ET
         {
             float mouseScrollnumber = Input.GetAxis("Mouse ScrollWheel");
 
-            if(mouseScrollnumber < 0)
+            if (mouseScrollnumber < 0)
             {
                 if (_enumNumber < 3) _enumNumber++;
                 else if (_enumNumber == 3) _enumNumber = 0;
@@ -124,7 +134,7 @@ namespace ET
                 else if (_enumNumber > 0 ) _enumNumber--;
             }
 
-            BulletTypeNumber = _enumNumber;
+            BulletIDNumber = _enumNumber;
         }
 
         private void ReloadAmmo()
@@ -136,14 +146,14 @@ namespace ET
                     _coolDown += Time.deltaTime;
 
                     _reload = true;
-                    _animPlayer.PlayAnimation(_animPlayer.ReloadWeapons);
+                    _animator.SetTrigger(_reloadWeapons);
                     _weaponsController.ReloadingWeapons();
                 }
-            }
-            else
-            {
-                _reload = false;
-                _coolDown = 0f;
+                else
+                {
+                    _reload = false;
+                    _coolDown = 0f;
+                }
             }
         }
 
@@ -152,9 +162,9 @@ namespace ET
             if (Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) != 0 || 
                 Input.GetAxisRaw(Axis.VERTICAL_AXIS) != 0)
             {
-                _animPlayer.PlayAnimation(_animPlayer.Run);
+                _animator.SetTrigger(_run);
             }
-            else _animPlayer.StopAnimation(_animPlayer.Run, false);
+            else _animator.SetBool(_run, false);
         }
     }
 }

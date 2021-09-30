@@ -1679,7 +1679,6 @@ GameObject:
   - component: {fileID: 1798448533653686223}
   - component: {fileID: 621590578559990233}
   - component: {fileID: 1921448208844421540}
-  - component: {fileID: 8473791132901474941}
   m_Layer: 0
   m_Name: Zombie1
   m_TagString: EnemyZombie
@@ -1792,7 +1791,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentState: 1125456135
-  _playerTransform: {fileID: 0}
   _attackDistance: 1.2
   _attackDelayTime: 0.5
   _rotateSpeed: 100
@@ -1818,18 +1816,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8473791132901474941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4493914613880827488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d77fd023d07dbe45a078d2cac1f0eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4710940672626480558
 GameObject:
   m_ObjectHideFlags: 0

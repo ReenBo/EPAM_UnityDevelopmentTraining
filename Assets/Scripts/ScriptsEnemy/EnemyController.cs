@@ -16,20 +16,19 @@ namespace ET
         [SerializeField] private float _movementSpeed = 0;
 
         private bool _isDeath = false;
-        //private bool _resurrection = false;
+        //private bool _isResurrection = false;
         #endregion
 
         #region Properties
         public float AmountHealth { get => _amountHealth; set => _amountHealth = Mathf.Clamp(value, 0f, 100f); }
         public float AmountDamage { get => _amountDamage; set => _amountDamage = value; }
         public float MovementSpeed { get => _movementSpeed; set => _movementSpeed = value; }
-        public EnemyStateController EnemyState { get => _enemyState; set => _enemyState = value; }
         public bool IsDeath { get => _isDeath; set => _isDeath = value; }
         #endregion
 
         private void Awake()
         {
-            EnemyState = GetComponent<EnemyStateController>();
+            _enemyState = GetComponent<EnemyStateController>();
         }
 
         #region Methods
@@ -66,10 +65,10 @@ namespace ET
                 switch (num)
                 {
                     case 1:
-                        StartCoroutine(EnemyState.StateStandUp());
+                        StartCoroutine(_enemyState.StateStandUp());
                         break;
                     case 2:
-                        StartCoroutine(EnemyState.StateHit());
+                        StartCoroutine(_enemyState.StateHit());
                         break;
                     default:
                         print("default");
@@ -82,7 +81,7 @@ namespace ET
         {
             IsDeath = true;
             StopAllCoroutines();
-            StartCoroutine(EnemyState.StateDeath());
+            StartCoroutine(_enemyState.StateDeath());
         }
         #endregion
     }

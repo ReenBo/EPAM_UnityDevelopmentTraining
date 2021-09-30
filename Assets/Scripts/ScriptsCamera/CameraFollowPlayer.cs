@@ -7,7 +7,7 @@ namespace ET
     public class CameraFollowPlayer : MonoBehaviour
     {
         #region Variables
-        [SerializeField] private Transform _player;
+        private Transform _playerTransform;
         private Vector3 _distance;
         [Header("Camera parameters")]
         [Range(0, 10)]
@@ -17,7 +17,9 @@ namespace ET
         #region Methods
         private void Start()
         {
-            _distance = transform.position - _player.position;
+            _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
+
+            _distance = transform.position - _playerTransform.position;
         }
 
         private void FixedUpdate()
@@ -29,7 +31,7 @@ namespace ET
         {
             transform.position = Vector3.Lerp(
                 transform.position,
-                _player.position + _distance,
+                _playerTransform.position + _distance,
                 _speed * Time.deltaTime);
         }
         #endregion

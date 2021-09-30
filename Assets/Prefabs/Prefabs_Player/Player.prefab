@@ -1455,10 +1455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shotPoint: {fileID: 2289145100816312186}
   _targetPos: {fileID: 2244257697246261088}
-  _bulletOrdinary: {fileID: 7003013619393826194, guid: 2ae4eab5a018a3f4fa48e05dff21a4b8, type: 3}
-  _bulletExplosive: {fileID: 7003013619393826194, guid: fc21c73cd09c0ed4f8cc1a09cfbe4178, type: 3}
-  _bulletPenetrating: {fileID: 7003013619393826194, guid: 7a630bed1c8a5f04db0d806a0c68c665, type: 3}
-  _bulletTracking: {fileID: 7003013619393826194, guid: c66556d29d5f0e14887c2374ed62d427, type: 3}
   _arrayBullets:
   - {fileID: 7003013619393826194, guid: 2ae4eab5a018a3f4fa48e05dff21a4b8, type: 3}
   - {fileID: 7003013619393826194, guid: fc21c73cd09c0ed4f8cc1a09cfbe4178, type: 3}
@@ -3809,7 +3805,6 @@ GameObject:
   - component: {fileID: 595610471}
   - component: {fileID: 595610472}
   - component: {fileID: 595610473}
-  - component: {fileID: 436635052}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3906,18 +3901,6 @@ MonoBehaviour:
   _zSpeed: 2
   _sensitivity: 25
   _reloadTimeWeapon: 1
---- !u!114 &436635052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8356104788382652267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d77fd023d07dbe45a078d2cac1f0eb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8506855618230087533
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,7 +37,7 @@ namespace ET
             if(_getAmmo)
             {
                 CreateProjectile(_arrayBullets[num]);
-                CalculateCartridges();
+                CalculateAmmos();
 
                 //yield return new WaitForSeconds(_delayTime);
             }
@@ -51,7 +51,7 @@ namespace ET
             _getAmmo = true;
         }
 
-        private void CalculateCartridges()
+        private void CalculateAmmos()
         {
             if (AmmoCounter > 0)
             {
