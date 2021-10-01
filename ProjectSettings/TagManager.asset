@@ -9,6 +9,7 @@ TagManager:
   - ShotTargetPosition
   - EnemyZombie
   - PlayerPosition
+  - LeftArm
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Player
   - 
   - 
   - 

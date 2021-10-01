@@ -56,16 +56,18 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ScriptsCamera\CameraFollowPlayer.cs" />
-    <Compile Include="Assets\Scripts\ScriptsEnemy\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsInterfaces\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Camera\CameraFollowPlayer.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Interfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\BaseObjectScene.cs" />
-    <Compile Include="Assets\Scripts\ScriptsEnemy\EnemyStateController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsEnemy\EnemyManager.cs" />
-    <Compile Include="Assets\Scripts\ScriptsWeapons\WeaponsController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsBullets\BulletsController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsPlayer\PlayerMovingController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsAnimations\AnimationsTags.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyStateController.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Weapons\WeaponsController.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Bullets\BulletsController.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Player\PlayerMovingController.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Animations\AnimationsTags.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Player\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyAttacksController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />
