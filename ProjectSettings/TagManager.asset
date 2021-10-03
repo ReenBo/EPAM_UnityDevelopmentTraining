@@ -10,6 +10,8 @@ TagManager:
   - EnemyZombie
   - PlayerPosition
   - LeftArm
+  - PlayerHealthView
+  - PlayerAmmoView
   layers:
   - Default
   - TransparentFX

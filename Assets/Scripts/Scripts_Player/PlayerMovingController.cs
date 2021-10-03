@@ -13,10 +13,7 @@ namespace ET
         private WeaponsController _weaponsController = null;
 
         private bool _shoot = false;
-        private bool _reload = false;
-        private float reloadTimer = 0f;
 
-        private float _coolDown = 0f;
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
         private int _bulletIDNumber = 0;
         private int _enumNumber = 0;
@@ -29,7 +26,7 @@ namespace ET
         [Header("Mouse parameters")]
         [Range(0, 50)]
         [SerializeField] private float _sensitivity = 1;
-        [SerializeField] private float _reloadTimeWeapon = 1;
+        //[SerializeField] private float _reloadTimeWeapon = 1;
         #endregion
 
         #region Properties
@@ -72,7 +69,7 @@ namespace ET
 
         private void MovingAxis()
         {
-            if (_shoot || _reload) Rigidbody.velocity = Vector3.zero;
+            if (_shoot) Rigidbody.velocity = Vector3.zero;
             else
             {
                 _animator.SetBool(_shooting, false);
@@ -83,7 +80,6 @@ namespace ET
                     Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (_xSpeed));
 
                 Rigidbody.velocity = vector3;
-                reloadTimer = 0f;
             }
         }
 
@@ -141,18 +137,11 @@ namespace ET
         {
             if (Input.GetKey(KeyCode.R))
             {
-                if (_weaponsController.AmmoCounter < 40 && _coolDown < _reloadTimeWeapon)
-                {
-                    _coolDown += Time.deltaTime;
-
-                    _reload = true;
-                    _animator.SetTrigger(_reloadWeapons);
-                    _weaponsController.ReloadingWeapons();
-                }
+                if (_weaponsController.AmmoCounter >= 30) return;
                 else
                 {
-                    _reload = false;
-                    _coolDown = 0f;
+                    _animator.SetTrigger(_reloadWeapons);
+                    _weaponsController.ReloadingWeapons();
                 }
             }
         }

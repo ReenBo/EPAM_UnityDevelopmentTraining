@@ -43,7 +43,8 @@ namespace ET
         public const string UNTAGGED_TAG = "Untagged";
         public const string MAIN_CAMERA_TAG = "MainCamera";
 
-        public const string HEALTH_VIEW = "HealthView";
+        public const string PLAYER_HEALTH_VIEW = "PlayerHealthView";
+        public const string PLAYER_AMMO_VIEW = "PlayerAmmoView";
         public const string STAMINA_VIEW = "StaminaView";
     }
 }

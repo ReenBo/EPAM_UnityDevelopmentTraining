@@ -23,7 +23,7 @@ namespace ET
 
         #region Properties
         public float AmountHealth { get => _amountHealth; set => _amountHealth = Mathf.Clamp(value, 0f, 100f); }
-        public float AmountDamage { get => _amountDamage; set => _amountDamage = value; }
+        public float AmountDamage { get => _amountDamage; }
         public bool IsDeath { get => _isDeath; set => _isDeath = value; }
         #endregion
 

@@ -7,6 +7,8 @@ namespace ET
     public class WeaponsController : MonoBehaviour
     {
         #region Variables
+        PlayerViem _playerViem;
+
         [SerializeField] private Transform _shotPoint;
         [SerializeField] private Transform _targetPos;
 
@@ -15,12 +17,18 @@ namespace ET
         private Transform _bulletSpawn;
         private bool _getAmmo = true;
 
-        private int _ammoCounter = 40;
+        private int _ammoCounter = 30;
         #endregion
 
         #region Properties
         public int AmmoCounter { get => _ammoCounter; private set => _ammoCounter = value; }
         #endregion
+
+        private void Awake()
+        {
+            _playerViem = GetComponentInParent<PlayerViem>();
+            _playerViem.SetAmmoCountViem(AmmoCounter);
+        }
 
         #region Metods
         private void CreateProjectile(GameObject bullet)
@@ -45,9 +53,10 @@ namespace ET
 
         public void ReloadingWeapons()
         {
-            int countAmmo = 40;
-            AmmoCounter = (countAmmo - AmmoCounter) + countAmmo;
+            int countAmmo = 30;
+            AmmoCounter = (countAmmo - AmmoCounter) + AmmoCounter;
             _getAmmo = true;
+            _playerViem.SetAmmoCountViem(AmmoCounter);
         }
 
         private void CalculateAmmos()
@@ -55,6 +64,7 @@ namespace ET
             if (AmmoCounter > 0)
             {
                 AmmoCounter -= 1;
+                _playerViem.SetAmmoCountViem(AmmoCounter);
             }
             else _getAmmo = false;
         }

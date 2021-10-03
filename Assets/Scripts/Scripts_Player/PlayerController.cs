@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ET
 {
@@ -8,6 +9,7 @@ namespace ET
     {
         #region Variables
         private Animator _animator = null;
+        private PlayerViem _playerViem = null;
 
         [Header("Parameters Object")]
         [Range(0, 100)]
@@ -22,6 +24,7 @@ namespace ET
         protected void Awake()
         {
             _animator = GetComponent<Animator>();
+            _playerViem = GetComponent<PlayerViem>();
         }
 
         public void Damage(float count)
@@ -32,6 +35,7 @@ namespace ET
                 else if (_amountHealth > 0)
                 {
                     _amountHealth -= count;
+                    _playerViem.SetHealthViem(count);
                 }
                 else if (_amountHealth <= 0)
                 {
