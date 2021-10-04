@@ -11,7 +11,8 @@ TagManager:
   - PlayerPosition
   - LeftArm
   - PlayerHealthView
-  - PlayerAmmoView
+  - PlayerAmmoTextView
+  - PlayerAmmoGroundView
   layers:
   - Default
   - TransparentFX

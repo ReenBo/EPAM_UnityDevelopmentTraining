@@ -24,9 +24,13 @@ namespace ET
         public int AmmoCounter { get => _ammoCounter; private set => _ammoCounter = value; }
         #endregion
 
-        private void Awake()
+        protected void Awake()
         {
             _playerViem = GetComponentInParent<PlayerViem>();
+        }
+
+        protected void Start()
+        {
             _playerViem.SetAmmoCountViem(AmmoCounter);
         }
 
@@ -56,6 +60,7 @@ namespace ET
             int countAmmo = 30;
             AmmoCounter = (countAmmo - AmmoCounter) + AmmoCounter;
             _getAmmo = true;
+            //_playerViem.SetAmmoViem(AmmoCounter);
             _playerViem.SetAmmoCountViem(AmmoCounter);
         }
 
@@ -64,6 +69,7 @@ namespace ET
             if (AmmoCounter > 0)
             {
                 AmmoCounter -= 1;
+                //_playerViem.SetAmmoViem(AmmoCounter);
                 _playerViem.SetAmmoCountViem(AmmoCounter);
             }
             else _getAmmo = false;

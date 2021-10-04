@@ -58,7 +58,7 @@ namespace ET
                 CalculateNumberEnemies();
                 _timer = 0f;
             }
-            Debug.Log(_timer);
+            //Debug.Log(_timer);
             //---------------------------
         }
 

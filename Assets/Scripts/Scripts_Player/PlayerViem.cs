@@ -8,21 +8,32 @@ namespace ET
     public class PlayerViem : MonoBehaviour
     {
         private Image _playerHealthViem;
-        private Text _playerAmmoViem;
-
+        private Text _playerAmmoViemText;
+        private Image _playerAmmoViemImage;
 
         protected void Awake()
         {
             _playerHealthViem = GameObject.FindGameObjectWithTag(
                 Tags.PLAYER_HEALTH_VIEW).GetComponent<Image>();
 
-            _playerAmmoViem = GameObject.FindGameObjectWithTag(
-                Tags.PLAYER_AMMO_VIEW).GetComponent<Text>();
+            _playerAmmoViemText = GameObject.FindGameObjectWithTag(
+                Tags.PLAYER_AMMO_TEXT_VIEW).GetComponent<Text>();
+
+            //_playerAmmoViemImage = GameObject.FindGameObjectWithTag(
+            //    Tags.PLAYER_AMMO_IMAGE_VIEW).GetComponent<Image>();
         }
+
+        //public void SetAmmoViem(float amount)
+        //{
+        //    amount /= 1000f;
+        //    if (amount < 0f) amount = 0f;
+
+        //    _playerAmmoViemImage.fillAmount -= amount * 2;
+        //}
 
         public void SetAmmoCountViem(int amount)
         {
-            _playerAmmoViem.text = "AMMO: " + amount.ToString();
+            _playerAmmoViemText.text = "30/" + amount.ToString();
         }
 
         public void SetHealthViem(float amount)
