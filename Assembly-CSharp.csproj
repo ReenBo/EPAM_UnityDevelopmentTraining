@@ -56,20 +56,23 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Scripts_Camera\CameraFollowPlayer.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyAttacksController.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Interfaces\IDamageable.cs" />
-    <Compile Include="Assets\Scripts\BaseObjectScene.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyStateController.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Enemy\EnemyManager.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Player\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Weapons\WeaponsController.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Bullets\BulletsController.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Player\PlayerMovingController.cs" />
-    <Compile Include="Assets\Scripts\ScriptsCore\HealthSystem.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Animations\AnimationsTags.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Player\PlayerViem.cs" />
+    <Compile Include="Assets\Scripts\Camera\CameraFollowPlayer.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyAttacksController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Managers\EnemyManager.cs" />
+    <Compile Include="Assets\Scripts\Player\Controllers\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\PlayerViem.cs" />
+    <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
+    <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
+    <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovingController.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
+    <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
+    <Compile Include="Assets\Scripts\Enemy\AI\AIStates.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\LoaderScenes.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\SceneController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />
