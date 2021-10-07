@@ -58,7 +58,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyAttacksController.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\SceneController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Enemy\AI\AIStates.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Managers\EnemyManager.cs" />
@@ -69,10 +72,6 @@
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovingController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
-    <Compile Include="Assets\Scripts\Enemy\AI\AIStates.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\LoaderScenes.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\SceneController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />

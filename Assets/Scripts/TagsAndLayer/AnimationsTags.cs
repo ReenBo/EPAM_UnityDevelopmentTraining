@@ -36,6 +36,7 @@ namespace ET
         public const string PLAYER_TAG = "Player";
         public const string ENEMY_ZOMBIE_TAG = "EnemyZombie";
         public const string OBSTACLE_TAG = "Obstacle";
+        public const string GAME_MENU = "GameMenu";
 
         public const string LEFT_ARM_TAG = "LeftArm";
         public const string LEFT_LEG_TAG = "LeftLeg";

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ET.Enemy;
 using ET.Player;
+using ET.Scene;
 
 namespace ET
 {
@@ -10,15 +11,21 @@ namespace ET
     {
         private static GameManager _instance = null;
 
-        [SerializeField] private EnemyManager _enemyManager;
+        private GameObject[] _allGameObjectsScene = null;
+
+        [SerializeField] private EnemyManager _enemy;
         [SerializeField] private GameObject _player;
-        [SerializeField] private GameObject _sceneManager;
+        [SerializeField] private SceneController _sceneLoader;
         [SerializeField] private GameObject _audioManager;
-        [SerializeField] private GameObject _uIManager;
-        [SerializeField] private Camera _camera;
+        [SerializeField] private GameObject _gameMenu;
 
+        private Camera _camera;
 
-        public bool IsPaused = false;
+        private float _timeValue = 0;
+        private GameObject _gameMenuInScene = null;
+        private bool _playerIsDead = false;
+
+        private bool IsPaused = false;
 
         public static GameManager Instance
         {
@@ -28,8 +35,11 @@ namespace ET
             }
         }
 
+        public bool PlayerIsDead { get => _playerIsDead; private set => _playerIsDead = value; }
+
         protected void Awake()
         {
+            #region Singleton
             if (_instance)
             {
                 Destroy(gameObject);
@@ -37,16 +47,57 @@ namespace ET
             }
 
             _instance = this;
+            #endregion
+
+            _allGameObjectsScene = FindObjectsOfType<GameObject>();
+
+            //_gameMenuInScene = CreateObjectScene(_gameMenu);
         }
 
-        private void EndGame()
+        protected void Start()
         {
+            //_camera = (Camera)GameObject.FindObjectOfType(typeof(CameraFollowPlayer));
+            //_gameMenuInScene = CreateObjectScene(_gameMenu);
 
+            PlayerIsDead = _player.GetComponent<PlayerController>().IsDeath;
         }
 
-        private void Restart()
+        protected void Update()
         {
+            ChangerGameMenu();
+        }
 
+        private GameObject CreateObjectScene(GameObject gObject)
+        {
+            bool ObjectFound = _allGameObjectsScene.Equals(gObject) ? true : false;
+
+            if (!ObjectFound)
+            {
+                Instantiate(gObject, new Vector3(0, 0, 0), Quaternion.identity);
+            }
+
+            return gObject;
+        }
+
+        public void ChangerGameMenu()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!IsPaused)
+                {
+                    _gameMenu.SetActive(true);
+                    _timeValue = 0f;
+                    IsPaused = true;
+                }
+                else
+                {
+                    _gameMenu.SetActive(false);
+                    _timeValue = 1f;
+                    IsPaused = false;
+                }
+
+                Time.timeScale = _timeValue;
+            }
         }
     }
 }
