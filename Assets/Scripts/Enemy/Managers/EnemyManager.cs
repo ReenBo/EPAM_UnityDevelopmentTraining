@@ -26,9 +26,9 @@ namespace ET.Enemy
 
         protected void Awake()
         {
-            if (Instance is null) Instance = this;
-            else Destroy(gameObject);
-            DontDestroyOnLoad(gameObject);
+            //if (Instance is null) Instance = this;
+            //else Destroy(gameObject);
+            //DontDestroyOnLoad(gameObject);
 
             _childCountParent = transform.childCount;
 

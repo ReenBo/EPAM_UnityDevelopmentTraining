@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovingController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
+    <Compile Include="Assets\Scripts\Player\State\PlayerStates.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />

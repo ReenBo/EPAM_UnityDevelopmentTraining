@@ -22,7 +22,7 @@ namespace ET
         private Camera _camera;
 
         private float _timeValue = 0;
-        private GameObject _gameMenuInScene = null;
+        //private GameObject _gameMenuInScene = null;
         private bool _playerIsDead = false;
 
         private bool IsPaused = false;
@@ -56,7 +56,6 @@ namespace ET
 
         protected void Start()
         {
-            //_camera = (Camera)GameObject.FindObjectOfType(typeof(CameraFollowPlayer));
             //_gameMenuInScene = CreateObjectScene(_gameMenu);
 
             PlayerIsDead = _player.GetComponent<PlayerController>().IsDeath;

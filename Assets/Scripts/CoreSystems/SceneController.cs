@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ET;
+using ET.Player;
 
 namespace ET.Scene
 {
@@ -16,7 +17,14 @@ namespace ET.Scene
             _Level_1
         }
 
+        private PlayerController _playerController = null;
+
         private static Action onLoaderCallback;
+
+        protected void Start()
+        {
+            _playerController = GetComponent<PlayerController>();
+        }
 
         public void StartGame()
         {
@@ -26,9 +34,10 @@ namespace ET.Scene
 
         public void GameOver()
         {
-            if (GameManager.Instance.PlayerIsDead)
+            if (_playerController.PlayerState == Player.States.PLAYER_STATE.IS_DEAD)
             {
                 Time.timeScale = 0f;
+                Debug.Log("GAME_OVER");
                 // OnVisible string "GameOver"
                 Restart();
             }

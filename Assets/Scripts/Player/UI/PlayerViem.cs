@@ -22,7 +22,7 @@ namespace ET.Player
 
         public void SetAmmoCountViem(int amount)
         {
-            _playerAmmoViemText.text = ($"30/{amount}");
+            _playerAmmoViemText.text = ($"30 / {amount}");
         }
 
         public void SetHealthViem(float amount)
