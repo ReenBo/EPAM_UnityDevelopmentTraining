@@ -1907,6 +1907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea013aa5b102ff044929cf3085132758, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 8356104788382652267, guid: a32b89e71fbd51d4d9b3d270682a75ce, type: 3}
   _currentState: 1125456135
   _attackDistance: 1.2
   _attackDelayTime: 0.3

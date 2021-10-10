@@ -6,6 +6,8 @@ namespace ET.Player.States
 {
     public enum PLAYER_STATE
     {
+        SHOOT,
+        RELOAD,
         IS_LIVES,
         IS_DEAD
     }

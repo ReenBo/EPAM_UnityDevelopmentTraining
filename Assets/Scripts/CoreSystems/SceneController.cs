@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using ET;
-using ET.Player;
+using UnityEngine.UI;
 
 namespace ET.Scene
 {
     public class SceneController : MonoBehaviour
     {
+        [SerializeField] private GameObject _gameOverTitle;
+
         public enum Scene
         {
             _Level_0_Start,
@@ -17,43 +18,29 @@ namespace ET.Scene
             _Level_1
         }
 
-        private PlayerController _playerController = null;
-
         private static Action onLoaderCallback;
-
-        protected void Start()
-        {
-            _playerController = GetComponent<PlayerController>();
-        }
 
         public void StartGame()
         {
             Load(Scene._Level_1);
-            //LoaderCallback();
         }
 
         public void GameOver()
         {
-            if (_playerController.PlayerState == Player.States.PLAYER_STATE.IS_DEAD)
-            {
-                Time.timeScale = 0f;
-                Debug.Log("GAME_OVER");
-                // OnVisible string "GameOver"
-                Restart();
-            }
+            Instantiate(_gameOverTitle, new Vector2(0, 0), Quaternion.identity);
+            _gameOverTitle.SetActive(true);
+
+            StartCoroutine(ResettingTime());
         }
 
         public void Restart()
         {
             Load(Scene._Level_1);
-            Time.timeScale = 1f;
-            //LoaderCallback();
         }
 
         public void ReturnMainMenu()
         {
             Load(Scene._Level_0_Start);
-            //LoaderCallback();
         }
 
         public void EndGame()
@@ -70,6 +57,7 @@ namespace ET.Scene
 
             SceneManager.LoadScene(Scene._Level_0_Loading.ToString());
             LoaderCallback();
+            Time.timeScale = 1f;
         }
 
         public static void LoaderCallback()
@@ -78,6 +66,24 @@ namespace ET.Scene
             {
                 onLoaderCallback();
                 onLoaderCallback = null;
+            }
+        }
+
+        private IEnumerator ResettingTime()
+        {
+            float timer = 30f;
+
+            while (true)
+            {
+                if (timer > 0f)
+                {
+                    timer -= Time.fixedDeltaTime;
+                }
+                else
+                {
+                    ReturnMainMenu();
+                }
+                yield return null;
             }
         }
     }

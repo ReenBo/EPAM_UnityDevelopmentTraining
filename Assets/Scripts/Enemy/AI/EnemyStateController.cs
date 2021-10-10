@@ -1,3 +1,4 @@
+using ET.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,6 @@ namespace ET.Enemy.AI
         #region Variables
         private Animator _animator = null;
         private NavMeshAgent _navMeshAgent = null;
-        private EnemyController _enemyController = null;
         private BoxCollider _boxCollider = null;
 
         private Transform _playerTransform = null;
@@ -22,8 +22,9 @@ namespace ET.Enemy.AI
         [SerializeField] private float _attackDelayTime = 0f;
         [SerializeField] private float _rotateSpeed = 100f;
 
-        private bool _deadPlayer = false;
         private bool _canSeePlayer = true;
+
+        private int _checkNumberState = 0;
         #endregion
 
         #region Properties
@@ -46,8 +47,10 @@ namespace ET.Enemy.AI
         {
             _animator = GetComponent<Animator>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _enemyController = GetComponent<EnemyController>();
             _boxCollider = GetComponent<BoxCollider>();
+
+            _checkNumberState = (int)GameManager.
+                Instance.Player.GetComponent<PlayerController>().PlayerState;
         }
 
         protected void Start()
@@ -55,8 +58,6 @@ namespace ET.Enemy.AI
             _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
 
             StartCoroutine(StateIdle());
-
-            _deadPlayer = _enemyController.IsDeath;
         }
 
         #region AttackCombinations
@@ -76,10 +77,16 @@ namespace ET.Enemy.AI
         }
         #endregion
 
+        private bool CheckPlayerState(int numberState)
+        {
+            return numberState == 3;
+        }
+
         #region State
         public IEnumerator StateIdle()
         {
-            if (_deadPlayer) yield break;
+            //if (_deadPlayer) yield break;
+            if (CheckPlayerState(_checkNumberState)) yield break;
 
             CurrentState = AI_ENEMY_STATE.IDLE;
 
@@ -99,7 +106,8 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateChase()
         {
-            if (_deadPlayer) yield break;
+            //if (_deadPlayer) yield break;
+            if (CheckPlayerState(_checkNumberState)) yield break;
 
             CurrentState = AI_ENEMY_STATE.CHASE;
 
@@ -156,7 +164,8 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateAttack()
         {
-            if (_deadPlayer) yield break;
+            //if (_deadPlayer) yield break;
+            if (CheckPlayerState(_checkNumberState)) yield break;
 
             CurrentState = AI_ENEMY_STATE.ATTACK;
 
@@ -190,7 +199,8 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateHit()
         {
-            if (_deadPlayer) yield break;
+            //if (_deadPlayer) yield break;
+            if (CheckPlayerState(_checkNumberState)) yield break;
 
             CurrentState = AI_ENEMY_STATE.HIT;
 
@@ -206,7 +216,8 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateStandUp()
         {
-            if (_deadPlayer) yield break;
+            //if (_deadPlayer) yield break;
+            if (CheckPlayerState(_checkNumberState)) yield break;
 
             CurrentState = AI_ENEMY_STATE.KNOCKDOWN;
 

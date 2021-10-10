@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using ET.Player.States;
+using ET.Scene;
+using System;
 
 namespace ET.Player
 {
     public class PlayerController : MonoBehaviour
     {
         #region Variables
+        ICheckingStateable _checkingStateable;
         private Animator _animator = null;
         private PlayerViem _playerViem = null;
+        private BoxCollider _boxCollider = null;
 
         [Header("Parameters Object")]
         [SerializeField] private PLAYER_STATE _playerState = PLAYER_STATE.IS_LIVES;
@@ -28,13 +32,14 @@ namespace ET.Player
         {
             _animator = GetComponent<Animator>();
             _playerViem = GetComponent<PlayerViem>();
+            _boxCollider = GetComponent<BoxCollider>();
         }
 
         public void Damage(float count)
         {
             if (gameObject != null)
             {
-                if (IsDeath)
+                if (PlayerState == PLAYER_STATE.IS_DEAD)
                 {
                     return;
                 } 
@@ -46,28 +51,31 @@ namespace ET.Player
                 else if (_amountHealth <= 0)
                 {
                     _amountHealth = 0f;
-                    PlayerIsDying();
+
+                    StartCoroutine(PlayerIsDying());
                 }
             }
         }
 
-        private void PlayerIsDying()
+        private IEnumerator PlayerIsDying()
         {
-            if (IsDeath)
+            if (PlayerState == PLAYER_STATE.IS_DEAD)
             {
-                return;
-            } 
-            else
+                yield break;
+            }
+
+            while(PlayerState == PLAYER_STATE.IS_LIVES)
             {
-                IsDeath = true;
+                _boxCollider.isTrigger = true;
+                gameObject.GetComponent<PlayerMovingController>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
+                GameManager.Instance.SceneLoader.GetComponent<SceneController>().GameOver();
+
                 PlayerState = PLAYER_STATE.IS_DEAD;
-
-                Debug.Log(PlayerState);
-
-                Destroy(gameObject, 3);
+                //Destroy(gameObject, 3);
             }
+            yield return null;
         }
     }
 }

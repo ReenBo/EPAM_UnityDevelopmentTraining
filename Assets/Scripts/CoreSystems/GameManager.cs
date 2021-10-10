@@ -11,19 +11,16 @@ namespace ET
     {
         private static GameManager _instance = null;
 
-        private GameObject[] _allGameObjectsScene = null;
+        //private GameObject[] _allGameObjectsScene = null;
 
-        [SerializeField] private EnemyManager _enemy;
+        [SerializeField] private GameObject _enemy;
         [SerializeField] private GameObject _player;
-        [SerializeField] private SceneController _sceneLoader;
+        [SerializeField] private GameObject _sceneLoader;
         [SerializeField] private GameObject _audioManager;
         [SerializeField] private GameObject _gameMenu;
-
-        private Camera _camera;
+        [SerializeField] private GameObject _camera;
 
         private float _timeValue = 0;
-        //private GameObject _gameMenuInScene = null;
-        private bool _playerIsDead = false;
 
         private bool IsPaused = false;
 
@@ -35,7 +32,8 @@ namespace ET
             }
         }
 
-        public bool PlayerIsDead { get => _playerIsDead; private set => _playerIsDead = value; }
+        public GameObject Player { get => _player; private set => _player = value; }
+        public GameObject SceneLoader { get => _sceneLoader; private set => _sceneLoader = value; }
 
         protected void Awake()
         {
@@ -49,33 +47,13 @@ namespace ET
             _instance = this;
             #endregion
 
-            _allGameObjectsScene = FindObjectsOfType<GameObject>();
-
-            //_gameMenuInScene = CreateObjectScene(_gameMenu);
+            //_allGameObjectsScene = FindObjectsOfType<GameObject>();
         }
 
-        protected void Start()
-        {
-            //_gameMenuInScene = CreateObjectScene(_gameMenu);
-
-            PlayerIsDead = _player.GetComponent<PlayerController>().IsDeath;
-        }
 
         protected void Update()
         {
             ChangerGameMenu();
-        }
-
-        private GameObject CreateObjectScene(GameObject gObject)
-        {
-            bool ObjectFound = _allGameObjectsScene.Equals(gObject) ? true : false;
-
-            if (!ObjectFound)
-            {
-                Instantiate(gObject, new Vector3(0, 0, 0), Quaternion.identity);
-            }
-
-            return gObject;
         }
 
         public void ChangerGameMenu()
@@ -98,5 +76,19 @@ namespace ET
                 Time.timeScale = _timeValue;
             }
         }
+
+        #region OffEnebaleMethods
+        //private GameObject CreateObjectScene(GameObject gObject)
+        //{
+        //    bool ObjectFound = _allGameObjectsScene.Equals(gObject) ? true : false;
+
+        //    if (!ObjectFound)
+        //    {
+        //        Instantiate(gObject, new Vector3(0, 0, 0), Quaternion.identity);
+        //    }
+
+        //    return gObject;
+        //}
+        #endregion
     }
 }

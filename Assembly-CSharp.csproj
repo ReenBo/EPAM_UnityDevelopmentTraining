@@ -68,11 +68,13 @@
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Player\UI\PlayerViem.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
+    <Compile Include="Assets\Scripts\Player\State\PlayerStates.cs" />
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovingController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
-    <Compile Include="Assets\Scripts\Player\State\PlayerStates.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ICheckingStateable.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\GamePreloader.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />
