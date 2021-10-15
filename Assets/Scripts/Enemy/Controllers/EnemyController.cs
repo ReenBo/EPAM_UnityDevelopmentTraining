@@ -42,7 +42,7 @@ namespace ET.Enemy
         #region Methods
         public void Damage(float count)
         {
-            if(gameObject) //
+            if(gameObject)
             {
                 if (IsDeath) return;
                 else if (AmountHealth > 0)
@@ -60,7 +60,6 @@ namespace ET.Enemy
                             StartCoroutine(_enemyState.StateHit());
                             break;
                         default:
-                            print("default");
                             break;
                     }
                 }

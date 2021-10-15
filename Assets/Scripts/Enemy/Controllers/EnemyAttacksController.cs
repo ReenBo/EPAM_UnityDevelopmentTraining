@@ -9,12 +9,24 @@ namespace ET.Enemy
     {
         #region Variables
         private PlayerController _playerController = null;
+        private Animator _animator = null;
+
         private float _damageArm = 0f;
         #endregion
 
         #region Properties
         public float DamageArm { get => _damageArm; set => _damageArm = value; }
         #endregion
+
+        #region Hash Code Animations
+        private int _attack1 = Animator.StringToHash(AnimationsTags.ATTACK_1_TRIGGER);
+        private int _attack2 = Animator.StringToHash(AnimationsTags.ATTACK_2_TRIGGER);
+        #endregion
+
+        protected void Awake()
+        {
+            _animator = GetComponentInParent<Animator>();
+        }
 
         protected void OnTriggerEnter(Collider collider)
         {
@@ -25,6 +37,23 @@ namespace ET.Enemy
                 _playerController.Damage(DamageArm);
             }
         }
+
+        #region AttackCombinations
+        public void SwitchAttackEnemy(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    _animator.SetTrigger(_attack1);
+                    break;
+                case 1:
+                    _animator.SetTrigger(_attack2);
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
     }
 }
 

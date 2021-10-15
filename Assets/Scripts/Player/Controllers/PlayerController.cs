@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using ET.Player.States;
 using ET.Scene;
 using System;
 
@@ -11,21 +10,18 @@ namespace ET.Player
     public class PlayerController : MonoBehaviour
     {
         #region Variables
-        ICheckingStateable _checkingStateable;
         private Animator _animator = null;
         private PlayerViem _playerViem = null;
         private BoxCollider _boxCollider = null;
 
         [Header("Parameters Object")]
-        [SerializeField] private PLAYER_STATE _playerState = PLAYER_STATE.IS_LIVES;
         [Range(0, 100)]
         [SerializeField] private float _amountHealth = 0;
-        private bool _isDeath = false;
+
+        private bool _isDead = false;
         #endregion
 
         #region Properties
-        public bool IsDeath { get => _isDeath; private set => _isDeath = value; }
-        public PLAYER_STATE PlayerState { get => _playerState; private set => _playerState = value; }
         #endregion
 
         protected void Awake()
@@ -39,7 +35,7 @@ namespace ET.Player
         {
             if (gameObject != null)
             {
-                if (PlayerState == PLAYER_STATE.IS_DEAD)
+                if (_isDead)
                 {
                     return;
                 } 
@@ -52,30 +48,33 @@ namespace ET.Player
                 {
                     _amountHealth = 0f;
 
-                    StartCoroutine(PlayerIsDying());
+                    PlayerIsDying();
                 }
             }
         }
 
-        private IEnumerator PlayerIsDying()
-        {
-            if (PlayerState == PLAYER_STATE.IS_DEAD)
-            {
-                yield break;
-            }
+        public event Action<bool> OnPlayerIsDying; //!!!!
 
-            while(PlayerState == PLAYER_STATE.IS_LIVES)
+        private void PlayerIsDying()
+        {
+            if (_isDead)
             {
+                return;
+            }
+            else
+            {
+                _isDead = true;
+
+                OnPlayerIsDying?.Invoke(_isDead); //!!!!
+
                 _boxCollider.isTrigger = true;
-                gameObject.GetComponent<PlayerMovingController>().enabled = false;
+                gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                GameManager.Instance.SceneLoader.GetComponent<SceneController>().GameOver();
+                GameManager.Instance.SceneController.GameOver();
 
-                PlayerState = PLAYER_STATE.IS_DEAD;
                 //Destroy(gameObject, 3);
             }
-            yield return null;
         }
     }
 }

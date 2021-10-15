@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using ET.Enemy;
 using ET.Player;
+using ET.Player.Spawner;
 using ET.Scene;
+using ET.GameMenu;
 
 namespace ET
 {
@@ -13,68 +15,49 @@ namespace ET
 
         //private GameObject[] _allGameObjectsScene = null;
 
-        [SerializeField] private GameObject _enemy;
-        [SerializeField] private GameObject _player;
-        [SerializeField] private GameObject _sceneLoader;
-        [SerializeField] private GameObject _audioManager;
-        [SerializeField] private GameObject _gameMenu;
-        [SerializeField] private GameObject _camera;
+        [Header("References to GameObjects")]
+        [SerializeField] private GameObject _enemyManagerObject;
 
-        private float _timeValue = 0;
-
-        private bool IsPaused = false;
+        [Header("References to Components")]
+        [SerializeField] private EnemyController enemyController;
+        [SerializeField] private EnemyManager _enemyManagerComponent;
+        [SerializeField] private PlayerController _playerController;
+        [SerializeField] private PlayerSpawner _playerSpawner;
+        [SerializeField] private SceneController sceneController;
+        [SerializeField] private CameraFollowPlayer _camera;
 
         public static GameManager Instance
         {
             get 
             { 
+                if(_instance == null)
+                {
+                    Debug.LogError("GameManager is NULL");
+                }
+
                 return _instance; 
             }
         }
 
-        public GameObject Player { get => _player; private set => _player = value; }
-        public GameObject SceneLoader { get => _sceneLoader; private set => _sceneLoader = value; }
+        public SceneController SceneController { get => sceneController; private set => sceneController = value; }
+        public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
 
         protected void Awake()
         {
             #region Singleton
-            if (_instance)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
             _instance = this;
             #endregion
+
+            StartGame();
 
             //_allGameObjectsScene = FindObjectsOfType<GameObject>();
         }
 
-
-        protected void Update()
+        //StartMethod InputPoint in Session
+        private void StartGame()
         {
-            ChangerGameMenu();
-        }
-
-        public void ChangerGameMenu()
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                if (!IsPaused)
-                {
-                    _gameMenu.SetActive(true);
-                    _timeValue = 0f;
-                    IsPaused = true;
-                }
-                else
-                {
-                    _gameMenu.SetActive(false);
-                    _timeValue = 1f;
-                    IsPaused = false;
-                }
-
-                Time.timeScale = _timeValue;
-            }
+            Instance._playerSpawner.CreatePlayerInSession();
+            Instantiate(_enemyManagerObject);
         }
 
         #region OffEnebaleMethods

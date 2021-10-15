@@ -8,10 +8,15 @@ namespace ET.Weapons
     public class WeaponsController : MonoBehaviour
     {
         #region Variables
-        PlayerViem _playerViem;
+        private AudioSource _audioSource = null;
+        private PlayerViem _playerViem;
 
-        [SerializeField] private Transform _shotPoint;
+        [SerializeField] private Transform _shootPoint;
         [SerializeField] private Transform _targetPos;
+
+        [Header("Sound Effects")]
+        [SerializeField] private AudioClip _shootingAudio = null;
+        [SerializeField] private AudioClip _reloadingAudio = null;
 
         [SerializeField] private GameObject[] _arrayBullets = new GameObject[4];
 
@@ -28,6 +33,7 @@ namespace ET.Weapons
         protected void Awake()
         {
             _playerViem = GetComponentInParent<PlayerViem>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         protected void Start()
@@ -38,26 +44,26 @@ namespace ET.Weapons
         #region Metods
         private void CreateProjectile(GameObject bullet)
         {
-            _bulletSpawn = Instantiate(bullet.transform, _shotPoint.position, 
+            _bulletSpawn = Instantiate(bullet.transform, _shootPoint.position, 
                 Quaternion.identity);
 
-            _bulletSpawn.rotation = _shotPoint.transform.rotation;
+            _bulletSpawn.rotation = _shootPoint.transform.rotation;
         }
 
-        public IEnumerator TakeShot(int num)
+        public void TakeShot(int num)
         {
             if(_getAmmo)
             {
                 CreateProjectile(_arrayBullets[num]);
                 CalculateAmmos();
-
-                //yield return new WaitForSeconds(_delayTime);
+                PlaySoundEffects(_shootingAudio);
             }
-            yield return null;
         }
 
         public void ReloadingWeapons()
         {
+            PlaySoundEffects(_reloadingAudio);
+
             int countAmmo = 30;
             AmmoCounter = countAmmo;
             _getAmmo = true;
@@ -72,6 +78,12 @@ namespace ET.Weapons
                 _playerViem.SetAmmoCountViem(AmmoCounter);
             }
             else _getAmmo = false;
+        }
+
+        private void PlaySoundEffects(AudioClip clip)
+        {
+            _audioSource.clip = clip;
+            _audioSource.Play();
         }
         #endregion
     }

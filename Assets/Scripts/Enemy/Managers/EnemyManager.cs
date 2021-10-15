@@ -1,15 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ET.Enemy.AI;
 
 namespace ET.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
         #region Variables
-        private static EnemyManager instance = null;
-        private Transform _playerTransform;
-        private List<GameObject> _enemy = new List<GameObject>();
+        private Transform _playerTransform = null;
+        private List<GameObject> _listEnemies = new List<GameObject>();
         private Transform[] _spawnTarget = null;
 
         private int _childCountParent = 0;
@@ -17,19 +18,16 @@ namespace ET.Enemy
 
         [Header("Prefab Enemy")]
         [SerializeField] private GameObject _enemyPrefab;
+        [SerializeField] private EnemyStateController _enemyStateController;
 
         #endregion
 
         #region Properties
-        public static EnemyManager Instance { get => instance; set => instance = value; }
+
         #endregion
 
         protected void Awake()
         {
-            //if (Instance is null) Instance = this;
-            //else Destroy(gameObject);
-            //DontDestroyOnLoad(gameObject);
-
             _childCountParent = transform.childCount;
 
             _spawnTarget = new Transform[_childCountParent];
@@ -45,6 +43,18 @@ namespace ET.Enemy
             _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
 
             StartCoroutine(CreateSpawnPoints());
+
+            GameManager.Instance.PlayerController.OnPlayerIsDying += CheckedPlayerStates;
+        }
+
+        private void CheckedPlayerStates(bool state)
+        {
+            if (state)
+            {
+                StartCoroutine(_enemyStateController.StateIdle());
+
+                GameManager.Instance.PlayerController.OnPlayerIsDying -= CheckedPlayerStates;
+            }
         }
 
         protected void Update()
@@ -57,7 +67,7 @@ namespace ET.Enemy
         {
             for (int i = 0; i < _spawnTarget.Length; i++)
             {
-                _enemy.Add(CreateEnemy(_spawnTarget[i]));
+                _listEnemies.Add(CreateEnemy(_spawnTarget[i]));
 
                 yield return new WaitForSeconds(1f);
             }
@@ -77,10 +87,12 @@ namespace ET.Enemy
 
             if (_timer > 20f)
             {
-                _enemy?.Clear();
+                _listEnemies?.Clear();
 
-                if (_enemy.Count == 0)
+                if (_listEnemies.Count == 0)
                 {
+                    transform.position = _playerTransform.position;
+
                     StartCoroutine(CreateSpawnPoints());
                 }
 

@@ -12,19 +12,26 @@ namespace ET.Enemy.AI
         private Animator _animator = null;
         private NavMeshAgent _navMeshAgent = null;
         private BoxCollider _boxCollider = null;
+        private EnemyAttacksController _enemyAttacks = null;
+        private AudioSource _audioSource = null;
 
         private Transform _playerTransform = null;
 
         [Header("Parameters")]
         [SerializeField] private AI_ENEMY_STATE _currentState = AI_ENEMY_STATE.IDLE;
         [SerializeField] private float _attackDistance = 0f;
-        //[SerializeField] private float _chaseTimeOut = 0f;
+        [SerializeField] private float _chaseTimeOut = 0f;
         [SerializeField] private float _attackDelayTime = 0f;
         [SerializeField] private float _rotateSpeed = 100f;
 
-        private bool _canSeePlayer = true;
+        [SerializeField] private AudioClip _idleAudio;
+        [SerializeField] private AudioClip _attackAudio;
+        [SerializeField] private AudioClip _chaseAudio;
 
-        private int _checkNumberState = 0;
+        private float _allowableDistance = 10f;
+
+        private bool _enemyIsDying = false;
+        private bool _canSeePlayer = false;
         #endregion
 
         #region Properties
@@ -36,8 +43,6 @@ namespace ET.Enemy.AI
         private int _death = Animator.StringToHash(AnimationsTags.DEATH_TRIGGER);
         private int _hit = Animator.StringToHash(AnimationsTags.HIT_TRIGGER);
         private int _walk = Animator.StringToHash(AnimationsTags.WALK);
-        private int _attack1 = Animator.StringToHash(AnimationsTags.ATTACK_1_TRIGGER);
-        private int _attack2 = Animator.StringToHash(AnimationsTags.ATTACK_2_TRIGGER);
         private int _crawl = Animator.StringToHash(AnimationsTags.CRAWL_TRIGGER);
         private int _fallingBack = Animator.StringToHash(AnimationsTags.FALLING_BACK_TRIGGER);
         private int _standUp = Animator.StringToHash(AnimationsTags.CRAWL_TRIGGER);
@@ -48,9 +53,8 @@ namespace ET.Enemy.AI
             _animator = GetComponent<Animator>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _boxCollider = GetComponent<BoxCollider>();
-
-            _checkNumberState = (int)GameManager.
-                Instance.Player.GetComponent<PlayerController>().PlayerState;
+            _enemyAttacks = GetComponentInChildren<EnemyAttacksController>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         protected void Start()
@@ -60,37 +64,41 @@ namespace ET.Enemy.AI
             StartCoroutine(StateIdle());
         }
 
-        #region AttackCombinations
-        public void SwitchAttackEnemy(int num)
+        private void FixedUpdate()
         {
-            switch (num)
-            {
-                case 0:
-                    _animator.SetTrigger(_attack1);
-                    break;
-                case 1:
-                    _animator.SetTrigger(_attack2);
-                    break;
-                default:
-                    break;
-            }
-        }
-        #endregion
+            _canSeePlayer = false;
 
-        private bool CheckPlayerState(int numberState)
+            _canSeePlayer = HaveLineSightInPlayer(_playerTransform);
+        }
+
+        private bool HaveLineSightInPlayer(Transform player)
         {
-            return numberState == 3;
+            if (Physics.Linecast(gameObject.transform.position, _playerTransform.position, out RaycastHit hit))
+            {
+                Debug.DrawLine(gameObject.transform.position, _playerTransform.position, Color.red);
+
+                if (hit.collider.CompareTag(Tags.OBSTACLE_TAG))
+                {
+                    return false;
+                }
+                else if (hit.distance > _allowableDistance)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         #region State
         public IEnumerator StateIdle()
         {
-            //if (_deadPlayer) yield break;
-            if (CheckPlayerState(_checkNumberState)) yield break;
+            if (_enemyIsDying) yield break;
 
             CurrentState = AI_ENEMY_STATE.IDLE;
 
             _animator.SetTrigger(_idle);
+            _audioSource.clip = _idleAudio;
+            _audioSource.Play();
 
             while (CurrentState == AI_ENEMY_STATE.IDLE)
             {
@@ -106,13 +114,13 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateChase()
         {
-            //if (_deadPlayer) yield break;
-            if (CheckPlayerState(_checkNumberState)) yield break;
+            if (_enemyIsDying) yield break;
 
             CurrentState = AI_ENEMY_STATE.CHASE;
 
             _animator.SetBool(_walk, true);
-
+            _audioSource.clip = _chaseAudio;
+            _audioSource.Play();
             _navMeshAgent.isStopped = false;
 
             while (CurrentState == AI_ENEMY_STATE.CHASE)
@@ -125,31 +133,31 @@ namespace ET.Enemy.AI
                 _navMeshAgent.SetDestination(_playerTransform.position);
 
                 #region NotCanSeePlayer
-                //if (!_canSeePlayer)
-                //{
-                //    float ElapsedTime = 0f;
+                if (!_canSeePlayer)
+                {
+                    float ElapsedTime = 0f;
 
-                //    while (true)
-                //    {
-                //        ElapsedTime += Time.deltaTime;
+                    while (true)
+                    {
+                        ElapsedTime += Time.deltaTime;
 
-                //        NavMeshAgent.SetDestination(PlayerTransform.position);
+                        _navMeshAgent.SetDestination(_playerTransform.position);
 
-                //        yield return null;
+                        yield return null;
 
-                //        if (ElapsedTime >= _chaseTimeOut)
-                //        {
-                //            if (!_canSeePlayer)
-                //            {
-                //                _animCharacters.StopAnimation(_animCharacters.Walk, false);
-                //                NavMeshAgent.isStopped = true;
-                //                StartCoroutine(StateWait());
-                //                yield break;
-                //            }
-                //            else break;
-                //        }
-                //    }
-                //}
+                        if (ElapsedTime >= _chaseTimeOut)
+                        {
+                            if (!_canSeePlayer)
+                            {
+                                _animator.SetBool(_walk, false);
+                                _navMeshAgent.isStopped = true;
+                                StartCoroutine(StateIdle());
+                                yield break;
+                            }
+                            else break;
+                        }
+                    }
+                }
                 #endregion
 
                 if (Vector3.Distance(
@@ -164,8 +172,7 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateAttack()
         {
-            //if (_deadPlayer) yield break;
-            if (CheckPlayerState(_checkNumberState)) yield break;
+            if (_enemyIsDying) yield break;
 
             CurrentState = AI_ENEMY_STATE.ATTACK;
 
@@ -191,7 +198,10 @@ namespace ET.Enemy.AI
                 {
                     ElapsedTime = 0f;
                     yield return new WaitForSeconds(1f);
-                    SwitchAttackEnemy(Random.Range(0, 2));
+                    _enemyAttacks.SwitchAttackEnemy(Random.Range(0, 2));
+
+                    _audioSource.clip = _attackAudio;
+                    _audioSource.Play();
                 }
                 yield return null;
             }
@@ -199,8 +209,7 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateHit()
         {
-            //if (_deadPlayer) yield break;
-            if (CheckPlayerState(_checkNumberState)) yield break;
+            if (_enemyIsDying) yield break;
 
             CurrentState = AI_ENEMY_STATE.HIT;
 
@@ -216,8 +225,7 @@ namespace ET.Enemy.AI
 
         public IEnumerator StateStandUp()
         {
-            //if (_deadPlayer) yield break;
-            if (CheckPlayerState(_checkNumberState)) yield break;
+            if (_enemyIsDying) yield break;
 
             CurrentState = AI_ENEMY_STATE.KNOCKDOWN;
 
@@ -241,6 +249,7 @@ namespace ET.Enemy.AI
             while (CurrentState == AI_ENEMY_STATE.DEATH)
             {
                 _animator.SetTrigger(_death);
+                _enemyIsDying = true;
                 yield return new WaitForSeconds(4f);
                 _navMeshAgent.enabled = false;
                 Destroy(gameObject);

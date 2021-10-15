@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameOverTitle: {fileID: 7469691349136368299, guid: 0be47acd42b1eda418f8e33b43740472, type: 3}
+  _preLoader: {fileID: 4824061310900376247, guid: 819872b5fbe925a43a60217ce0f790f5, type: 3}

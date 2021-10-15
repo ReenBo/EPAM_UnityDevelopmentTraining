@@ -18,9 +18,11 @@ namespace ET
         #region Methods
         protected void Start()
         {
-            _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
-
-            _distance = transform.position - _playerTransform.position;
+            if (!_playerTransform)
+            {
+                _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
+                _distance = transform.position - _playerTransform.position;
+            }
         }
 
         protected void FixedUpdate()
