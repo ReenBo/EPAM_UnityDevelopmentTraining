@@ -1894,8 +1894,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _amountHealth: 100
   _amountDamage: 6
+  _amountExperience: 10
   _ArmR: {fileID: 1960769795}
   _ArmL: {fileID: 449596411}
+  _hitAudio: {fileID: 8300000, guid: 5d1867f97277f3f4d9f947578224354d, type: 3}
+  _deadAudio: {fileID: 8300000, guid: dd56af714fb8f014f9f94f6747df4dcb, type: 3}
 --- !u!114 &621590578559990233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1957,11 +1960,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 120
-  DopplerLevel: 1
+  DopplerLevel: 2
   MinDistance: 1
   MaxDistance: 200
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -1973,6 +1976,24 @@ AudioSource:
       value: 1
       inSlope: 0
       outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.288041
+      value: 0.4909109
+      inSlope: -1.4918326
+      outSlope: -1.4918326
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7357303
+      value: 0.21486354
+      inSlope: -0.9420193
+      outSlope: -0.9420193
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334

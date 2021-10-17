@@ -1,4 +1,5 @@
 using ET.Enemy.AI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,17 @@ namespace ET.Enemy
         #region Variables
         private EnemyStateController _enemyState = null;
         private EnemyAttacksController[] _enemyAttacksController = null;
+        private AudioSource _audioSource = null;
 
         [Header("Parameters Object")]
         [Range(0, 100)]
         [SerializeField] private float _amountHealth = 0;
         [SerializeField] private float _amountDamage = 0;
+        [SerializeField] private int _amountExperience = 0;
         [SerializeField] private GameObject _ArmR;
         [SerializeField] private GameObject _ArmL;
+        [SerializeField] private AudioClip _hitAudio;
+        [SerializeField] private AudioClip _deadAudio;
 
         private bool _isDeath = false;
         //private bool _isResurrection = false;
@@ -28,10 +33,15 @@ namespace ET.Enemy
         public bool IsDeath { get => _isDeath; set => _isDeath = value; }
         #endregion
 
+        //public Action<float> onGetScore;
+        //public delegate void TestDelegate(float exp);
+        //public event TestDelegate onGetScore;
+
         protected void Awake()
         {
             _enemyState = GetComponent<EnemyStateController>();
             _enemyAttacksController = GetComponentsInChildren<EnemyAttacksController>();
+            _audioSource = GetComponent<AudioSource>();
 
             foreach (var item in _enemyAttacksController)
             {
@@ -47,9 +57,12 @@ namespace ET.Enemy
                 if (IsDeath) return;
                 else if (AmountHealth > 0)
                 {
+                    _audioSource.clip = _hitAudio;
+                    _audioSource.Play();
+
                     AmountHealth -= count;
 
-                    int num = Random.Range(0, 10);
+                    int num = UnityEngine.Random.Range(0, 10);
 
                     switch (num)
                     {
@@ -73,6 +86,12 @@ namespace ET.Enemy
 
         private void EnemyIsDying()
         {
+            //onGetScore?.Invoke(_amountExperience);
+            GameManager.Instance.CalculateExperiencePlayer(_amountExperience);
+
+            _audioSource.clip = _deadAudio;
+            _audioSource.Play();
+
             _ArmR.SetActive(false);
             _ArmL.SetActive(false);
 

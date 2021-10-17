@@ -1,4 +1,4 @@
-namespace ET.Scene
+namespace ET.Scenes
 {
     public enum Scenes
     {

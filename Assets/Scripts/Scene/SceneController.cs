@@ -1,4 +1,4 @@
-using ET.Scene.Preloader;
+using ET.Scenes.Preloader;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace ET.Scene
+namespace ET.Scenes
 {
     public class SceneController : MonoBehaviour
     {
@@ -22,7 +22,7 @@ namespace ET.Scene
                 SceneManager.LoadSceneAsync(scene.ToString());
             };
 
-            //_preLoader.UploadPreScene();
+            _preLoader.UploadPreScene();
             LoaderCallback();
 
             Time.timeScale = 1f;
