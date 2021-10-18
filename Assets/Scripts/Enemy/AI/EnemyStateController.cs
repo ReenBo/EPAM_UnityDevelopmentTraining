@@ -97,8 +97,6 @@ namespace ET.Enemy.AI
             CurrentState = AI_ENEMY_STATE.IDLE;
 
             _animator.SetTrigger(_idle);
-            _audioSource.clip = _idleAudio;
-            _audioSource.Play();
 
             while (CurrentState == AI_ENEMY_STATE.IDLE)
             {
@@ -119,8 +117,10 @@ namespace ET.Enemy.AI
             CurrentState = AI_ENEMY_STATE.CHASE;
 
             _animator.SetBool(_walk, true);
+
             _audioSource.clip = _chaseAudio;
             _audioSource.Play();
+
             _navMeshAgent.isStopped = false;
 
             while (CurrentState == AI_ENEMY_STATE.CHASE)

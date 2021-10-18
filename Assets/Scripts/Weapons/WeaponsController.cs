@@ -9,7 +9,6 @@ namespace ET.Weapons
     {
         #region Variables
         private AudioSource _audioSource = null;
-        private PlayerViem _playerViem;
 
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private Transform _targetPos;
@@ -32,13 +31,7 @@ namespace ET.Weapons
 
         protected void Awake()
         {
-            _playerViem = GetComponentInParent<PlayerViem>();
             _audioSource = GetComponent<AudioSource>();
-        }
-
-        protected void Start()
-        {
-            _playerViem.SetAmmoCountViem(AmmoCounter);
         }
 
         #region Metods
@@ -67,7 +60,7 @@ namespace ET.Weapons
             int countAmmo = 30;
             AmmoCounter = countAmmo;
             _getAmmo = true;
-            _playerViem.SetAmmoCountViem(AmmoCounter);
+            GameManager.Instance.PlayerViem.SetAmmoCountViem(AmmoCounter);
         }
 
         private void CalculateAmmos()
@@ -75,7 +68,7 @@ namespace ET.Weapons
             if (AmmoCounter > 0)
             {
                 AmmoCounter -= 1;
-                _playerViem.SetAmmoCountViem(AmmoCounter);
+                GameManager.Instance.PlayerViem.SetAmmoCountViem(AmmoCounter);
             }
             else _getAmmo = false;
         }

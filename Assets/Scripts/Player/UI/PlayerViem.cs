@@ -7,24 +7,24 @@ namespace ET.Player
 {
     public class PlayerViem : MonoBehaviour
     {
+        [Header("Links to ExperienceView")]
         [SerializeField] private Image _imageExp;
         [SerializeField] private Text _textExp;
         [SerializeField] private Text _textLevel;
 
-        private Image _playerHealthViem;
-        private Text _playerAmmoViemText;
-        //private Image _playerAmmoViemImage;
+        [Header("Links to HealthView")]
+        [SerializeField] private Image _imageHealth;
+        [SerializeField] private Text _textHealth;
 
-        protected void Awake()
-        {
-            _playerHealthViem = GameObject.FindGameObjectWithTag(
-                Tags.PLAYER_HEALTH_VIEW).GetComponent<Image>();
+        [Header("Links to ArmorView")]
+        [SerializeField] private Image _imageArmor;
+        [SerializeField] private Text _textArmor;
 
-            _playerAmmoViemText = GameObject.FindGameObjectWithTag(
-                Tags.PLAYER_AMMO_TEXT_VIEW).GetComponent<Text>();
-        }
+        [Header("Links to AmmoView")]
+        [SerializeField] private Image _imageAmmo;
+        [SerializeField] private Text _textAmmo;
 
-        public void SetExp(float exp, float currentExp, int maxExp, int level)
+        public void SetExpView(float exp, float currentExp, int maxExp, int level)
         {
             _textExp.text = $"XP {currentExp} / {maxExp}";
             _textLevel.text = $"LEVEL {level}";
@@ -41,15 +41,23 @@ namespace ET.Player
 
         public void SetAmmoCountViem(int amount)
         {
-            _playerAmmoViemText.text = ($"30 / {amount}");
+            _textAmmo.text = ($"30/{amount}");
         }
 
-        public void SetHealthViem(float amount)
+        public void SetArmorView(float damage, int armor)
         {
-            amount /= 100f;
-            if (amount < 0f) amount = 0f;
+            _textArmor.text = ($"50/{armor}");
 
-            _playerHealthViem.fillAmount -= amount;
+            damage /= 100f;
+            _imageArmor.fillAmount -= damage * 2f;
+        }
+
+        public void SetHealthView(float damage, int health)
+        {
+            _textHealth.text = ($"100/{health}");
+
+            damage /= 100f;
+            _imageHealth.fillAmount -= damage;
         }
     }
 }

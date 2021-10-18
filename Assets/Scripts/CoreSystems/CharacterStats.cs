@@ -8,7 +8,7 @@ namespace ET.Stats
     {
         public struct Stats
         {
-            public int currentLevel;
+            public int _currentLevel;
             public float _currentExperience;
 
             public float currentHealth;

@@ -12,12 +12,12 @@ namespace ET.Player
     {
         #region Variables
         private Animator _animator = null;
-        private PlayerViem _playerViem = null;
         private BoxCollider _boxCollider = null;
 
         [Header("Parameters Object")]
         [Range(0, 100)]
         [SerializeField] private float _maxHealth = 0;
+        [Range(0, 100)]
         [SerializeField] private float _maxArmor = 0;
 
         private float _currentHealth = 0;
@@ -33,11 +33,10 @@ namespace ET.Player
 
         protected void Awake()
         {
-            _currentHealth = _maxHealth;
             _currentArmor = _maxArmor;
+            _currentHealth = _maxHealth;
 
             _animator = GetComponent<Animator>();
-            _playerViem = GetComponent<PlayerViem>();
             _boxCollider = GetComponent<BoxCollider>();
         }
 
@@ -46,7 +45,7 @@ namespace ET.Player
             Save();
         }
 
-        public void Damage(float count)
+        public void Damage(float amount)
         {
             if (gameObject != null)
             {
@@ -54,16 +53,27 @@ namespace ET.Player
                 {
                     return;
                 } 
-                else if (_currentHealth > 0)
-                {
-                    _currentHealth -= count;
-                    _playerViem.SetHealthViem(count);
-                }
-                else if (_currentHealth <= 0)
-                {
-                    _currentHealth = 0f;
 
-                    PlayerIsDying();
+                if(_currentArmor > 0f)
+                {
+                    _currentArmor -= amount;
+                    GameManager.Instance.PlayerViem.SetArmorView(amount, (int)_currentArmor);
+                }
+                else if(_currentArmor <= 0f)
+                {
+                    if (_currentHealth > 0f)
+                    {
+                        _currentArmor = 0f;
+
+                        _currentHealth -= amount;
+                        GameManager.Instance.PlayerViem.SetHealthView(amount, (int)_currentHealth);
+                    }
+                    else if (_currentHealth <= 0f)
+                    {
+                        _currentHealth = 0f;
+
+                        PlayerIsDying();
+                    }
                 }
             }
         }

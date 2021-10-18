@@ -97,6 +97,8 @@ namespace ET.Player
                 Input.GetAxisRaw(Axis.VERTICAL_AXIS) != 0)
             {
                 _animator.SetTrigger(_run);
+                _audioSource.clip = _runAudio;
+                _audioSource.Play();
             }
             else
             {
@@ -104,9 +106,9 @@ namespace ET.Player
             } 
         }
 
-        private void PlaySoundEffects(AudioClip clip)
+        private void PlaySoundEffects()
         {
-            _audioSource.clip = clip;
+            _audioSource.clip = _runAudio;
             _audioSource.Play();
         }
     }

@@ -50,3 +50,5 @@ MonoBehaviour:
   _playerSpawner: {fileID: 0}
   sceneController: {fileID: 0}
   _camera: {fileID: 0}
+  _stats: {fileID: 0}
+  _playerViem: {fileID: 0}

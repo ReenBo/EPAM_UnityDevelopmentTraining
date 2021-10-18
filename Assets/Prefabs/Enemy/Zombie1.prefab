@@ -1893,12 +1893,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _amountHealth: 100
-  _amountDamage: 6
+  _amountDamage: 10
   _amountExperience: 10
   _ArmR: {fileID: 1960769795}
   _ArmL: {fileID: 449596411}
-  _hitAudio: {fileID: 8300000, guid: 5d1867f97277f3f4d9f947578224354d, type: 3}
   _deadAudio: {fileID: 8300000, guid: dd56af714fb8f014f9f94f6747df4dcb, type: 3}
+  _hitAudio: {fileID: 8300000, guid: 5d1867f97277f3f4d9f947578224354d, type: 3}
 --- !u!114 &621590578559990233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,8 +1917,8 @@ MonoBehaviour:
   _attackDelayTime: 0.3
   _rotateSpeed: 100
   _idleAudio: {fileID: 8300000, guid: 10732d0c2b844ae4c9ce62eab3a4c9b3, type: 3}
-  _attackAudio: {fileID: 8300000, guid: 4fb45f9472f5e554c82a5a9c7ba4c739, type: 3}
-  _chaseAudio: {fileID: 8300000, guid: efc7bb9783bdf8a4797f4caae38bea34, type: 3}
+  _attackAudio: {fileID: 8300000, guid: fc1882cb9cb0d474c95537bbdb4c48bd, type: 3}
+  _chaseAudio: {fileID: 8300000, guid: e29d35a3561cf964e9c39f5b99c2696c, type: 3}
 --- !u!195 &1921448208844421540
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1962,7 +1962,7 @@ AudioSource:
   Priority: 120
   DopplerLevel: 2
   MinDistance: 1
-  MaxDistance: 200
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0

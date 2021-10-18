@@ -56,6 +56,7 @@ namespace ET
         public SceneController SceneController { get => sceneController; private set => sceneController = value; }
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
+        public PlayerViem PlayerViem { get => _playerViem; set => _playerViem = value; }
 
         protected void Awake()
         {
@@ -88,7 +89,7 @@ namespace ET
                 _currentLevel += _levelUp;
             }
 
-            _playerViem.SetExp(experience, _currentExperience, _maxExperience, _currentLevel);
+            _playerViem.SetExpView(experience, _currentExperience, _maxExperience, _currentLevel);
         }
 
         //StartMethod InputPoint in Session

@@ -20,8 +20,8 @@ namespace ET.Enemy
         [SerializeField] private int _amountExperience = 0;
         [SerializeField] private GameObject _ArmR;
         [SerializeField] private GameObject _ArmL;
-        [SerializeField] private AudioClip _hitAudio;
         [SerializeField] private AudioClip _deadAudio;
+        [SerializeField] private AudioClip _hitAudio;
 
         private bool _isDeath = false;
         //private bool _isResurrection = false;
