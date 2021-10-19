@@ -26,7 +26,7 @@ namespace ET.Weapons
         #endregion
 
         #region Properties
-        public int AmmoCounter { get => _ammoCounter; private set => _ammoCounter = value; }
+        public int AmmoCounter { get => _ammoCounter; set => _ammoCounter = value; }
         #endregion
 
         protected void Awake()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using ET.Scenes;
-using ET.Stats;
+using ET.Core.Stats;
 using System;
 
 namespace ET.Player
@@ -23,9 +23,10 @@ namespace ET.Player
         private float _currentHealth = 0;
         private float _currentArmor = 0;
 
-        private float _currentLevel = 1;
-
         private bool _isDead = false;
+
+        public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
+        public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
         #endregion
 
         #region Properties
@@ -38,11 +39,6 @@ namespace ET.Player
 
             _animator = GetComponent<Animator>();
             _boxCollider = GetComponent<BoxCollider>();
-        }
-
-        private void Update()
-        {
-            Save();
         }
 
         public void Damage(float amount)
@@ -75,17 +71,6 @@ namespace ET.Player
                         PlayerIsDying();
                     }
                 }
-            }
-        }
-
-        private void Save()
-        {
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                GameManager.Instance.Stats.CharacterStatsInitialize(
-                    _currentHealth,
-                    _currentArmor,
-                    _currentLevel);
             }
         }
 

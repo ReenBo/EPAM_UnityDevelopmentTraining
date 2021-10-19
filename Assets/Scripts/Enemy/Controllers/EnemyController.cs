@@ -33,10 +33,6 @@ namespace ET.Enemy
         public bool IsDeath { get => _isDeath; set => _isDeath = value; }
         #endregion
 
-        //public Action<float> onGetScore;
-        //public delegate void TestDelegate(float exp);
-        //public event TestDelegate onGetScore;
-
         protected void Awake()
         {
             _enemyState = GetComponent<EnemyStateController>();
@@ -86,8 +82,7 @@ namespace ET.Enemy
 
         private void EnemyIsDying()
         {
-            //onGetScore?.Invoke(_amountExperience);
-            GameManager.Instance.CalculateExperiencePlayer(_amountExperience);
+            GameManager.Instance.LevelSystem.CalculateExperiencePlayer(_amountExperience);
 
             _audioSource.clip = _deadAudio;
             _audioSource.Play();

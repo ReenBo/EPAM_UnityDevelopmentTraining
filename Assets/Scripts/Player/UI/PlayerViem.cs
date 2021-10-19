@@ -24,40 +24,37 @@ namespace ET.Player
         [SerializeField] private Image _imageAmmo;
         [SerializeField] private Text _textAmmo;
 
+        private int _numberBulletsInOneMagazine = 30;
+
         public void SetExpView(float exp, float currentExp, int maxExp, int level)
         {
             _textExp.text = $"XP {currentExp} / {maxExp}";
             _textLevel.text = $"LEVEL {level}";
-
-            exp /= 100f;
 
             if(_imageExp.fillAmount >= 1f)
             {
                 _imageExp.fillAmount = 0f;
             }
 
-            _imageExp.fillAmount += exp;
+            _imageExp.fillAmount += exp / 100f;
         }
 
         public void SetAmmoCountViem(int amount)
         {
-            _textAmmo.text = ($"30/{amount}");
+            _textAmmo.text = $"30/{amount}";
+            _imageAmmo.fillAmount = (float)amount / _numberBulletsInOneMagazine;
         }
 
         public void SetArmorView(float damage, int armor)
         {
-            _textArmor.text = ($"50/{armor}");
-
-            damage /= 100f;
-            _imageArmor.fillAmount -= damage * 2f;
+            _textArmor.text = $"50/{armor}";
+            _imageArmor.fillAmount -= damage / 50f;
         }
 
         public void SetHealthView(float damage, int health)
         {
-            _textHealth.text = ($"100/{health}");
-
-            damage /= 100f;
-            _imageHealth.fillAmount -= damage;
+            _textHealth.text = $"100/{health}";
+            _imageHealth.fillAmount -= damage / 100f;
         }
     }
 }

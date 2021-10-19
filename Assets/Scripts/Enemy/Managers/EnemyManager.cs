@@ -19,7 +19,6 @@ namespace ET.Enemy
         [Header("Prefab Enemy")]
         [SerializeField] private GameObject _enemyPrefab;
         [SerializeField] private EnemyStateController _enemyStateController;
-
         #endregion
 
         #region Properties
@@ -47,9 +46,9 @@ namespace ET.Enemy
             GameManager.Instance.PlayerController.OnPlayerIsDying += CheckedPlayerStates;
         }
 
-        private void CheckedPlayerStates(bool state)
+        private void CheckedPlayerStates(bool currentStateEnemy)
         {
-            if (state)
+            if (currentStateEnemy)
             {
                 StartCoroutine(_enemyStateController.StateIdle());
 
@@ -87,7 +86,7 @@ namespace ET.Enemy
 
             if (_timer > 20f)
             {
-                _listEnemies?.Clear();
+                _listEnemies.Clear();
 
                 if (_listEnemies.Count == 0)
                 {

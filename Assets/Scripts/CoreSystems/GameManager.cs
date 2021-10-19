@@ -6,7 +6,10 @@ using ET.Player;
 using ET.Player.Spawner;
 using ET.Scenes;
 using ET.GameMenu;
-using ET.Stats;
+using ET.Core.Stats;
+using ET.Core.Save;
+using ET.Weapons;
+using ET.Core.LevelSystem;
 using System;
 
 namespace ET
@@ -15,15 +18,18 @@ namespace ET
     {
         private static GameManager _instance = null;
 
-        private int _levelUp = 1;
-        private int _currentLevel = 1;
+        public static GameManager Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    Debug.LogError("GameManager is NULL");
+                }
 
-        private float _amountExperienceRaiseLevel = 100;
-        private float _levelConversionModifier = 0.2f;
-
-        private float _currentExperience = 0;
-        private int _minExperience = 0;
-        private int _maxExperience = 0;
+                return _instance;
+            }
+        }
 
         //private GameObject[] _allGameObjectsScene = null;
 
@@ -37,59 +43,25 @@ namespace ET
         [SerializeField] private PlayerSpawner _playerSpawner;
         [SerializeField] private SceneController sceneController;
         [SerializeField] private CameraFollowPlayer _camera;
-        [SerializeField] private CharacterStats _stats;
         [SerializeField] private PlayerViem _playerViem;
+        [SerializeField] private LevelSystem _levelSystem;
+        [SerializeField] private WeaponsController _weaponsController;
 
-        public static GameManager Instance
-        {
-            get 
-            { 
-                if(_instance == null)
-                {
-                    Debug.LogError("GameManager is NULL");
-                }
-
-                return _instance; 
-            }
-        }
+        private CharacterStats _stats;
 
         public SceneController SceneController { get => sceneController; private set => sceneController = value; }
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
         public PlayerViem PlayerViem { get => _playerViem; set => _playerViem = value; }
+        public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
 
         protected void Awake()
         {
-            #region Singleton
             _instance = this;
-            #endregion
 
             StartGame();
 
             //_allGameObjectsScene = FindObjectsOfType<GameObject>();
-        }
-
-        //private void Start()
-        //{
-        //    Instance.enemyController.onGetScore += CalculateExperiencePlayer;
-        //}
-
-        public void CalculateExperiencePlayer(float experience)
-        {
-            _currentExperience += experience;
-            
-            _maxExperience = (int)_amountExperienceRaiseLevel; //
-
-            if(_currentExperience >= _maxExperience)
-            {
-                _currentExperience = _minExperience;
-
-                _amountExperienceRaiseLevel += _amountExperienceRaiseLevel * _levelConversionModifier;
-
-                _currentLevel += _levelUp;
-            }
-
-            _playerViem.SetExpView(experience, _currentExperience, _maxExperience, _currentLevel);
         }
 
         //StartMethod InputPoint in Session
@@ -97,9 +69,33 @@ namespace ET
         {
             Instance._playerSpawner.CreatePlayerInSession();
             Instantiate(_enemyManagerObject);
+
+            _levelSystem = new LevelSystem();
         }
 
+        public void Save()
+        {
+            SaveSystem.SaveGame(_playerController, _weaponsController, _levelSystem);
+        }
 
+        public void Loading()
+        {
+            CharacterStats stats =  SaveSystem.LoadGame();
+
+            _playerController.CurrentHealth = stats.Health;
+            _playerController.CurrentArmor = stats.Armor;
+            _weaponsController.AmmoCounter = stats.AmountCartridges;
+
+            _levelSystem.CurrentLevel = stats.Level;
+            _levelSystem.CurrentExperience = stats.Experience;
+
+            Vector3 position;
+            position.x = stats.PositionPlayer[0];
+            position.y = stats.PositionPlayer[1];
+            position.z = stats.PositionPlayer[2];
+
+            _playerSpawner.CreatePlayerInSession(position);
+        }
 
         #region OffEnebaleMethods
         //private GameObject CreateObjectScene(GameObject gObject)

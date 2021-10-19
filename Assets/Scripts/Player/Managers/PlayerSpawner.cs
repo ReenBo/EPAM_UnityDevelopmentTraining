@@ -13,5 +13,10 @@ namespace ET.Player.Spawner
         {
             Instantiate(_player, _spawnTarget.position, Quaternion.identity);
         }
+
+        public void CreatePlayerInSession(Vector3 point)
+        {
+            Instantiate(_player, point, Quaternion.identity);
+        }
     }
 }

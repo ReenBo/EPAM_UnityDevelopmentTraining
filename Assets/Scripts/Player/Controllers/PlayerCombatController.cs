@@ -10,7 +10,6 @@ namespace ET.Player.Combat
         #region Variables
         private Animator _animator = null;
         private Rigidbody _rigidbody = null;
-        private Camera _camera = null;
         private WeaponsController _weaponsController = null;
 
         private readonly string _fire1 = "Fire1";
@@ -22,15 +21,15 @@ namespace ET.Player.Combat
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
         private int _bulletIDNumber = 0;
         private int _enumNumber = 0;
+        private int _oneCombatMagazine = 30;
+        private int numberBulletPlayerHas = 3;
         #endregion
 
         #region Properties
-        public Rigidbody Rigidbody { get => _rigidbody; set => _rigidbody = value; }
-
         public int BulletIDNumber
         {
             get => _bulletIDNumber;
-            set => _bulletIDNumber = Mathf.Clamp(value, 0, 3);
+            set => _bulletIDNumber = Mathf.Clamp(value, 0, numberBulletPlayerHas);
         }
         #endregion
 
@@ -42,8 +41,7 @@ namespace ET.Player.Combat
         protected void Awake()
         {
             _animator = GetComponent<Animator>();
-            Rigidbody = GetComponent<Rigidbody>();
-            _camera = Camera.main;
+            _rigidbody = GetComponent<Rigidbody>();
             _weaponsController = GetComponentInChildren<WeaponsController>();
         }
 
@@ -71,6 +69,7 @@ namespace ET.Player.Combat
         private void SwitchBullets()
         {
             float mouseScrollNumber = Input.GetAxis(_mouseScrollWheel);
+            int numberBulletsPlayerHas = 3;
 
             //bool positiveValue = (mouseScrollNumber > 0) ? true : false;
 
@@ -78,7 +77,7 @@ namespace ET.Player.Combat
             {
                 if (_enumNumber == 0)
                 {
-                    _enumNumber = 3;
+                    _enumNumber = numberBulletsPlayerHas;
                 }
                 else if (_enumNumber > 0)
                 {
@@ -88,11 +87,11 @@ namespace ET.Player.Combat
 
             if (mouseScrollNumber < 0)
             {
-                if (_enumNumber < 3)
+                if (_enumNumber < numberBulletsPlayerHas)
                 {
                     _enumNumber++;
                 }
-                else if (_enumNumber == 3)
+                else if (_enumNumber == numberBulletsPlayerHas)
                 {
                     _enumNumber = 0;
                 }
@@ -105,7 +104,7 @@ namespace ET.Player.Combat
         {
             if (Input.GetKey(KeyCode.R))
             {
-                if (_weaponsController.AmmoCounter >= 30)
+                if (_weaponsController.AmmoCounter >= _oneCombatMagazine)
                 {
                     return;
                 }

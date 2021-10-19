@@ -22,7 +22,7 @@ namespace ET.Scenes
                 SceneManager.LoadSceneAsync(scene.ToString());
             };
 
-            _preLoader.UploadPreScene();
+            //_preLoader.UploadPreScene();
             LoaderCallback();
 
             Time.timeScale = 1f;

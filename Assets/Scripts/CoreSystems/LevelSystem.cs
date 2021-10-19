@@ -2,34 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSystem
+namespace ET.Core.LevelSystem
 {
-    private int _levelUp = 1;
-    private int _currentLevel = 1;
-
-    private float _amountExperienceRaiseLevel = 100;
-    private float _levelConversionModifier = 0.2f;
-
-    private float _currentExperience = 0;
-    private int _minExperience = 0;
-    private int _maxExperience = 0;
-
-
-    public void CalculateExperiencePlayer(float experience)
+    public class LevelSystem
     {
-        _currentExperience += experience;
+        private int _levelUp = 1;
+        private int _currentLevel = 1;
 
-        _maxExperience = (int)_amountExperienceRaiseLevel; //
+        private float _amountExperienceRaiseLevel = 100;
+        private float _levelConversionModifier = 0.2f;
 
-        if (_currentExperience >= _maxExperience)
+        private float _currentExperience = 0;
+        private int _minExperience = 0;
+        private int _maxExperience = 0;
+
+        #region Properties
+        public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
+        public float CurrentExperience { get => _currentExperience; set => _currentExperience = value; }
+        #endregion
+
+        public void CalculateExperiencePlayer(float experience)
         {
-            _currentExperience = _minExperience;
+            _currentExperience += experience;
 
-            _amountExperienceRaiseLevel += _amountExperienceRaiseLevel * _levelConversionModifier;
+            _maxExperience = (int)_amountExperienceRaiseLevel; //
 
-            _currentLevel += _levelUp;
+            if (_currentExperience >= _maxExperience)
+            {
+                _currentExperience = _minExperience;
+
+                _amountExperienceRaiseLevel += _amountExperienceRaiseLevel * _levelConversionModifier;
+
+                _currentLevel += _levelUp;
+            }
+
+        GameManager.Instance.PlayerViem.SetExpView(
+            experience, 
+            _currentExperience, 
+            _maxExperience, 
+            _currentLevel);
         }
-
-        //_playerViem.SetExpView(experience, _currentExperience, _maxExperience, _currentLevel);
     }
 }
