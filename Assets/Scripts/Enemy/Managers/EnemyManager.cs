@@ -22,10 +22,46 @@ namespace ET.Enemy
         #endregion
 
         #region Properties
-
+        public GameObject EnemyPrefab { get => _enemyPrefab; }
+        public EnemyStateController EnemyStateController { get => _enemyStateController; }
         #endregion
 
-        protected void Awake()
+        protected void Start()
+        {
+            if (_playerTransform)
+            {
+                InitializeTargetsSpawn();
+                StartCoroutine(CreateSpawnPoints());
+
+                //GameManager.Instance.PlayerController.OnPlayerIsDying += CheckedPlayerStates;
+            }
+        }
+
+        //private void CheckedPlayerStates(bool currentStateEnemy)
+        //{
+        //    if (currentStateEnemy)
+        //    {
+        //        StartCoroutine(_enemyStateController.StateIdle());
+
+        //        GameManager.Instance.PlayerController.OnPlayerIsDying -= CheckedPlayerStates;
+        //    }
+        //}
+
+        protected void Update()
+        {
+            if (_playerTransform)
+            {
+                RespawnEnemies();
+            }
+        }
+
+        #region Methods
+        public void GetPlayerPosition(Transform target)
+        {
+            _playerTransform = target;
+        }
+
+        private void InitializeTargetsSpawn()
         {
             _childCountParent = transform.childCount;
 
@@ -37,36 +73,12 @@ namespace ET.Enemy
             }
         }
 
-        protected void Start()
-        {
-            _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
-
-            StartCoroutine(CreateSpawnPoints());
-
-            GameManager.Instance.PlayerController.OnPlayerIsDying += CheckedPlayerStates;
-        }
-
-        private void CheckedPlayerStates(bool currentStateEnemy)
-        {
-            if (currentStateEnemy)
-            {
-                StartCoroutine(_enemyStateController.StateIdle());
-
-                GameManager.Instance.PlayerController.OnPlayerIsDying -= CheckedPlayerStates;
-            }
-        }
-
-        protected void Update()
-        {
-            RespawnEnemies();
-        }
-
-        #region Methods
         private IEnumerator CreateSpawnPoints()
         {
             for (int i = 0; i < _spawnTarget.Length; i++)
             {
                 _listEnemies.Add(CreateEnemy(_spawnTarget[i]));
+                _listEnemies[i].GetComponent<EnemyStateController>().GetPlayerPosition(_playerTransform);
 
                 yield return new WaitForSeconds(1f);
             }
@@ -94,7 +106,6 @@ namespace ET.Enemy
 
                     StartCoroutine(CreateSpawnPoints());
                 }
-
                 _timer = 0f;
             }
         }

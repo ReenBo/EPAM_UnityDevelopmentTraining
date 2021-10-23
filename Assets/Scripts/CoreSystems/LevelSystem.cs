@@ -36,11 +36,11 @@ namespace ET.Core.LevelSystem
                 _currentLevel += _levelUp;
             }
 
-        GameManager.Instance.PlayerViem.SetExpView(
-            experience, 
-            _currentExperience, 
-            _maxExperience, 
-            _currentLevel);
+            GameManager.Instance.PlayerExpView.SetExperience(
+                experience,
+                _currentExperience,
+                _maxExperience,
+                _currentLevel);
         }
     }
 }

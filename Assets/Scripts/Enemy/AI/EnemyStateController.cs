@@ -59,16 +59,25 @@ namespace ET.Enemy.AI
 
         protected void Start()
         {
-            _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
-
-            StartCoroutine(StateIdle());
+            if (_playerTransform)
+            {
+                StartCoroutine(StateIdle());
+            }
         }
 
         private void FixedUpdate()
         {
-            _canSeePlayer = false;
+            if (_playerTransform)
+            {
+                _canSeePlayer = false;
 
-            _canSeePlayer = HaveLineSightInPlayer(_playerTransform);
+                _canSeePlayer = HaveLineSightInPlayer(_playerTransform);
+            }
+        }
+
+        public void GetPlayerPosition(Transform target)
+        {
+            _playerTransform = target;
         }
 
         private bool HaveLineSightInPlayer(Transform player)

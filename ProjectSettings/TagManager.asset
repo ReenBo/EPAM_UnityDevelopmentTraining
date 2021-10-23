@@ -15,6 +15,9 @@ TagManager:
   - PlayerAmmoGroundView
   - GameMenu
   - Obstacle
+  - LevelInfo
+  - PreLoader
+  - EnemyManager
   layers:
   - Default
   - TransparentFX

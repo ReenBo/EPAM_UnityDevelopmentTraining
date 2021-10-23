@@ -6,12 +6,11 @@ namespace ET.Player.Spawner
 {
     public class PlayerSpawner : MonoBehaviour
     {
-        [SerializeField] private Transform _spawnTarget;
         [SerializeField] GameObject _player;
 
-        public void CreatePlayerInSession()
+        public void CreatePlayerInSession(Transform target)
         {
-            Instantiate(_player, _spawnTarget.position, Quaternion.identity);
+            Instantiate(_player, target.position, Quaternion.identity);
         }
 
         public void CreatePlayerInSession(Vector3 point)

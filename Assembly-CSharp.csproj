@@ -69,18 +69,21 @@
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerCombatController.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\LevelSystem.cs" />
-    <Compile Include="Assets\Scripts\Player\UI\PlayerViem.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\PlayerStatsView.cs" />
     <Compile Include="Assets\Scripts\Scene\Scenes.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
+    <Compile Include="Assets\Scripts\LevelInfo\InfoSceneObjects.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICheckingStateable.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\PlayerExperienceView.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\PauseMenu\PauseMenu.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
+    <Compile Include="Assets\GameOverView.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\README\README_ModelBlack.txt" />

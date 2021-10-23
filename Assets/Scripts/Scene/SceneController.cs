@@ -1,86 +1,39 @@
 using ET.Scenes.Preloader;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 namespace ET.Scenes
 {
     public class SceneController : MonoBehaviour
     {
-        [SerializeField] private GameObject _gameOverTitle;
-        [SerializeField] private PreloaderScene _preLoader;
+        private GameObject _preLoaderGameObject = null;
+        private PreloaderScene _preloaderScene;
 
-        private static Action onLoaderCallback;
-
-        public void Load(Scenes scene)
+        protected void Start()
         {
-            onLoaderCallback = () =>
-            {
-                SceneManager.LoadSceneAsync(scene.ToString());
-            };
-
-            //_preLoader.UploadPreScene();
-            LoaderCallback();
-
-            Time.timeScale = 1f;
-        }
-
-        private void LoaderCallback()
-        {
-            if (onLoaderCallback != null)
-            {
-                onLoaderCallback();
-                onLoaderCallback = null;
-            }
+            _preLoaderGameObject = GameObject.FindGameObjectWithTag(Tags.PRELOADER);
+            _preloaderScene = _preLoaderGameObject.GetComponent<PreloaderScene>();
+            Debug.Log(_preloaderScene);
         }
 
         public void StartGame()
         {
-            Load(Scenes._Level_1);
-        }
-
-        public void GameOver()
-        {
-            Instantiate(_gameOverTitle, new Vector2(0, 0), Quaternion.identity);
-            _gameOverTitle.SetActive(true);
-
-            StartCoroutine(ResettingTime());
+            _preloaderScene.Load(SceneIndex._Level_1);
         }
 
         public void Restart()
         {
-            Load(Scenes._Level_1);
+            _preloaderScene.Load(SceneIndex._Level_1);
         }
 
         public void ReturnMainMenu()
         {
-            Load(Scenes._Level_0_MainMenu);
+            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
         }
 
         public void EndGame()
         {
             Application.Quit();
-        }
-
-        private IEnumerator ResettingTime()
-        {
-            float timer = 30f;
-
-            while (true)
-            {
-                if (timer > 0f)
-                {
-                    timer -= Time.fixedDeltaTime;
-                }
-                else
-                {
-                    ReturnMainMenu();
-                }
-                yield return null;
-            }
         }
     }
 }

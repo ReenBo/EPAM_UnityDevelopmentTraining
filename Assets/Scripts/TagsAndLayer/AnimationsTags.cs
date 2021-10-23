@@ -34,9 +34,15 @@ namespace ET
     {
         public const string GROUND_TAG = "Ground";
         public const string PLAYER_TAG = "Player";
+        public const string PLAYER_POS = "PlayerPosition";
         public const string ENEMY_ZOMBIE_TAG = "EnemyZombie";
+        public const string ENEMY_MANAGER = "EnemyManager";
         public const string OBSTACLE_TAG = "Obstacle";
+
+        public const string LEVEL_INFO = "LevelInfo";
         public const string GAME_MENU = "GameMenu";
+
+        public const string PRELOADER = "PreLoader";
 
         public const string LEFT_ARM_TAG = "LeftArm";
         public const string LEFT_LEG_TAG = "LeftLeg";

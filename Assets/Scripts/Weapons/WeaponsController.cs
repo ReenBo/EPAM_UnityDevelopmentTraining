@@ -60,7 +60,7 @@ namespace ET.Weapons
             int countAmmo = 30;
             AmmoCounter = countAmmo;
             _getAmmo = true;
-            GameManager.Instance.PlayerViem.SetAmmoCountViem(AmmoCounter);
+            GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(AmmoCounter);
         }
 
         private void CalculateAmmos()
@@ -68,7 +68,7 @@ namespace ET.Weapons
             if (AmmoCounter > 0)
             {
                 AmmoCounter -= 1;
-                GameManager.Instance.PlayerViem.SetAmmoCountViem(AmmoCounter);
+                GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(AmmoCounter);
             }
             else _getAmmo = false;
         }

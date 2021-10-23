@@ -8,11 +8,13 @@ namespace ET.Scenes.Preloader
 {
     public class PreloaderScene : MonoBehaviour
     {
-        private AsyncOperation operation;
+        private AsyncOperation loading;
 
+        [SerializeField] private GameObject _preloaderUI;
         [SerializeField] private GameObject _eventSystem;
 
-        private string _preLevel = Scenes._PreLevel.ToString();
+        private readonly string _preLevel = "_PreLevel";
+        private readonly string _gameSession = "_GameSession";
 
         protected void Awake()
         {
@@ -23,26 +25,56 @@ namespace ET.Scenes.Preloader
         {
             if (SceneManager.GetActiveScene().name == _preLevel)
             {
-                StartCoroutine(AsyncLoading(Scenes._Level_0_MainMenu));
+                SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
             }
         }
 
-        public void UploadPreScene() ///!!!
+        private static Action onLoaderCallback;
+
+        public void Load(SceneIndex scene)
         {
-            SceneManager.LoadSceneAsync(_preLevel, LoadSceneMode.Additive);
+            onLoaderCallback = () =>
+            {
+                StartCoroutine(AsyncLoading(scene));
+            };
+
+            LoaderCallback();
+
+            Time.timeScale = 1f;
         }
 
-        private IEnumerator AsyncLoading(Scenes scene)
+        private void LoaderCallback()
         {
+            if (onLoaderCallback != null)
+            {
+                onLoaderCallback();
+                onLoaderCallback = null;
+            }
+        }
+
+        private IEnumerator AsyncLoading(SceneIndex scene)
+        {
+            _eventSystem.SetActive(true);
+            _preloaderUI.SetActive(true);
+
+            loading = SceneManager.LoadSceneAsync(_gameSession);
+            yield return loading;
+
+            loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
+            yield return loading;
+
+            var levelInfo = GameObject.FindGameObjectWithTag(Tags.LEVEL_INFO);
+            InfoSceneObjects infoSceneObjects = levelInfo.GetComponent<InfoSceneObjects>();
+
+            yield return GameManager.Instance.InitGame(infoSceneObjects); //
+
             _eventSystem.SetActive(false);
+            _preloaderUI.SetActive(false);
 
-            operation = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
-
-            operation.allowSceneActivation = false;
-            yield return new WaitForSeconds(1);
-            operation.allowSceneActivation = true;
-
-            yield return operation;
+            if (loading.isDone)
+            {
+                GameManager.Instance.StartGame();
+            }
         }
     }
 }

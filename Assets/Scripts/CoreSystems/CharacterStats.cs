@@ -30,12 +30,12 @@ namespace ET.Core.Stats
 
         public float[] PositionPlayer = new float[3];
 
-        public CharacterStats(PlayerController player, WeaponsController weapon, 
+        public CharacterStats(PlayerController player, 
             LevelSystem.LevelSystem progress)
         {
             _health = player.CurrentHealth;
             _armor = player.CurrentArmor;
-            _amountCartridges = weapon.AmmoCounter;
+            //_amountCartridges = weapon.AmmoCounter;
 
             _level = progress.CurrentLevel;
             _experience = progress.CurrentExperience;

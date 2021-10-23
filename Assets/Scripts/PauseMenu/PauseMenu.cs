@@ -8,8 +8,6 @@ namespace ET.GameMenu
     {
         [SerializeField] private GameObject _gameMenu;
 
-        private float _timeValue = 0;
-
         private bool IsPaused = false;
 
         protected void Update()
@@ -24,17 +22,15 @@ namespace ET.GameMenu
                 if (!IsPaused)
                 {
                     _gameMenu.SetActive(true);
-                    _timeValue = 0f;
+                    Time.timeScale = 0f;
                     IsPaused = true;
                 }
                 else
                 {
                     _gameMenu.SetActive(false);
-                    _timeValue = 1f;
+                    Time.timeScale = 1f;
                     IsPaused = false;
                 }
-
-                Time.timeScale = _timeValue;
             }
         }
     }

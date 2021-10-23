@@ -6,12 +6,11 @@ using ET.Player;
 using ET.Core.Stats;
 using ET.Weapons;
 
-namespace ET.Core.Save
+namespace ET.Core.SaveSystem
 {
     public static class SaveSystem
     {
-        public static void SaveGame(PlayerController player, WeaponsController weapon,
-            LevelSystem.LevelSystem progress)
+        public static void SaveGame(PlayerController player, LevelSystem.LevelSystem progress)
         {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
 
@@ -19,7 +18,7 @@ namespace ET.Core.Save
 
             FileStream stream = new FileStream(path, FileMode.Create);
 
-            CharacterStats stats = new CharacterStats(player, weapon, progress);
+            CharacterStats stats = new CharacterStats(player, progress);
 
             binaryFormatter.Serialize(stream, stats);
             stream.Close();

@@ -16,18 +16,25 @@ namespace ET
         #endregion
 
         #region Methods
-        protected void Start()
+        protected void FixedUpdate()
         {
-            if (!_playerTransform)
+            if (_playerTransform)
             {
-                _playerTransform = GameObject.FindGameObjectWithTag("PlayerPosition").transform;
-                _distance = transform.position - _playerTransform.position;
+                FollowPlayer();
             }
         }
 
-        protected void FixedUpdate()
+        public void GetPlayerPosition(Transform target)
         {
-            FollowPlayer();
+            _playerTransform = target;
+            _distance = CalculateDistance();
+        }
+
+        private Vector3 CalculateDistance()
+        {
+            _distance = transform.position - _playerTransform.position;
+
+            return _distance;
         }
 
         private void FollowPlayer()

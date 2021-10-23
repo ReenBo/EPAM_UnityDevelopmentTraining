@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.66831887, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -102,8 +102,8 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0cf147a776c6cd944a4a00d5373622f7, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_FontSize: 12
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -113,7 +113,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 30 / 30
+  m_Text: 30/30
 --- !u!1 &1631902183156462892
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +651,6 @@ GameObject:
   - component: {fileID: 1631902184506478630}
   - component: {fileID: 1631902184506478631}
   - component: {fileID: 1631902184506478628}
-  - component: {fileID: 416038420}
   m_Layer: 5
   m_Name: PlayerView
   m_TagString: PlayerHealthView
@@ -740,27 +739,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &416038420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631902184506478626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 774e2d7f52e21214e83cd7ae092ec0f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _imageExp: {fileID: 0}
-  _textExp: {fileID: 0}
-  _textLevel: {fileID: 0}
-  _imageHealth: {fileID: 1631902183422309426}
-  _textHealth: {fileID: 5902395478733722676}
-  _imageArmor: {fileID: 2816267544453901610}
-  _textArmor: {fileID: 4601222506182618470}
-  _imageAmmo: {fileID: 1631902183334057061}
-  _textAmmo: {fileID: 1631902182650851376}
 --- !u!1 &1711468762741803034
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +797,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.023529414, g: 0.9725491, b: 0.38823533, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.8151045, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -828,8 +806,8 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0cf147a776c6cd944a4a00d5373622f7, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_FontSize: 12
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -839,7 +817,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 100/100
 --- !u!1 &1774005709102148336
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,7 +876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37254903, g: 0.10980393, b: 0.64705884, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.8045821, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -907,8 +885,8 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 0cf147a776c6cd944a4a00d5373622f7, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 0
+    m_FontSize: 12
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
@@ -918,7 +896,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 50/50
 --- !u!1 &2201140209156925781
 GameObject:
   m_ObjectHideFlags: 0

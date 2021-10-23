@@ -15,6 +15,7 @@ namespace ET.Player
         private BoxCollider _boxCollider = null;
 
         [Header("Parameters Object")]
+        [SerializeField] private Transform _playerPosition;
         [Range(0, 100)]
         [SerializeField] private float _maxHealth = 0;
         [Range(0, 100)]
@@ -27,6 +28,7 @@ namespace ET.Player
 
         public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
         public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
+        public Transform PlayerPosition { get => _playerPosition; }
         #endregion
 
         #region Properties
@@ -53,7 +55,7 @@ namespace ET.Player
                 if(_currentArmor > 0f)
                 {
                     _currentArmor -= amount;
-                    GameManager.Instance.PlayerViem.SetArmorView(amount, (int)_currentArmor);
+                    GameManager.Instance.PlayerStatsViem.SetArmorView(amount, (int)_currentArmor);
                 }
                 else if(_currentArmor <= 0f)
                 {
@@ -62,7 +64,7 @@ namespace ET.Player
                         _currentArmor = 0f;
 
                         _currentHealth -= amount;
-                        GameManager.Instance.PlayerViem.SetHealthView(amount, (int)_currentHealth);
+                        GameManager.Instance.PlayerStatsViem.SetHealthView(amount, (int)_currentHealth);
                     }
                     else if (_currentHealth <= 0f)
                     {
@@ -92,7 +94,7 @@ namespace ET.Player
                 gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                GameManager.Instance.SceneController.GameOver();
+                GameManager.Instance.GameOverView.GameOver();
 
                 //Destroy(gameObject, 3);
             }
