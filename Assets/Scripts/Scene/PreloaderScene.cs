@@ -11,7 +11,6 @@ namespace ET.Scenes.Preloader
         private AsyncOperation loading;
 
         [SerializeField] private GameObject _preloaderUI;
-        [SerializeField] private GameObject _eventSystem;
 
         private readonly string _preLevel = "_PreLevel";
         private readonly string _gameSession = "_GameSession";
@@ -39,8 +38,6 @@ namespace ET.Scenes.Preloader
             };
 
             LoaderCallback();
-
-            Time.timeScale = 1f;
         }
 
         private void LoaderCallback()
@@ -54,7 +51,6 @@ namespace ET.Scenes.Preloader
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
-            _eventSystem.SetActive(true);
             _preloaderUI.SetActive(true);
 
             loading = SceneManager.LoadSceneAsync(_gameSession);
@@ -68,12 +64,11 @@ namespace ET.Scenes.Preloader
 
             yield return GameManager.Instance.InitGame(infoSceneObjects); //
 
-            _eventSystem.SetActive(false);
             _preloaderUI.SetActive(false);
 
             if (loading.isDone)
             {
-                GameManager.Instance.StartGame();
+                GameManager.Instance.StartGame(true);
             }
         }
     }

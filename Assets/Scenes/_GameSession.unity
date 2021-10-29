@@ -532,13 +532,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 781576586}
     - target: {fileID: 5935481888015337154, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
-      propertyPath: sceneController
-      value: 
-      objectReference: {fileID: 995857267}
-    - target: {fileID: 5935481888015337154, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
       propertyPath: _playerStatsViem
       value: 
       objectReference: {fileID: 776280611}
+    - target: {fileID: 5935481888015337154, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
+      propertyPath: _sceneController
+      value: 
+      objectReference: {fileID: 995857267}
     - target: {fileID: 5935481888015337155, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
       propertyPath: m_Name
       value: GameManager

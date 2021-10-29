@@ -35,6 +35,9 @@ namespace ET
             }
         }
 
+        private object[] _controlSubsystems;
+        private bool _gameHasStarted = false;
+
         //private GameObject[] _allGameObjectsScene = null;
 
         [Header("References to GameObjects")]
@@ -47,14 +50,12 @@ namespace ET
 
         [SerializeField] private PlayerSpawner _playerSpawner;
 
-        [SerializeField] private SceneController sceneController;
+        [SerializeField] private SceneController _sceneController;
         [SerializeField] private CameraFollowPlayer _camera;
 
         [SerializeField] private PlayerStatsView _playerStatsViem;
         [SerializeField] private PlayerExperienceView _playerExpView;
         [SerializeField] private GameOverView _gameOverView;
-
-        //[SerializeField] private WeaponsController _weaponsController;
 
         private PlayerController _playerController;
         private Transform _playerPosition;
@@ -63,7 +64,7 @@ namespace ET
         private CharacterStats _stats;
 
 
-        public SceneController SceneController { get => sceneController; private set => sceneController = value; }
+        public SceneController SceneController { get => _sceneController; private set => _sceneController = value; }
 
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
@@ -74,6 +75,7 @@ namespace ET
         public GameObject HUD { get => _hUD; set => _hUD = value; }
         public GameOverView GameOverView { get => _gameOverView; }
         public EnemyManager EnemyManager { get => _enemyManager; }
+        public bool GameHasStarted { get => _gameHasStarted; }
 
         protected void OnDestroy()
         {
@@ -87,11 +89,41 @@ namespace ET
         {
             _instance = this;
 
-            //_allGameObjectsScene = FindObjectsOfType<GameObject>();
+            //if (!_gameHasStarted)
+            //{
+            //    _camera.enabled = false;
+            //    _sceneController.enabled = false;
+            //    _enemyManager.enabled = false;
+            //    _enemyManager.enabled = false;
+            //    _playerSpawner.enabled = false;
+
+            //}
         }
 
-        public void StartGame()
+        protected void Start()
         {
+
+        }
+
+        private void InitArrayWithSubsystems(bool value)
+        {
+            _controlSubsystems = new object[4]
+            {
+                _camera.enabled,
+                _sceneController.enabled,
+                _enemyManager.enabled,
+                _playerSpawner.enabled,
+            };
+        }
+
+        public void StartGame(bool gameState)
+        {
+            _gameHasStarted = gameState;
+        }        
+        
+        public void FinishGame()
+        {
+            _gameHasStarted = false;
         }
 
         internal IEnumerator InitGame(InfoSceneObjects info)
@@ -100,8 +132,6 @@ namespace ET
             GameObject player = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG);
             _playerController = player.GetComponent<PlayerController>();
             _playerPosition = _playerController.PlayerPosition;
-
-            //Debug.Log();
 
             _camera.GetPlayerPosition(_playerPosition);
 

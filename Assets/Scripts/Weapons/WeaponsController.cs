@@ -5,6 +5,16 @@ using UnityEngine;
 
 namespace ET.Weapons
 {
+    public enum WeapomType
+    {
+        NULL,
+        PISTOL,
+        UZI,
+        RIFLE,
+        RPG,
+        GUN_TURRET
+    }
+
     public class WeaponsController : MonoBehaviour
     {
         #region Variables
@@ -13,25 +23,42 @@ namespace ET.Weapons
         [SerializeField] private Transform _shootPoint;
         [SerializeField] private Transform _targetPos;
 
+        [Header("WeaponType")]
+        [SerializeField] private WeapomType _weaponType;
+        [SerializeField] private int _numberRoundsInMagazine;
+        [SerializeField] private float _timeDelay;
+
+        [Header("WFX Effects")]
+        //[SerializeField] private GameObject _muzzleFlashesPrefab;
+
         [Header("Sound Effects")]
-        [SerializeField] private AudioClip _shootingAudio = null;
-        [SerializeField] private AudioClip _reloadingAudio = null;
+        [SerializeField] private AudioClip _shootingAudio;
+        [SerializeField] private AudioClip _reloadingAudio;
 
         [SerializeField] private GameObject[] _arrayBullets = new GameObject[4];
 
+        private ParticleSystem _muzzleFlashes = null;
         private Transform _bulletSpawn;
         private bool _getAmmo = true;
 
-        private int _ammoCounter = 30;
+        private int _ammoCounter = 0;
         #endregion
 
         #region Properties
         public int AmmoCounter { get => _ammoCounter; set => _ammoCounter = value; }
+        public WeapomType WeaponType { get => _weaponType; }
+        public int NumberRoundsInMagazine { get => _numberRoundsInMagazine; }
+        public float TimeDelay { get => _timeDelay; }
         #endregion
 
         protected void Awake()
         {
+            _ammoCounter = _numberRoundsInMagazine;
+
             _audioSource = GetComponent<AudioSource>();
+            //_muzzleFlashes.transform.position = _shootPoint.position;
+            //_muzzleFlashes.transform.rotation = _shootPoint.rotation;
+            //_muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
         }
 
         #region Metods
@@ -39,16 +66,23 @@ namespace ET.Weapons
         {
             _bulletSpawn = Instantiate(bullet.transform, _shootPoint.position, 
                 Quaternion.identity);
+            _bulletSpawn.rotation = _shootPoint.rotation;
 
-            _bulletSpawn.rotation = _shootPoint.transform.rotation;
         }
 
-        public void TakeShot(int num)
+        public void Shoot(int num)
         {
             if(_getAmmo)
             {
+                //var muz = _muzzleFlashes.GetComponent<ParticleSystem>();
+
+                //muz.Play();
+
                 CreateProjectile(_arrayBullets[num]);
                 CalculateAmmos();
+
+                //muz.Stop();
+
                 PlaySoundEffects(_shootingAudio);
             }
         }
@@ -57,18 +91,17 @@ namespace ET.Weapons
         {
             PlaySoundEffects(_reloadingAudio);
 
-            int countAmmo = 30;
-            AmmoCounter = countAmmo;
+            _ammoCounter = _numberRoundsInMagazine;
             _getAmmo = true;
-            GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(AmmoCounter);
+            GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
         }
 
         private void CalculateAmmos()
         {
-            if (AmmoCounter > 0)
+            if (_ammoCounter > 0)
             {
-                AmmoCounter -= 1;
-                GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(AmmoCounter);
+                _ammoCounter -= 1;
+                GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
             }
             else _getAmmo = false;
         }

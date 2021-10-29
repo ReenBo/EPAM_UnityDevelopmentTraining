@@ -9,20 +9,30 @@ namespace ET.Player.Combat
     {
         #region Variables
         private Animator _animator = null;
+        [SerializeField] private RuntimeAnimatorController _animatorControllerPistol;
+        [SerializeField] private RuntimeAnimatorController _animatorControllerRifle;
+
         private Rigidbody _rigidbody = null;
         private WeaponsController _weaponsController = null;
+
+        [Header("List of weapons")]
+        [SerializeField] private List<GameObject> _weaponsList;
+
+        private float _delayShoot = 0f;
+        private float _timeDelay = 0f;
 
         private readonly string _fire1 = "Fire1";
         private readonly string _mouseScrollWheel = "Mouse ScrollWheel";
 
-        private bool _shoot = false;
+        private bool _isShooting = false;
         //private bool _isRuning = false;
 
         private int[] _bulletArray = new int[4] { 0, 1, 2, 3 };
         private int _bulletIDNumber = 0;
         private int _enumNumber = 0;
-        private int _oneCombatMagazine = 30;
         private int numberBulletPlayerHas = 3;
+
+        private WeapomType _weapomType;
         #endregion
 
         #region Properties
@@ -36,6 +46,7 @@ namespace ET.Player.Combat
         #region Animations Hash Code
         private int _shooting = Animator.StringToHash(AnimationsTags.SHOOTING);
         private int _reloadWeapons = Animator.StringToHash(AnimationsTags.RELODING_WEAPONS);
+        private int _changingWeapon = Animator.StringToHash(AnimationsTags.CHANGING_WEAPON);
         #endregion
 
         protected void Awake()
@@ -45,25 +56,108 @@ namespace ET.Player.Combat
             _weaponsController = GetComponentInChildren<WeaponsController>();
         }
 
+        protected void Start()
+        {
+            _weapomType = _weaponsController.WeaponType;
+            _timeDelay = _weaponsController.TimeDelay;
+        }
+
         protected void Update()
         {
-            ShootWeapon();
+            TakeShot();
             ReloadAmmo();
+            ChangingWeapon();
             SwitchBullets();
         }
 
-        private void ShootWeapon()
+        private void TakeShot()
         {
-            if (Input.GetButtonDown(_fire1))
+            if (_delayShoot <= 0)
             {
-                _shoot = true;
-                _animator.SetTrigger(_shooting);
-                _weaponsController.TakeShot(_bulletArray[BulletIDNumber]);
+                if (Input.GetButton(_fire1))
+                {
+                    _isShooting = true;
+                    _animator.SetTrigger(_shooting);
+
+                    _weaponsController.Shoot(_bulletArray[BulletIDNumber]);
+
+                    _delayShoot = _timeDelay;
+                }
             }
             else
             {
-                _shoot = false;
-            } 
+                _isShooting = false;
+                _delayShoot -= Time.deltaTime;
+            }
+        }
+
+        private void ChangingWeapon()
+        {
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                _animator.SetTrigger(_changingWeapon);
+
+                foreach (var weapon in _weaponsList)
+                {
+                    weapon.SetActive(false);
+                }
+
+                DetermineTypeOfWeapon();
+
+                _weaponsList[0].SetActive(true);
+            }
+
+            if (Input.GetKey(KeyCode.Alpha2))
+            {
+                _animator.SetTrigger(_changingWeapon);
+
+                foreach (var weapon in _weaponsList)
+                {
+                    weapon.SetActive(false);
+                }
+
+                DetermineTypeOfWeapon();
+
+                _weaponsList[1].SetActive(true);
+            }
+
+            if (Input.GetKey(KeyCode.Alpha3))
+            {
+                _animator.SetTrigger(_changingWeapon);
+
+                foreach (var weapon in _weaponsList)
+                {
+                    weapon.SetActive(false);
+                }
+
+                DetermineTypeOfWeapon();
+
+                _weaponsList[2].SetActive(true);
+            }
+        }
+
+        private void DetermineTypeOfWeapon()
+        {
+            switch (_weapomType)
+            {
+                case WeapomType.NULL:
+                    break;
+                case WeapomType.PISTOL:
+                    _animator.runtimeAnimatorController = _animatorControllerPistol;
+                    break;
+                case WeapomType.UZI:
+                    _animator.runtimeAnimatorController = _animatorControllerPistol;
+                    break;
+                case WeapomType.RIFLE:
+                    _animator.runtimeAnimatorController = _animatorControllerPistol;
+                    break;
+                case WeapomType.RPG:
+                    break;
+                case WeapomType.GUN_TURRET:
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void SwitchBullets()
@@ -104,7 +198,7 @@ namespace ET.Player.Combat
         {
             if (Input.GetKey(KeyCode.R))
             {
-                if (_weaponsController.AmmoCounter >= _oneCombatMagazine)
+                if (_weaponsController.AmmoCounter >= _weaponsController.NumberRoundsInMagazine)
                 {
                     return;
                 }

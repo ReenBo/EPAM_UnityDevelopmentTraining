@@ -58,9 +58,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyAttacksController.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_BulletHoleDecal.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\AIStates.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
@@ -68,25 +70,50 @@
     <Compile Include="Assets\Scripts\Scene\PreloaderScene.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerCombatController.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Weapons\ApplyPosWeapon.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\LevelSystem.cs" />
-    <Compile Include="Assets\Scripts\Player\UI\PlayerStatsView.cs" />
+    <Compile Include="Assets\Scripts\HUD\PlayerStatsView.cs" />
     <Compile Include="Assets\Scripts\Scene\Scenes.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
+    <Compile Include="Assets\Scripts\HUD\GameOverView.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\UIRoot.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\LevelInfo\InfoSceneObjects.cs" />
+    <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICheckingStateable.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
-    <Compile Include="Assets\Scripts\Player\UI\PlayerExperienceView.cs" />
+    <Compile Include="Assets\Scripts\HUD\PlayerExperienceView.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
-    <Compile Include="Assets\Scripts\PauseMenu\PauseMenu.cs" />
-    <Compile Include="Assets\GameOverView.cs" />
+    <Compile Include="Assets\Scripts\HUD\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft Scroll.shader" />
+     <None Include="Assets\Shaders\Shaders\_LineStripShader.cginc" />
      <None Include="Assets\README\README_ModelBlack.txt" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Specular TintColor.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Add Scroll.shader" />
+     <None Include="Assets\JMO Assets\WarFX\_Effects (Mobile)\MuzzleFlashes\!MuzzleFlash Differences.txt" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle Add A8.shader" />
+     <None Include="Assets\Shaders\Shaders\LineStrip-TextureAlphaBlended.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Smoke Scroll.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle Multiply A8.shader" />
+     <None Include="Assets\Shaders\Shaders\SingleLine-TextureAdditive.shader" />
+     <None Include="Assets\Shaders\Shaders\_SingleLineShader.cginc" />
+     <None Include="Assets\Shaders\Shaders\LineStrip-TextureAdditive.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend Scroll.shader" />
+     <None Include="Assets\Shaders\Shaders\SingleLine-TextureAlphaBlended.shader" />
+     <None Include="Assets\Shaders\Shaders\LineStrip-LightSaber.shader" />
+     <None Include="Assets\Shaders\Shaders\SingleLine-LightSaber.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Particle AddSoft A8.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Alpha-Diffuse TintColor.shader" />
+     <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S AlphaBlend NoSoftParticles.shader" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.2f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

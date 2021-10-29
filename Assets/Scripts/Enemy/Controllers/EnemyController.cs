@@ -53,8 +53,7 @@ namespace ET.Enemy
                 if (IsDeath) return;
                 else if (AmountHealth > 0)
                 {
-                    _audioSource.clip = _hitAudio;
-                    _audioSource.Play();
+                    _audioSource.PlayOneShot(_hitAudio);
 
                     AmountHealth -= count;
 
@@ -84,8 +83,7 @@ namespace ET.Enemy
         {
             GameManager.Instance.LevelSystem.CalculateExperiencePlayer(_amountExperience);
 
-            _audioSource.clip = _deadAudio;
-            _audioSource.Play();
+            _audioSource.PlayOneShot(_deadAudio);
 
             _ArmR.SetActive(false);
             _ArmL.SetActive(false);

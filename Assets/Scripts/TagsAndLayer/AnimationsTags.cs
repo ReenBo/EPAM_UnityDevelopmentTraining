@@ -12,6 +12,7 @@ namespace ET
         public const string BLOCK = "Block";
 
         public const string RELODING_WEAPONS = "RelodingWeapons";
+        public const string CHANGING_WEAPON = "Changing";
 
         public const string ATTACK_1_TRIGGER = "Attack1";
         public const string ATTACK_2_TRIGGER = "Attack2";

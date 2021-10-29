@@ -62,6 +62,8 @@ namespace ET.Player
             }
             else
             {
+                PlaySoundEffects(_runAudio);
+
                 Vector3 vector3 = new Vector3(
                     Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) * (_zSpeed),
                     Rigidbody.velocity.y,
@@ -97,8 +99,6 @@ namespace ET.Player
                 Input.GetAxisRaw(Axis.VERTICAL_AXIS) != 0)
             {
                 _animator.SetTrigger(_run);
-                _audioSource.clip = _runAudio;
-                _audioSource.Play();
             }
             else
             {
@@ -106,9 +106,9 @@ namespace ET.Player
             } 
         }
 
-        private void PlaySoundEffects()
+        private void PlaySoundEffects(AudioClip clip)
         {
-            _audioSource.clip = _runAudio;
+            _audioSource.clip = clip;
             _audioSource.Play();
         }
     }

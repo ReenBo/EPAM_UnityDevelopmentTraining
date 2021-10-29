@@ -48,7 +48,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 0}
   _enemyManager: {fileID: 2571794910352771732, guid: e1410e7315d4dd4428ec1ec823d48f71, type: 3}
   _playerSpawner: {fileID: 0}
-  sceneController: {fileID: 0}
+  _sceneController: {fileID: 0}
   _camera: {fileID: 0}
   _playerStatsViem: {fileID: 0}
   _playerExpView: {fileID: 0}

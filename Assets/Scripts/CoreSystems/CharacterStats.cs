@@ -10,17 +10,6 @@ namespace ET.Core.Stats
     [System.Serializable]
     public class CharacterStats
     {
-        public struct Stats
-        {
-            public int _currentLevel;
-            public float _currentExperience;
-
-            public float currentHealth;
-            public float currentArmor;
-
-            public float currentAmountCartridges;
-        }
-
         private float _health;
         private float _armor;
         private int _amountCartridges;
@@ -30,8 +19,7 @@ namespace ET.Core.Stats
 
         public float[] PositionPlayer = new float[3];
 
-        public CharacterStats(PlayerController player, 
-            LevelSystem.LevelSystem progress)
+        public CharacterStats(PlayerController player, LevelSystem.LevelSystem progress)
         {
             _health = player.CurrentHealth;
             _armor = player.CurrentArmor;
@@ -47,7 +35,7 @@ namespace ET.Core.Stats
 
         public float Health { get => _health; set => _health = value; }
         public float Armor { get => _armor; set => _armor = value; }
-        public int AmountCartridges { get => _amountCartridges; set => _amountCartridges = value; }
+        //public int AmountCartridges { get => _amountCartridges; set => _amountCartridges = value; }
         public int Level { get => _level; set => _level = value; }
         public float Experience { get => _experience; set => _experience = value; }
 

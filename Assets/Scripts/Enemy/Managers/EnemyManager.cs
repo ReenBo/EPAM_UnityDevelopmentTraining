@@ -10,7 +10,7 @@ namespace ET.Enemy
     {
         #region Variables
         private Transform _playerTransform = null;
-        private List<GameObject> _listEnemies = new List<GameObject>();
+        private readonly List<GameObject> _listEnemies = new List<GameObject>();
         private Transform[] _spawnTarget = null;
 
         private int _childCountParent = 0;

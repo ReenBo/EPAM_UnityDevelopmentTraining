@@ -13,7 +13,6 @@ namespace ET.Scenes
         {
             _preLoaderGameObject = GameObject.FindGameObjectWithTag(Tags.PRELOADER);
             _preloaderScene = _preLoaderGameObject.GetComponent<PreloaderScene>();
-            Debug.Log(_preloaderScene);
         }
 
         public void StartGame()

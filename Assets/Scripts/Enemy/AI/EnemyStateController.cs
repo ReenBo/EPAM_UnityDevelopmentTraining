@@ -65,7 +65,7 @@ namespace ET.Enemy.AI
             }
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (_playerTransform)
             {
