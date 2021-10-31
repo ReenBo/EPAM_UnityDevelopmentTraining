@@ -56,11 +56,6 @@ namespace ET.Enemy
         }
 
         #region Methods
-        public void GetPlayerPosition(Transform target)
-        {
-            _playerTransform = target;
-        }
-
         private void InitializeTargetsSpawn()
         {
             _childCountParent = transform.childCount;
@@ -73,6 +68,18 @@ namespace ET.Enemy
             }
         }
 
+        public void GetPlayerPosition(Transform target)
+        {
+            _playerTransform = target;
+        }
+
+        private GameObject CreateEnemy(Transform target)
+        {
+            var enemy = Instantiate(_enemyPrefab, target.position, Quaternion.identity);
+
+            return enemy;
+        }
+
         private IEnumerator CreateSpawnPoints()
         {
             for (int i = 0; i < _spawnTarget.Length; i++)
@@ -83,13 +90,6 @@ namespace ET.Enemy
                 yield return new WaitForSeconds(1f);
             }
             yield return null;
-        }
-
-        private GameObject CreateEnemy(Transform target)
-        {
-            var enemy = Instantiate(_enemyPrefab, target.position, Quaternion.identity);
-
-            return enemy;
         }
 
         private void RespawnEnemies()

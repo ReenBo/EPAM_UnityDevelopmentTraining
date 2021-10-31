@@ -7,15 +7,15 @@ namespace ET.Player.UI.StatsView
 {
     public class PlayerStatsView : MonoBehaviour
     {
-        [Header("Links to HealthView")]
+        [Header("References to the HealthView")]
         [SerializeField] private Image _imageHealth;
         [SerializeField] private Text _textHealth;
 
-        [Header("Links to ArmorView")]
+        [Header("References to the ArmorView")]
         [SerializeField] private Image _imageArmor;
         [SerializeField] private Text _textArmor;
 
-        [Header("Links to AmmoView")]
+        [Header("References to the AmmoView")]
         [SerializeField] private Image _imageAmmo;
         [SerializeField] private Text _textAmmo;
 

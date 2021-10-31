@@ -7,7 +7,7 @@ namespace ET.Weapons
 {
     public enum WeapomType
     {
-        NULL,
+        NONE,
         PISTOL,
         UZI,
         RIFLE,
@@ -49,6 +49,7 @@ namespace ET.Weapons
         public WeapomType WeaponType { get => _weaponType; }
         public int NumberRoundsInMagazine { get => _numberRoundsInMagazine; }
         public float TimeDelay { get => _timeDelay; }
+        public AudioSource AudioSource { get => _audioSource; set => _audioSource = value; }
         #endregion
 
         protected void Awake()
@@ -56,9 +57,11 @@ namespace ET.Weapons
             _ammoCounter = _numberRoundsInMagazine;
 
             _audioSource = GetComponent<AudioSource>();
-            //_muzzleFlashes.transform.position = _shootPoint.position;
-            //_muzzleFlashes.transform.rotation = _shootPoint.rotation;
-            //_muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
+        }
+
+        protected void Start()
+        {
+            GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
         }
 
         #region Metods
@@ -80,8 +83,6 @@ namespace ET.Weapons
 
                 CreateProjectile(_arrayBullets[num]);
                 CalculateAmmos();
-
-                //muz.Stop();
 
                 PlaySoundEffects(_shootingAudio);
             }

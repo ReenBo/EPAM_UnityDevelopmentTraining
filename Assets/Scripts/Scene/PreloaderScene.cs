@@ -12,7 +12,7 @@ namespace ET.Scenes.Preloader
 
         [SerializeField] private GameObject _preloaderUI;
 
-        private readonly string _preLevel = "_PreLevel";
+        //private readonly string _preLevel = "_PreLevel";
         private readonly string _gameSession = "_GameSession";
 
         protected void Awake()
@@ -22,10 +22,7 @@ namespace ET.Scenes.Preloader
 
         protected void Start()
         {
-            if (SceneManager.GetActiveScene().name == _preLevel)
-            {
-                SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
-            }
+            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
         }
 
         private static Action onLoaderCallback;

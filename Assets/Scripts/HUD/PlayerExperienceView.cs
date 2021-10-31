@@ -7,7 +7,7 @@ namespace ET.Player.UI.ExperienceView
 {
     public class PlayerExperienceView : MonoBehaviour
     {
-        [Header("Links to ExperienceView")]
+        [Header("References to the ExperienceView")]
         [SerializeField] private Image _imageExp;
         [SerializeField] private Text _textExp;
         [SerializeField] private Text _textLevel;

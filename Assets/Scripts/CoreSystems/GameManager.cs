@@ -15,6 +15,8 @@ using ET.Player.UI.StatsView;
 using ET.Player.UI.ExperienceView;
 using ET.UI.GameOverView;
 using ET.Enemy.AI;
+using ET.UI.WeaponView;
+using ET.Player.Combat;
 
 namespace ET
 {
@@ -40,12 +42,12 @@ namespace ET
 
         //private GameObject[] _allGameObjectsScene = null;
 
-        [Header("References to GameObjects")]
+        [Header("References to the GameObjects")]
         [SerializeField] private GameObject _enemyManagerPrefab;
         [SerializeField] private GameObject _hUD;
         [SerializeField] private GameObject _mainCamera;
 
-        [Header("References to Components")]
+        [Header("References to the Components")]
         [SerializeField] private EnemyManager _enemyManager;
 
         [SerializeField] private PlayerSpawner _playerSpawner;
@@ -55,9 +57,11 @@ namespace ET
 
         [SerializeField] private PlayerStatsView _playerStatsViem;
         [SerializeField] private PlayerExperienceView _playerExpView;
+        [SerializeField] private WeaponView _weaponView;
         [SerializeField] private GameOverView _gameOverView;
 
         private PlayerController _playerController;
+        private PlayerCombatController _playerCombatController ;
         private Transform _playerPosition;
 
         private LevelSystem _levelSystem;
@@ -76,6 +80,17 @@ namespace ET
         public GameOverView GameOverView { get => _gameOverView; }
         public EnemyManager EnemyManager { get => _enemyManager; }
         public bool GameHasStarted { get => _gameHasStarted; }
+        public WeaponView WeaponView { get => _weaponView; set => _weaponView = value; }
+
+        protected void Awake()
+        {
+            _instance = this;
+        }
+
+        protected void Start()
+        {
+
+        }
 
         protected void OnDestroy()
         {
@@ -85,29 +100,9 @@ namespace ET
             }
         }
 
-        protected void Awake()
-        {
-            _instance = this;
-
-            //if (!_gameHasStarted)
-            //{
-            //    _camera.enabled = false;
-            //    _sceneController.enabled = false;
-            //    _enemyManager.enabled = false;
-            //    _enemyManager.enabled = false;
-            //    _playerSpawner.enabled = false;
-
-            //}
-        }
-
-        protected void Start()
-        {
-
-        }
-
         private void InitArrayWithSubsystems(bool value)
         {
-            _controlSubsystems = new object[4]
+            _controlSubsystems = new object[]
             {
                 _camera.enabled,
                 _sceneController.enabled,
@@ -126,18 +121,14 @@ namespace ET
             _gameHasStarted = false;
         }
 
-        internal IEnumerator InitGame(InfoSceneObjects info)
+        public IEnumerator InitGame(InfoSceneObjects info)
         {
-            _playerSpawner.CreatePlayerInSession(info.PlayerSpawnTarget);
-            GameObject player = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG);
-            _playerController = player.GetComponent<PlayerController>();
+            _playerController = _playerSpawner.CreatePlayerInSession(info.PlayerSpawnTarget);
             _playerPosition = _playerController.PlayerPosition;
 
             _camera.GetPlayerPosition(_playerPosition);
 
-            Instantiate(_enemyManagerPrefab);
-            GameObject enemyManager = GameObject.FindGameObjectWithTag(Tags.ENEMY_MANAGER);
-            _enemyManager = enemyManager.GetComponent<EnemyManager>();
+            _enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             EnemyManager.GetPlayerPosition(_playerPosition);
 
             _levelSystem = new LevelSystem();

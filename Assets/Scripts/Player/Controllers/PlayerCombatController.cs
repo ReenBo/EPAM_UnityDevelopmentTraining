@@ -9,8 +9,6 @@ namespace ET.Player.Combat
     {
         #region Variables
         private Animator _animator = null;
-        [SerializeField] private RuntimeAnimatorController _animatorControllerPistol;
-        [SerializeField] private RuntimeAnimatorController _animatorControllerRifle;
 
         private Rigidbody _rigidbody = null;
         private WeaponsController _weaponsController = null;
@@ -33,6 +31,12 @@ namespace ET.Player.Combat
         private int numberBulletPlayerHas = 3;
 
         private WeapomType _weapomType;
+        private string _nameWeapon = string.Empty;
+        private int _amountBullets = 0;
+        private int _amountAmmo = 0;
+
+        private KeyCode[] _keyCodes;
+        private int _selectedWeapon = 1;
         #endregion
 
         #region Properties
@@ -59,7 +63,20 @@ namespace ET.Player.Combat
         protected void Start()
         {
             _weapomType = _weaponsController.WeaponType;
+            _nameWeapon = _weapomType.ToString();
             _timeDelay = _weaponsController.TimeDelay;
+            _amountBullets = _weaponsController.NumberRoundsInMagazine;
+
+            _keyCodes = new KeyCode[]
+            {
+                KeyCode.None,
+                KeyCode.Alpha1,
+                KeyCode.Alpha2,
+                KeyCode.Alpha3,
+            };
+
+            GameManager.Instance.WeaponView.
+                DisplayWeapon(_timeDelay, _nameWeapon, ((int)_weapomType) - 1);
         }
 
         protected void Update()
@@ -93,67 +110,72 @@ namespace ET.Player.Combat
 
         private void ChangingWeapon()
         {
-            if (Input.GetKey(KeyCode.Alpha1))
+            for (int i = 0; i < _keyCodes.Length; i++)
             {
-                _animator.SetTrigger(_changingWeapon);
-
-                foreach (var weapon in _weaponsList)
+                if (Input.GetKey(_keyCodes[i]))
                 {
-                    weapon.SetActive(false);
+                    foreach (var weapon in _weaponsList)
+                    {
+                        weapon.SetActive(false);
+                    }
+
+                    if(_selectedWeapon != i)
+                    {
+                        _animator.SetTrigger(_changingWeapon);
+                    }
+
+                    _weaponsList[i - 1].SetActive(true);
+
+                    DetermineTypeOfWeapon();
+
+                    _selectedWeapon = i;
+
+                    GameManager.Instance.WeaponView.
+                        DisplayWeapon(_timeDelay, _nameWeapon, i - 1);
+
+                    GameManager.Instance.PlayerStatsViem.
+                        SetAmmoCountViem(_amountBullets, _amountAmmo);
                 }
-
-                DetermineTypeOfWeapon();
-
-                _weaponsList[0].SetActive(true);
             }
+        }
 
-            if (Input.GetKey(KeyCode.Alpha2))
-            {
-                _animator.SetTrigger(_changingWeapon);
+        private void UpdateWeaponStats()
+        {
+            _weaponsController = GetComponentInChildren<WeaponsController>();
 
-                foreach (var weapon in _weaponsList)
-                {
-                    weapon.SetActive(false);
-                }
+            _weapomType = _weaponsController.WeaponType;
+            _timeDelay = _weaponsController.TimeDelay;
+            _amountBullets = _weaponsController.NumberRoundsInMagazine;
+            _amountAmmo = _weaponsController.AmmoCounter;
+            var audio = _weaponsController.AudioSource;
 
-                DetermineTypeOfWeapon();
-
-                _weaponsList[1].SetActive(true);
-            }
-
-            if (Input.GetKey(KeyCode.Alpha3))
-            {
-                _animator.SetTrigger(_changingWeapon);
-
-                foreach (var weapon in _weaponsList)
-                {
-                    weapon.SetActive(false);
-                }
-
-                DetermineTypeOfWeapon();
-
-                _weaponsList[2].SetActive(true);
-            }
+            _weaponsController.AudioSource = audio;
+            _weaponsController.AmmoCounter = _amountAmmo;
         }
 
         private void DetermineTypeOfWeapon()
         {
+            UpdateWeaponStats();
+
             switch (_weapomType)
             {
-                case WeapomType.NULL:
+                case WeapomType.NONE:
+                    _nameWeapon = WeapomType.NONE.ToString();
                     break;
                 case WeapomType.PISTOL:
-                    _animator.runtimeAnimatorController = _animatorControllerPistol;
+                    _nameWeapon = WeapomType.PISTOL.ToString();
                     break;
                 case WeapomType.UZI:
-                    _animator.runtimeAnimatorController = _animatorControllerPistol;
+                    _nameWeapon = WeapomType.UZI.ToString();
                     break;
                 case WeapomType.RIFLE:
-                    _animator.runtimeAnimatorController = _animatorControllerPistol;
+                    _nameWeapon = WeapomType.RIFLE.ToString();
                     break;
                 case WeapomType.RPG:
+                    _nameWeapon = WeapomType.RPG.ToString();
                     break;
                 case WeapomType.GUN_TURRET:
+                    _nameWeapon = WeapomType.GUN_TURRET.ToString();
                     break;
                 default:
                     break;
@@ -164,8 +186,6 @@ namespace ET.Player.Combat
         {
             float mouseScrollNumber = Input.GetAxis(_mouseScrollWheel);
             int numberBulletsPlayerHas = 3;
-
-            //bool positiveValue = (mouseScrollNumber > 0) ? true : false;
 
             if (mouseScrollNumber > 0)
             {

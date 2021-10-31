@@ -15,7 +15,6 @@ namespace ET
         [SerializeField] private float _speed = 1;
         #endregion
 
-        #region Methods
         protected void FixedUpdate()
         {
             if (_playerTransform)
@@ -27,14 +26,7 @@ namespace ET
         public void GetPlayerPosition(Transform target)
         {
             _playerTransform = target;
-            _distance = CalculateDistance();
-        }
-
-        private Vector3 CalculateDistance()
-        {
             _distance = transform.position - _playerTransform.position;
-
-            return _distance;
         }
 
         private void FollowPlayer()
@@ -44,6 +36,5 @@ namespace ET
                 _playerTransform.position + _distance,
                 _speed * Time.deltaTime);
         }
-        #endregion
     }
 }

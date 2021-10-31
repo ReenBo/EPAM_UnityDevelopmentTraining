@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD
       objectReference: {fileID: 0}
+    - target: {fileID: 5418103267580985748, guid: fa79035e69af2e64a98358b82e735bf1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6837801264649437698, guid: fa79035e69af2e64a98358b82e735bf1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -313,6 +317,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8d73f4947dc17945acf7de053883889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &776280614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1113781048, guid: fa79035e69af2e64a98358b82e735bf1, type: 3}
+  m_PrefabInstance: {fileID: 776280609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bbf3fe9d1c7d354dbad6cc5138f7b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &781576585
@@ -519,6 +534,10 @@ PrefabInstance:
       propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 275965113}
+    - target: {fileID: 5935481888015337154, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
+      propertyPath: _weaponView
+      value: 
+      objectReference: {fileID: 776280614}
     - target: {fileID: 5935481888015337154, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
       propertyPath: _gameOverView
       value: 
