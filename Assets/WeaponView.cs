@@ -12,10 +12,10 @@ namespace ET.UI.WeaponView
         [SerializeField] private Text _nameWeapon;
         [SerializeField] private List<Image> _iconWeapons;
 
-        public void DisplayWeapon(float rateOfFire, string name, int numberWeapon)
+        public void DisplayWeapon(float rateOfFire, string nameWeapon, int numberWeapon)
         {
             _rateOfFire.text = $"Rate of fire: {rateOfFire}";
-            _nameWeapon.text = $"Model: {name}";
+            _nameWeapon.text = $"Model: {nameWeapon}";
 
             foreach (var icon in _iconWeapons)
             {

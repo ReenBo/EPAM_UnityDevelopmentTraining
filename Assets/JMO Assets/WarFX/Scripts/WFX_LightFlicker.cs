@@ -1,12 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-/**
- *	Rapidly sets a light on/off.
- *	
- *	(c) 2015, Jean Moreno
-**/
-
 [RequireComponent(typeof(Light))]
 public class WFX_LightFlicker : MonoBehaviour
 {
@@ -31,7 +25,7 @@ public class WFX_LightFlicker : MonoBehaviour
 				timer -= Time.deltaTime;
 				yield return null;
 			}
-			while(timer > 0);
+			while(timer < 0);
 			timer = time;
 		}
 	}

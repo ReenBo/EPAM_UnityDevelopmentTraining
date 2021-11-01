@@ -57,15 +57,12 @@ namespace ET.Player.Combat
         {
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
-            _weaponsController = GetComponentInChildren<WeaponsController>();
         }
 
         protected void Start()
         {
-            _weapomType = _weaponsController.WeaponType;
-            _nameWeapon = _weapomType.ToString();
-            _timeDelay = _weaponsController.TimeDelay;
-            _amountBullets = _weaponsController.NumberRoundsInMagazine;
+            UpdateWeaponStats();
+            DetermineTypeOfWeapon();
 
             _keyCodes = new KeyCode[]
             {
@@ -127,6 +124,7 @@ namespace ET.Player.Combat
                     _weaponsList[i - 1].SetActive(true);
 
                     DetermineTypeOfWeapon();
+                    UpdateWeaponStats();
 
                     _selectedWeapon = i;
 
@@ -155,8 +153,6 @@ namespace ET.Player.Combat
 
         private void DetermineTypeOfWeapon()
         {
-            UpdateWeaponStats();
-
             switch (_weapomType)
             {
                 case WeapomType.NONE:

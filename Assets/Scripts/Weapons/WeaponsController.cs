@@ -1,4 +1,5 @@
 using ET.Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,8 @@ namespace ET.Weapons
         [SerializeField] private float _timeDelay;
 
         [Header("WFX Effects")]
-        //[SerializeField] private GameObject _muzzleFlashesPrefab;
+        [SerializeField] private GameObject _muzzleFlashesPrefab;
+        [SerializeField] private Light _muzzleFlashesLight;
 
         [Header("Sound Effects")]
         [SerializeField] private AudioClip _shootingAudio;
@@ -55,13 +57,14 @@ namespace ET.Weapons
         protected void Awake()
         {
             _ammoCounter = _numberRoundsInMagazine;
-
             _audioSource = GetComponent<AudioSource>();
         }
 
         protected void Start()
         {
             GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+
+            _muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
         }
 
         #region Metods
@@ -77,15 +80,28 @@ namespace ET.Weapons
         {
             if(_getAmmo)
             {
-                //var muz = _muzzleFlashes.GetComponent<ParticleSystem>();
-
-                //muz.Play();
+                _muzzleFlashes.Play();
+                StartCoroutine(LightFlickering(0.2f));
 
                 CreateProjectile(_arrayBullets[num]);
                 CalculateAmmos();
 
                 PlaySoundEffects(_shootingAudio);
             }
+        }
+
+        private IEnumerator LightFlickering(float timeMuzzleFlash)
+        {
+            float timer = timeMuzzleFlash;
+
+            while (timer > 0)
+            {
+                timer -= Time.fixedDeltaTime;
+                _muzzleFlashesLight.enabled = true;
+                yield return null;
+            }
+
+            _muzzleFlashesLight.enabled = false;
         }
 
         public void ReloadingWeapons()
