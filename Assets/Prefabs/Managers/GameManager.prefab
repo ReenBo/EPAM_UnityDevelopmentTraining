@@ -53,4 +53,5 @@ MonoBehaviour:
   _playerStatsViem: {fileID: 0}
   _playerExpView: {fileID: 0}
   _weaponView: {fileID: 0}
+  _playerSkillsView: {fileID: 0}
   _gameOverView: {fileID: 0}

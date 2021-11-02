@@ -36,5 +36,12 @@ namespace ET.Player.UI.StatsView
             _textHealth.text = $"100/{health}";
             _imageHealth.fillAmount -= damage / 100f;
         }
+
+        public void SetHealthView(float health, float cooldownTime)
+        {
+            _textHealth.text = $"100/{((int)health)}";
+            _imageHealth.fillAmount = health / 100f; //!!!
+            _imageHealth.fillAmount += cooldownTime / 100f;
+        }
     }
 }

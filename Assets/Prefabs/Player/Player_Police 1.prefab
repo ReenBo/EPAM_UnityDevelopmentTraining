@@ -2550,6 +2550,7 @@ GameObject:
   - component: {fileID: 5688893665095106648}
   - component: {fileID: 5688893665095106649}
   - component: {fileID: 5688893665095106650}
+  - component: {fileID: 5617236715337634566}
   m_Layer: 7
   m_Name: Player_Police 1
   m_TagString: Player
@@ -2774,6 +2775,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5617236715337634566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5066728837981003039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e870624cc60030b45adb2f5765ca6853, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5066728837981003041
 GameObject:
   m_ObjectHideFlags: 0
@@ -4350,6 +4363,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1694449805434718, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
   m_PrefabInstance: {fileID: 6583993920828576613}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &6579358750967589935 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+  m_PrefabInstance: {fileID: 6583993920828576613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6583993921156726097 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 531705396, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
@@ -4358,10 +4376,5 @@ GameObject:
 --- !u!108 &6583993921146581111 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 521429778, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
-  m_PrefabInstance: {fileID: 6583993920828576613}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &6579358750967589935 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
   m_PrefabInstance: {fileID: 6583993920828576613}
   m_PrefabAsset: {fileID: 0}

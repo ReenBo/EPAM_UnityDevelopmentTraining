@@ -17,6 +17,7 @@ using ET.UI.GameOverView;
 using ET.Enemy.AI;
 using ET.UI.WeaponView;
 using ET.Player.Combat;
+using ET.UI.SkillsView;
 
 namespace ET
 {
@@ -58,6 +59,7 @@ namespace ET
         [SerializeField] private PlayerStatsView _playerStatsViem;
         [SerializeField] private PlayerExperienceView _playerExpView;
         [SerializeField] private WeaponView _weaponView;
+        [SerializeField] private PlayerSkillsView _playerSkillsView;
         [SerializeField] private GameOverView _gameOverView;
 
         private PlayerController _playerController;
@@ -81,6 +83,7 @@ namespace ET
         public EnemyManager EnemyManager { get => _enemyManager; }
         public bool GameHasStarted { get => _gameHasStarted; }
         public WeaponView WeaponView { get => _weaponView; set => _weaponView = value; }
+        public PlayerSkillsView PlayerSkillsView { get => _playerSkillsView; set => _playerSkillsView = value; }
 
         protected void Awake()
         {

@@ -330,6 +330,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bbf3fe9d1c7d354dbad6cc5138f7b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &776280615 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1675242753, guid: fa79035e69af2e64a98358b82e735bf1, type: 3}
+  m_PrefabInstance: {fileID: 776280609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 181e97d9385f6a9449c5d0947bf10118, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &781576585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,6 +569,10 @@ PrefabInstance:
       propertyPath: _sceneController
       value: 
       objectReference: {fileID: 995857267}
+    - target: {fileID: 5935481888015337154, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
+      propertyPath: _playerSkillsView
+      value: 
+      objectReference: {fileID: 776280615}
     - target: {fileID: 5935481888015337155, guid: 3815ec6321cd7b040825e11f3ef2cc11, type: 3}
       propertyPath: m_Name
       value: GameManager
