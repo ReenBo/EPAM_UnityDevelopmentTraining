@@ -8,7 +8,6 @@ namespace ET.UI.SkillsView
 {
     public class PlayerSkillsView : MonoBehaviour
     {
-        [Header("References to the UI objects")]
         private Dictionary<int, Transform> _skillsPosition;
 
         [SerializeField] private Transform _recoverySkillPos;
@@ -48,20 +47,19 @@ namespace ET.UI.SkillsView
 
             _cooldownHighground.gameObject.SetActive(true);
 
-            StartCoroutine(Timer(cooldownTime));
+            StartCoroutine(StartSkillTimer(cooldownTime));
         }
 
-        private IEnumerator Timer(float time)
+        private IEnumerator StartSkillTimer(float time)
         {
-            float timeStep = time;
-
+            float quotient = _cooldownHighground.fillAmount / time;
+            
             while (time > 0)
             {
                 time -= 1f;
 
                 _cooldownTimer.text = $"{((int)time)}";
-                float num = _cooldownHighground.fillAmount / timeStep;
-                _cooldownHighground.fillAmount -= num;
+                _cooldownHighground.fillAmount -= quotient;
 
                 yield return new WaitForSeconds(1f);
             }

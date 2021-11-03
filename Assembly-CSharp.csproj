@@ -65,6 +65,7 @@
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
+    <Compile Include="Assets\Scripts\HUD\PlayerSkillsView.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Managers\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Scene\PreloaderScene.cs" />
@@ -89,11 +90,10 @@
     <Compile Include="Assets\Scripts\Interfaces\ICheckingStateable.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerExperienceView.cs" />
+    <Compile Include="Assets\Scripts\Player\Controllers\PlayerSkillsController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\HUD\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\HUD\WeaponView.cs" />
-    <Compile Include="Assets\PlayerSkillsView.cs" />
-    <Compile Include="Assets\PlayerSkillsController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />

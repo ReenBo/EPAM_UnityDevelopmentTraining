@@ -12,15 +12,15 @@ namespace ET.Player.Skills
         private KeyCode[] _keyCodes;
 
         private float _acceptableLevelOfHealthRecovery = 0f;
-        private float _cooldownRecoverySkill = 120f;
+        private float _healthTimeCounter = 120f;
 
         private float _maxHealth = 100f;
-        private bool _cooldownHealth = true;
+        private bool _healthIsRestored = true;
 
         private float _maxArmor = 50f;
-        private bool _cooldownArmor = true;
+        private bool _armorIsRestored = true;
 
-        private bool _isResetTime = true;
+        private bool _resetIsAvailable = true;
 
         protected void Start()
         {
@@ -43,26 +43,25 @@ namespace ET.Player.Skills
         {
             for (int i = 0; i < _keyCodes.Length; i++)
             {
-                if (Input.GetKey(_keyCodes[i]) && _isResetTime)
+                if (Input.GetKey(_keyCodes[i]) && _resetIsAvailable)
                 {
-                    RestoreHealth(i);
-                    GameManager.Instance.PlayerSkillsView.DisplaySkills(_cooldownRecoverySkill, i);
-                    StartCoroutine(ResetTime(_cooldownRecoverySkill));
+                    ActivateSkill(i);
+                    GameManager.Instance.PlayerSkillsView.DisplaySkills(_healthTimeCounter, i);
+                    StartCoroutine(EnableResetTimer(_healthTimeCounter));
                 }
             }
         }
 
-        private void RestoreHealth(int indexSkills)
+        private void ActivateSkill(int indexSkills)
         {
-            if(indexSkills == 1 && _cooldownHealth)
+            if(indexSkills == 1 && _healthIsRestored)
             {
                 _acceptableLevelOfHealthRecovery = _playerController.CurrentHealth;
-               StartCoroutine(SetRecovery(_acceptableLevelOfHealthRecovery));
-               _cooldownHealth = false;
+               StartCoroutine(RestoreHealth(_acceptableLevelOfHealthRecovery));
+               _healthIsRestored = false;
             }
         }
-
-        private IEnumerator SetRecovery(float amountHealth)
+        private IEnumerator RestoreHealth(float amountHealth)
         {
             float cooldownTime = 1f;
 
@@ -73,23 +72,23 @@ namespace ET.Player.Skills
                 _playerController.CurrentHealth = amountHealth;
                 yield return new WaitForSeconds(0.5f);
             }
-            _cooldownHealth = true;
+            _healthIsRestored = true;
             _acceptableLevelOfHealthRecovery = 0f;
 
             yield return null;
         }
 
-        private IEnumerator ResetTime(float time)
+        private IEnumerator EnableResetTimer(float time)
         {
             while (time > 0)
             {
-                _isResetTime = false;
+                _resetIsAvailable = false;
 
                 time -= 1f;
                 yield return new WaitForSeconds(1f);
             }
 
-            _isResetTime = true;
+            _resetIsAvailable = true;
             yield return null;
         }
     }
