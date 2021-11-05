@@ -98,7 +98,6 @@ namespace ET.Enemy.AI
             return true;
         }
 
-        #region State
         public IEnumerator StateIdle()
         {
             if (_enemyIsDying) yield break;
@@ -265,6 +264,5 @@ namespace ET.Enemy.AI
             }
             yield return null;
         }
-        #endregion
     }
 }

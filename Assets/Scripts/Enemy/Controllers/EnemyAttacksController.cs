@@ -14,9 +14,7 @@ namespace ET.Enemy
         private float _damageArm = 0f;
         #endregion
 
-        #region Properties
         public float DamageArm { get => _damageArm; set => _damageArm = value; }
-        #endregion
 
         #region Hash Code Animations
         private int _attack1 = Animator.StringToHash(AnimationsTags.ATTACK_1_TRIGGER);
@@ -38,7 +36,6 @@ namespace ET.Enemy
             }
         }
 
-        #region AttackCombinations
         public void SwitchAttackEnemy(int num)
         {
             switch (num)
@@ -53,7 +50,6 @@ namespace ET.Enemy
                     break;
             }
         }
-        #endregion
     }
 }
 

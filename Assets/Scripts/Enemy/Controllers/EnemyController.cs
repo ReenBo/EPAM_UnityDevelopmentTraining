@@ -27,11 +27,9 @@ namespace ET.Enemy
         //private bool _isResurrection = false;
         #endregion
 
-        #region Properties
         public float AmountHealth { get => _amountHealth; set => _amountHealth = Mathf.Clamp(value, 0f, 100f); }
         public float AmountDamage { get => _amountDamage; }
-        public bool IsDeath { get => _isDeath; set => _isDeath = value; }
-        #endregion
+        public bool isDeath { get => _isDeath; }
 
         protected void Awake()
         {
@@ -45,13 +43,13 @@ namespace ET.Enemy
             }
         }
 
-        #region Methods
         public void Damage(float count)
         {
             if(gameObject)
             {
-                if (IsDeath) return;
-                else if (AmountHealth > 0)
+                if (_isDeath) return;
+
+                if (AmountHealth > 1e-3)
                 {
                     _audioSource.PlayOneShot(_hitAudio);
 
@@ -71,7 +69,7 @@ namespace ET.Enemy
                             break;
                     }
                 }
-                else if (AmountHealth <= 0)
+                else if (AmountHealth < 1e-3)
                 {
                     AmountHealth = 0f;
                     EnemyIsDying();
@@ -88,11 +86,10 @@ namespace ET.Enemy
             _ArmR.SetActive(false);
             _ArmL.SetActive(false);
 
-            IsDeath = true;
+            _isDeath = true;
 
             StopAllCoroutines();
             StartCoroutine(_enemyState.StateDeath());
         }
-        #endregion
     }
 }

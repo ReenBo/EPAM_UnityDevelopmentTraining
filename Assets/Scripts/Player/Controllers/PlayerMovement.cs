@@ -7,7 +7,6 @@ namespace ET.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        #region Variables
         private Animator _animator = null;
         private Rigidbody _rigidbody = null;
         private Camera _camera = null;
@@ -25,11 +24,8 @@ namespace ET.Player
         [SerializeField] private float _sensitivity = 1;
         [Header("Sound Effects")]
         [SerializeField] private AudioClip _runAudio;
-        #endregion
 
-        #region Properties
         public Rigidbody Rigidbody { get => _rigidbody; set => _rigidbody = value; }
-        #endregion
 
         #region Animations Hash Code
         private int _run = Animator.StringToHash(AnimationsTags.RUN);

@@ -10,7 +10,6 @@ namespace ET.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        #region Variables
         private Animator _animator = null;
         private BoxCollider _boxCollider = null;
 
@@ -29,10 +28,6 @@ namespace ET.Player
         public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
         public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
         public Transform PlayerPosition { get => _playerPosition; }
-        #endregion
-
-        #region Properties
-        #endregion
 
         protected void Awake()
         {

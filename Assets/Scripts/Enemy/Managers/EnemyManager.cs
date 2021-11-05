@@ -8,7 +8,6 @@ namespace ET.Enemy
 {
     public class EnemyManager : MonoBehaviour
     {
-        #region Variables
         private Transform _playerTransform = null;
         private readonly List<GameObject> _listEnemies = new List<GameObject>();
         private Transform[] _spawnTarget = null;
@@ -19,12 +18,9 @@ namespace ET.Enemy
         [Header("Prefab Enemy")]
         [SerializeField] private GameObject _enemyPrefab;
         [SerializeField] private EnemyStateController _enemyStateController;
-        #endregion
 
-        #region Properties
         public GameObject EnemyPrefab { get => _enemyPrefab; }
         public EnemyStateController EnemyStateController { get => _enemyStateController; }
-        #endregion
 
         protected void Start()
         {
@@ -55,7 +51,6 @@ namespace ET.Enemy
             }
         }
 
-        #region Methods
         private void InitializeTargetsSpawn()
         {
             _childCountParent = transform.childCount;
@@ -109,6 +104,5 @@ namespace ET.Enemy
                 _timer = 0f;
             }
         }
-        #endregion
     }
 }

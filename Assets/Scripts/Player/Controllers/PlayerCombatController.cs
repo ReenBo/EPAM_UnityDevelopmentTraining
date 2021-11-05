@@ -39,13 +39,11 @@ namespace ET.Player.Combat
         private int _selectedWeapon = 1;
         #endregion
 
-        #region Properties
         public int BulletIDNumber
         {
             get => _bulletIDNumber;
             set => _bulletIDNumber = Mathf.Clamp(value, 0, numberBulletPlayerHas);
         }
-        #endregion
 
         #region Animations Hash Code
         private int _shooting = Animator.StringToHash(AnimationsTags.SHOOTING);
@@ -123,8 +121,8 @@ namespace ET.Player.Combat
 
                     _weaponsList[i - 1].SetActive(true);
 
-                    DetermineTypeOfWeapon();
                     UpdateWeaponStats();
+                    DetermineTypeOfWeapon();
 
                     _selectedWeapon = i;
 
@@ -145,37 +143,15 @@ namespace ET.Player.Combat
             _timeDelay = _weaponsController.TimeDelay;
             _amountBullets = _weaponsController.NumberRoundsInMagazine;
             _amountAmmo = _weaponsController.AmmoCounter;
-            var audio = _weaponsController.AudioSource;
+            var thisAudioSource = _weaponsController.AudioSource;
 
-            _weaponsController.AudioSource = audio;
+            _weaponsController.AudioSource = thisAudioSource;
             _weaponsController.AmmoCounter = _amountAmmo;
         }
 
         private void DetermineTypeOfWeapon()
         {
-            switch (_weapomType)
-            {
-                case WeapomType.NONE:
-                    _nameWeapon = WeapomType.NONE.ToString();
-                    break;
-                case WeapomType.PISTOL:
-                    _nameWeapon = WeapomType.PISTOL.ToString();
-                    break;
-                case WeapomType.UZI:
-                    _nameWeapon = WeapomType.UZI.ToString();
-                    break;
-                case WeapomType.RIFLE:
-                    _nameWeapon = WeapomType.RIFLE.ToString();
-                    break;
-                case WeapomType.RPG:
-                    _nameWeapon = WeapomType.RPG.ToString();
-                    break;
-                case WeapomType.GUN_TURRET:
-                    _nameWeapon = WeapomType.GUN_TURRET.ToString();
-                    break;
-                default:
-                    break;
-            }
+            _nameWeapon = _weapomType.ToString();
         }
 
         private void SwitchBullets()
