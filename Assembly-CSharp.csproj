@@ -80,20 +80,23 @@
     <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
-    <Compile Include="Assets\Scripts\HUD\GameOverView.cs" />
+    <Compile Include="Assets\Scripts\HUD\GameOverWindow.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\UIRoot.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\LevelInfo\InfoSceneObjects.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\ICheckingStateable.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerExperienceView.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IUIScreenable.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerSkillsController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
-    <Compile Include="Assets\Scripts\HUD\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\HUD\PauseMenuWindow.cs" />
     <Compile Include="Assets\Scripts\HUD\WeaponView.cs" />
+    <Compile Include="Assets\Scripts\Player\Managers\InputSystem.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ICommand.cs" />
+    <Compile Include="Assets\Scripts\Player\Skills\RecoverySkill.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />

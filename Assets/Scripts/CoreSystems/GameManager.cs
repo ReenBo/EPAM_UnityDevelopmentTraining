@@ -5,19 +5,19 @@ using ET.Enemy;
 using ET.Player;
 using ET.Player.Spawner;
 using ET.Scenes;
-using ET.GameMenu;
 using ET.Core.Stats;
 using ET.Core.SaveSystem;
 using ET.Weapons;
 using ET.Core.LevelSystem;
 using System;
-using ET.Player.UI.StatsView;
-using ET.Player.UI.ExperienceView;
-using ET.UI.GameOverView;
+using ET.UI.GameOverWindow;
 using ET.Enemy.AI;
 using ET.UI.WeaponView;
 using ET.Player.Combat;
+using ET.Player.UI.StatsView;
+using ET.Player.UI.ExperienceView;
 using ET.UI.SkillsView;
+using ET.Core.UIRoot;
 
 namespace ET
 {
@@ -60,7 +60,6 @@ namespace ET
         [SerializeField] private PlayerExperienceView _playerExpView;
         [SerializeField] private WeaponView _weaponView;
         [SerializeField] private PlayerSkillsView _playerSkillsView;
-        [SerializeField] private GameOverView _gameOverView;
 
         private PlayerController _playerController;
         private PlayerCombatController _playerCombatController ;
@@ -79,20 +78,15 @@ namespace ET
         public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
         public PlayerExperienceView PlayerExpView { get => _playerExpView; set => _playerExpView = value; }
         public GameObject HUD { get => _hUD; set => _hUD = value; }
-        public GameOverView GameOverView { get => _gameOverView; }
         public EnemyManager EnemyManager { get => _enemyManager; }
-        public bool GameHasStarted { get => _gameHasStarted; }
         public WeaponView WeaponView { get => _weaponView; set => _weaponView = value; }
         public PlayerSkillsView PlayerSkillsView { get => _playerSkillsView; set => _playerSkillsView = value; }
+
+        public bool GameHasStarted { get => _gameHasStarted; }
 
         protected void Awake()
         {
             _instance = this;
-        }
-
-        protected void Start()
-        {
-
         }
 
         protected void OnDestroy()
@@ -114,12 +108,12 @@ namespace ET
             };
         }
 
-        public void StartGame(bool gameState)
+        public void StartGameSession(bool gameState)
         {
             _gameHasStarted = gameState;
         }        
         
-        public void FinishGame()
+        public void FinishGameSession()
         {
             _gameHasStarted = false;
         }
@@ -133,6 +127,9 @@ namespace ET
 
             _enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             EnemyManager.GetPlayerPosition(_playerPosition);
+
+            UIRoot.Instance.UpdateAfterLaunch(_playerController);
+            PlayerSkillsView.UpdateAfterLaunch(_playerController.PlayerSkills);
 
             _levelSystem = new LevelSystem();
 

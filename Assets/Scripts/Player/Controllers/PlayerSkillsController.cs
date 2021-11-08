@@ -1,3 +1,4 @@
+using ET.Interface.IComand;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,13 +6,14 @@ using UnityEngine;
 
 namespace ET.Player.Skills
 {
-    public class PlayerSkillsController : MonoBehaviour
+    public class PlayerSkillsController : MonoBehaviour, ICommand
     {
         private PlayerController _playerController = null;
 
+        [SerializeField] private RecoverySkill _recoverySkill;
+
         private KeyCode[] _keyCodes;
 
-        private float _acceptableLevelOfHealthRecovery = 0f;
         private float _healthTimeCounter = 120f;
 
         private float _maxHealth = 100f;
@@ -21,6 +23,8 @@ namespace ET.Player.Skills
         private bool _armorIsRestored = true;
 
         private bool _resetIsAvailable = true;
+
+        public RecoverySkill RecoverySkill { get => _recoverySkill; }
 
         protected void Start()
         {
@@ -56,31 +60,32 @@ namespace ET.Player.Skills
         {
             if(indexSkills == 1 && _healthIsRestored)
             {
-                _acceptableLevelOfHealthRecovery = _playerController.CurrentHealth;
-               StartCoroutine(RestoreHealth(_acceptableLevelOfHealthRecovery));
+               StartCoroutine(RestoreHealth(_playerController.CurrentHealth));
                _healthIsRestored = false;
             }
         }
         private IEnumerator RestoreHealth(float amountHealth)
         {
-            float cooldownTime = 1f;
+            float cooldownTime = 10f;
 
             while (amountHealth < _maxHealth)
             {
                 amountHealth += cooldownTime;
-                GameManager.Instance.PlayerStatsViem.SetHealthView(amountHealth, cooldownTime);
-                _playerController.CurrentHealth = amountHealth;
+                _playerController.CurrentHealth = Mathf.Clamp(amountHealth, 0, _maxHealth);
+
+                GameManager.Instance.PlayerStatsViem.SetHealthView(
+                    Mathf.Clamp(amountHealth, 0, _maxHealth), cooldownTime);
+
                 yield return new WaitForSeconds(0.5f);
             }
             _healthIsRestored = true;
-            _acceptableLevelOfHealthRecovery = 0f;
 
             yield return null;
         }
 
         private IEnumerator EnableResetTimer(float time)
         {
-            while (time > 0)
+            while (time > 1e-3)
             {
                 _resetIsAvailable = false;
 
@@ -90,6 +95,13 @@ namespace ET.Player.Skills
 
             _resetIsAvailable = true;
             yield return null;
+        }
+
+        //-------------------
+
+        public void ExecuteCommand()
+        {
+            print("Active command 1");
         }
     }
 }

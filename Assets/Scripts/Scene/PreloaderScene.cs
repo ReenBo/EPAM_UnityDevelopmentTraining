@@ -65,7 +65,7 @@ namespace ET.Scenes.Preloader
 
             if (loading.isDone)
             {
-                GameManager.Instance.StartGame(true);
+                GameManager.Instance.StartGameSession(true);
             }
         }
     }
