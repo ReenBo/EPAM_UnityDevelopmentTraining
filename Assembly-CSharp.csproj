@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerSkillsView.cs" />
+    <Compile Include="Assets\Scripts\Player\Skills\RecoverySkill.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Managers\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Scene\PreloaderScene.cs" />
@@ -76,10 +77,12 @@
     <Compile Include="Assets\Scripts\CoreSystems\LevelSystem.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerStatsView.cs" />
     <Compile Include="Assets\Scripts\Scene\Scenes.cs" />
+    <Compile Include="Assets\Scripts\Player\Managers\InputSystem.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\ICommand.cs" />
     <Compile Include="Assets\Scripts\HUD\GameOverWindow.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\UIRoot.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovement.cs" />
@@ -94,9 +97,6 @@
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\HUD\PauseMenuWindow.cs" />
     <Compile Include="Assets\Scripts\HUD\WeaponView.cs" />
-    <Compile Include="Assets\Scripts\Player\Managers\InputSystem.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\ICommand.cs" />
-    <Compile Include="Assets\Scripts\Player\Skills\RecoverySkill.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />

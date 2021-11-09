@@ -77,7 +77,7 @@ namespace ET.Player
             }
         }
 
-        public Action onPlayerDied;
+        public Action<WindowType> onPlayerDied;
 
         private void PlayerIsDying()
         {
@@ -93,9 +93,8 @@ namespace ET.Player
                 gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                onPlayerDied.Invoke();
-
-                //UIRoot.Instance.GameOverWindow.FinishGame();
+                UIRoot.Instance.OpenWindow(WindowType.GAME_OVER);
+                //onPlayerDied.Invoke(WindowType.GAME_OVER); ???? Crash !!!!
 
                 //Destroy(gameObject, 3);
             }

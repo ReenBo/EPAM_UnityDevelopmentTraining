@@ -1,3 +1,4 @@
+using ET.Core.UIRoot;
 using ET.Scenes.Preloader;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,7 @@ namespace ET.Scenes
         public void Restart()
         {
             _preloaderScene.Load(SceneIndex._Level_1);
+            UIRoot.Instance.CloseAllWindow();
         }
 
         public void ReturnMainMenu()

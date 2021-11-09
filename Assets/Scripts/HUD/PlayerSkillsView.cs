@@ -31,8 +31,6 @@ namespace ET.UI.SkillsView
                 {3,  _annihilationSkillPos},
                 {4,  _bleedingSkillPos}
             };
-
-            _playerSkills.onDisplaySkill += DisplaySkills;
         }
 
         public void UpdateAfterLaunch(PlayerSkillsController playerSkills)

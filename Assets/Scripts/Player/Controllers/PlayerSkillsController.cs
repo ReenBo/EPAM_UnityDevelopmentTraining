@@ -6,13 +6,18 @@ using UnityEngine;
 
 namespace ET.Player.Skills
 {
-    public class PlayerSkillsController : MonoBehaviour, ICommand
+    public class PlayerSkillsController : MonoBehaviour
     {
         private PlayerController _playerController = null;
 
         [SerializeField] private RecoverySkill _recoverySkill;
 
-        private KeyCode[] _keyCodes;
+        private readonly KeyCode[] _keyCodes = new KeyCode[]
+        {
+            KeyCode.None,
+            KeyCode.Q,
+            KeyCode.E,
+        };
 
         private float _healthTimeCounter = 120f;
 
@@ -29,13 +34,6 @@ namespace ET.Player.Skills
         protected void Start()
         {
             _playerController = GetComponent<PlayerController>();
-
-            _keyCodes = new KeyCode[]
-            {
-                KeyCode.None,
-                KeyCode.Q,
-                KeyCode.E,
-            };
         }
 
         private void Update()
@@ -95,13 +93,6 @@ namespace ET.Player.Skills
 
             _resetIsAvailable = true;
             yield return null;
-        }
-
-        //-------------------
-
-        public void ExecuteCommand()
-        {
-            print("Active command 1");
         }
     }
 }

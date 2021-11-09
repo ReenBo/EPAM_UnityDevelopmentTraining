@@ -1,3 +1,4 @@
+using ET.Interface.IComand;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace ET.Player.Skills
 {
-    public class RecoverySkill : MonoBehaviour
+    public class RecoverySkill : MonoBehaviour, ICommand
     {
         private PlayerController _playerController = null;
 

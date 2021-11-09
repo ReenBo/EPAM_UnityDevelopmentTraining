@@ -1,23 +1,27 @@
 using ET.Core.UIRoot;
+using ET.Interface.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ET.UI.GameOverWindow
 {
-    public class GameOverWindow : MonoBehaviour
+    public class GameOverWindow : MonoBehaviour, IUIScreenable
     {
-        private WindowType _windowType = WindowType.GAME_OVER;
-
-        [SerializeField] private GameObject _gameOverTitle;
+        [SerializeField] private GameObject _gameOverPrefab;
 
         private float _resetTimeGameLevel = 50f;
 
-        public void FinishGame()
+        public void Show()
         {
-            _gameOverTitle.SetActive(true);
+            gameObject.SetActive(true);
 
             StartCoroutine(ResettingTime());
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
         }
 
         private IEnumerator ResettingTime()
@@ -32,6 +36,7 @@ namespace ET.UI.GameOverWindow
                 }
                 else
                 {
+                    Hide();
                     GameManager.Instance.SceneController.ReturnMainMenu();
                 }
                 yield return null;

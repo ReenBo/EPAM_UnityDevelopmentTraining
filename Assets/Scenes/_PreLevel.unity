@@ -231,6 +231,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 819986185, guid: 819872b5fbe925a43a60217ce0f790f5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4824061310900376244, guid: 819872b5fbe925a43a60217ce0f790f5, type: 3}
       propertyPath: m_Name
       value: PreLoader

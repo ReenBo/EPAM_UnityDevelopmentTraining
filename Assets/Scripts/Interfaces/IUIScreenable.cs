@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IUIScreenable
+namespace ET.Interface.UI
 {
-    void OpenWindow();
+    public interface IUIScreenable
+    {
+        void Show();
+        void Hide();
+    }
 }

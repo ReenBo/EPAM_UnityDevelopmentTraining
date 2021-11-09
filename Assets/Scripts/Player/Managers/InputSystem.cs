@@ -22,7 +22,7 @@ namespace ET.Player.InputSystem
         {
             _skillsController = GetComponent<PlayerSkillsController>();
 
-            _recoveryHealthCommand = _skillsController;
+            _recoveryHealthCommand = _skillsController.RecoverySkill;
 
             _commands = new Dictionary<KeyCode, ICommand>()
             {

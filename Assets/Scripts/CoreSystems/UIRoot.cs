@@ -1,9 +1,11 @@
+using ET.Interface.UI;
 using ET.Player;
 using ET.Player.UI.ExperienceView;
 using ET.Player.UI.StatsView;
 using ET.UI.GameOverWindow;
 using ET.UI.PauseMenu;
 using ET.UI.SkillsView;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -34,10 +36,13 @@ namespace ET.Core.UIRoot
             }
         }
 
-        private Dictionary<WindowType, GameObject> _UIObjects = new Dictionary<WindowType, GameObject>();
+        IUIScreenable _pauseMenuScreen;
+        IUIScreenable _gameOverScreen;
+
+        private Dictionary<WindowType, IUIScreenable> _UIObjects;
 
         [Header("References to the Player Components")]
-        private PlayerController _playerController;
+        private PlayerController _playerController = null;
 
         [Header("References to the UI Components")]
         [SerializeField] private PauseMenuWindow _pauseMenuWindow;
@@ -47,53 +52,81 @@ namespace ET.Core.UIRoot
         [SerializeField] private PlayerExperienceView _playerExperienceView;
         [SerializeField] private PlayerSkillsView _playerSkillsView;
 
-        public PauseMenuWindow PauseMenuWindow { get => _pauseMenuWindow; }
-        public GameOverWindow GameOverWindow { get => _gameOverWindow; }
-
-        public PlayerController PlayerController { get => _playerController; set => _playerController = value; }
+        private bool _isVisible = false;
 
         protected void Awake()
         {
             _instance = this;
 
             DontDestroyOnLoad(gameObject);
+        }
 
-            _UIObjects.Add(WindowType.PAUSE_MENU, _pauseMenuWindow.gameObject);
-            _UIObjects.Add(WindowType.GAME_OVER, _gameOverWindow.gameObject);
+        protected void Start()
+        {
+            _pauseMenuScreen = _pauseMenuWindow;
+            _gameOverScreen = _gameOverWindow;
 
+            _UIObjects = new Dictionary<WindowType, IUIScreenable>
+            {
+                { WindowType.PAUSE_MENU, _pauseMenuScreen },
+                { WindowType.GAME_OVER, _gameOverScreen }
+            };
+        }
+
+        public Action<WindowType> onOpenPauseMenu;
+        public Action<WindowType> onClosePauseMenu;
+
+        protected void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (!_isVisible)
+                {
+                    onOpenPauseMenu.Invoke(WindowType.PAUSE_MENU);
+                }
+                else
+                {
+                    onClosePauseMenu.Invoke(WindowType.PAUSE_MENU);
+                }
+            }
         }
 
         public void UpdateAfterLaunch(PlayerController playerController)
         {
             _playerController = playerController;
-            _playerController.onPlayerDied += _gameOverWindow.FinishGame;
+            //_playerController.onPlayerDied += OpenWindow; !!!CRASH!!!
+
+            onOpenPauseMenu += OpenWindow;
+            onClosePauseMenu += CloseWindow;
         }
 
         public void OpenWindow(WindowType window)
         {
-            foreach (var pair in _UIObjects)
+            if (!_isVisible)
             {
-                if(window == pair.Key)
-                {
-                    pair.Value.SetActive(true);
-
-
-
-                    //var valueType = pair.Value.GetType();
-                    //MethodInfo[] methods = valueType.GetMethods();
-                    //methods[0].Invoke(pair.Value, methods);
-                }
+                _UIObjects[window].Show();
+                _isVisible = true;
             }
         }
 
         public void CloseWindow(WindowType window)
         {
-            foreach (var pair in _UIObjects)
+            if (_isVisible)
             {
-                if (window == pair.Key)
+                _UIObjects[window].Hide();
+                _isVisible = false;
+            }
+        }
+
+        public void CloseAllWindow()
+        {
+            if (_isVisible)
+            {
+                foreach (var pair in _UIObjects.Values)
                 {
-                    pair.Value.SetActive(false);
+                    pair.Hide();
                 }
+                _isVisible = false;
             }
         }
     }

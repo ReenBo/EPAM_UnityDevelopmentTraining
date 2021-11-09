@@ -129,7 +129,6 @@ namespace ET
             EnemyManager.GetPlayerPosition(_playerPosition);
 
             UIRoot.Instance.UpdateAfterLaunch(_playerController);
-            PlayerSkillsView.UpdateAfterLaunch(_playerController.PlayerSkills);
 
             _levelSystem = new LevelSystem();
 
