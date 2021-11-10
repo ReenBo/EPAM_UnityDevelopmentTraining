@@ -8,7 +8,6 @@ using ET.UI.SkillsView;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 namespace ET.Core.UIRoot
@@ -16,7 +15,7 @@ namespace ET.Core.UIRoot
     public enum WindowType
     {
         PAUSE_MENU,
-        GAME_OVER,
+        GAME_OVER
     }
 
     public class UIRoot : MonoBehaviour
@@ -35,9 +34,6 @@ namespace ET.Core.UIRoot
                 return _instance;
             }
         }
-
-        IUIScreenable _pauseMenuScreen;
-        IUIScreenable _gameOverScreen;
 
         private Dictionary<WindowType, IUIScreenable> _UIObjects;
 
@@ -63,18 +59,15 @@ namespace ET.Core.UIRoot
 
         protected void Start()
         {
-            _pauseMenuScreen = _pauseMenuWindow;
-            _gameOverScreen = _gameOverWindow;
-
             _UIObjects = new Dictionary<WindowType, IUIScreenable>
             {
-                { WindowType.PAUSE_MENU, _pauseMenuScreen },
-                { WindowType.GAME_OVER, _gameOverScreen }
+                { WindowType.PAUSE_MENU, _pauseMenuWindow },
+                { WindowType.GAME_OVER, _gameOverWindow }
             };
         }
 
-        public Action<WindowType> onOpenPauseMenu;
-        public Action<WindowType> onClosePauseMenu;
+        public event Action<WindowType> onOpenPauseMenu;
+        public event Action<WindowType> onClosePauseMenu;
 
         protected void Update()
         {

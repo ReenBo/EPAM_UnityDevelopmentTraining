@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Weapons\ApplyPosWeapon.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\LevelSystem.cs" />
+    <Compile Include="Assets\Scripts\UI\LoadingViewController.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerStatsView.cs" />
     <Compile Include="Assets\Scripts\Scene\Scenes.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\InputSystem.cs" />

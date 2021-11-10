@@ -8,7 +8,7 @@ namespace ET.UI.GameOverWindow
 {
     public class GameOverWindow : MonoBehaviour, IUIScreenable
     {
-        [SerializeField] private GameObject _gameOverPrefab;
+        //[SerializeField] private GameObject _gameOverPrefab;
 
         private float _resetTimeGameLevel = 50f;
 

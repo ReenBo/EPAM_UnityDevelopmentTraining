@@ -18,6 +18,7 @@ using ET.Player.UI.StatsView;
 using ET.Player.UI.ExperienceView;
 using ET.UI.SkillsView;
 using ET.Core.UIRoot;
+using ET.Core.LevelInfo;
 
 namespace ET
 {
@@ -120,6 +121,8 @@ namespace ET
 
         public IEnumerator InitGame(InfoSceneObjects info)
         {
+            _sceneController.UpdateAfterLaunch(info.LevelIndex);
+
             _playerController = _playerSpawner.CreatePlayerInSession(info.PlayerSpawnTarget);
             _playerPosition = _playerController.PlayerPosition;
 
@@ -128,7 +131,7 @@ namespace ET
             _enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             EnemyManager.GetPlayerPosition(_playerPosition);
 
-            UIRoot.Instance.UpdateAfterLaunch(_playerController);
+            //UIRoot.Instance.UpdateAfterLaunch(_playerController);
 
             _levelSystem = new LevelSystem();
 

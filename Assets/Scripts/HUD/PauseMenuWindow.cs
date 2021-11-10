@@ -9,7 +9,7 @@ namespace ET.UI.PauseMenu
 {
     public class PauseMenuWindow : MonoBehaviour, IUIScreenable
     {
-        [SerializeField] private GameObject _gameMenuPrefab;
+        //[SerializeField] private GameObject _gameMenuPrefab;
 
         private bool _isPaused = false;
 
@@ -17,7 +17,7 @@ namespace ET.UI.PauseMenu
         {
             if (!_isPaused)
             {
-                _gameMenuPrefab.SetActive(true);
+                gameObject.SetActive(true);
                 Time.timeScale = 0f;
                 _isPaused = true;
             }
@@ -27,7 +27,7 @@ namespace ET.UI.PauseMenu
         {
             if(_isPaused)
             {
-                _gameMenuPrefab.SetActive(false);
+                gameObject.SetActive(false);
                 Time.timeScale = 1f;
                 _isPaused = false;
             }
