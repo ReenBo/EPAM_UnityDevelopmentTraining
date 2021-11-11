@@ -59,25 +59,18 @@
     <Compile Include="Assets\Scripts\Camera\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyAttacksController.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_BulletHoleDecal.cs" />
-    <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\AIStates.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
-    <Compile Include="Assets\Scripts\HUD\PlayerSkillsView.cs" />
     <Compile Include="Assets\Scripts\Player\Skills\RecoverySkill.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
-    <Compile Include="Assets\Scripts\Enemy\Managers\EnemyManager.cs" />
-    <Compile Include="Assets\Scripts\Scene\PreloaderScene.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerCombatController.cs" />
-    <Compile Include="Assets\Scripts\Player\Controllers\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Weapons\ApplyPosWeapon.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\LevelSystem.cs" />
     <Compile Include="Assets\Scripts\UI\LoadingViewController.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerStatsView.cs" />
-    <Compile Include="Assets\Scripts\Scene\Scenes.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\InputSystem.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
@@ -85,19 +78,17 @@
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICommand.cs" />
     <Compile Include="Assets\Scripts\HUD\GameOverWindow.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\UIRoot.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
-    <Compile Include="Assets\Scripts\LevelInfo\InfoSceneObjects.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_AutoDestructShuriken.cs" />
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerExperienceView.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IUIScreenable.cs" />
-    <Compile Include="Assets\Scripts\Player\Controllers\PlayerSkillsController.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\HUD\PauseMenuWindow.cs" />
     <Compile Include="Assets\Scripts\HUD\WeaponView.cs" />
+    <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />
