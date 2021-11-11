@@ -1,4 +1,3 @@
-using ET.Interface.IComand;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,15 +9,9 @@ namespace ET.Player.Skills
     {
         private PlayerController _playerController = null;
 
-        [SerializeField] private RecoverySkill _recoverySkill;
+        private KeyCode[] _keyCodes;
 
-        private readonly KeyCode[] _keyCodes = new KeyCode[]
-        {
-            KeyCode.None,
-            KeyCode.Q,
-            KeyCode.E,
-        };
-
+        private float _acceptableLevelOfHealthRecovery = 0f;
         private float _healthTimeCounter = 120f;
 
         private float _maxHealth = 100f;
@@ -29,11 +22,16 @@ namespace ET.Player.Skills
 
         private bool _resetIsAvailable = true;
 
-        public RecoverySkill RecoverySkill { get => _recoverySkill; }
-
         protected void Start()
         {
             _playerController = GetComponent<PlayerController>();
+
+            _keyCodes = new KeyCode[]
+            {
+                KeyCode.None,
+                KeyCode.Q,
+                KeyCode.E,
+            };
         }
 
         private void Update()
@@ -58,32 +56,31 @@ namespace ET.Player.Skills
         {
             if(indexSkills == 1 && _healthIsRestored)
             {
-               StartCoroutine(RestoreHealth(_playerController.CurrentHealth));
+                _acceptableLevelOfHealthRecovery = _playerController.CurrentHealth;
+               StartCoroutine(RestoreHealth(_acceptableLevelOfHealthRecovery));
                _healthIsRestored = false;
             }
         }
         private IEnumerator RestoreHealth(float amountHealth)
         {
-            float cooldownTime = 10f;
+            float cooldownTime = 1f;
 
             while (amountHealth < _maxHealth)
             {
                 amountHealth += cooldownTime;
-                _playerController.CurrentHealth = Mathf.Clamp(amountHealth, 0, _maxHealth);
-
-                GameManager.Instance.PlayerStatsViem.SetHealthView(
-                    Mathf.Clamp(amountHealth, 0, _maxHealth), cooldownTime);
-
+                GameManager.Instance.PlayerStatsViem.SetHealthView(amountHealth, cooldownTime);
+                _playerController.CurrentHealth = amountHealth;
                 yield return new WaitForSeconds(0.5f);
             }
             _healthIsRestored = true;
+            _acceptableLevelOfHealthRecovery = 0f;
 
             yield return null;
         }
 
         private IEnumerator EnableResetTimer(float time)
         {
-            while (time > 1e-3)
+            while (time > 0)
             {
                 _resetIsAvailable = false;
 

@@ -14,7 +14,6 @@ namespace ET.Enemy
 
         private int _childCountParent = 0;
         private float _timer = 0f;
-        private float _timeRespawn = 20f;
 
         [Header("Prefab Enemy")]
         [SerializeField] private GameObject _enemyPrefab;
@@ -22,7 +21,6 @@ namespace ET.Enemy
 
         public GameObject EnemyPrefab { get => _enemyPrefab; }
         public EnemyStateController EnemyStateController { get => _enemyStateController; }
-        public Transform PlayerTransform { get => _playerTransform;} 
 
         protected void Start()
         {
@@ -30,8 +28,20 @@ namespace ET.Enemy
             {
                 InitializeTargetsSpawn();
                 StartCoroutine(CreateSpawnPoints());
+
+                //GameManager.Instance.PlayerController.OnPlayerIsDying += CheckedPlayerStates;
             }
         }
+
+        //private void CheckedPlayerStates(bool currentStateEnemy)
+        //{
+        //    if (currentStateEnemy)
+        //    {
+        //        StartCoroutine(_enemyStateController.StateIdle());
+
+        //        GameManager.Instance.PlayerController.OnPlayerIsDying -= CheckedPlayerStates;
+        //    }
+        //}
 
         protected void Update()
         {
@@ -81,7 +91,7 @@ namespace ET.Enemy
         {
             _timer += Time.deltaTime;
 
-            if (_timer > _timeRespawn)
+            if (_timer > 20f)
             {
                 _listEnemies.Clear();
 
