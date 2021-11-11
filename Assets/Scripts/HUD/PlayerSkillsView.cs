@@ -1,4 +1,3 @@
-using ET.Player.Skills;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +8,6 @@ namespace ET.UI.SkillsView
 {
     public class PlayerSkillsView : MonoBehaviour
     {
-        private RecoverySkill _playerSkills = null;
-
         private Dictionary<int, Transform> _skillsPosition;
 
         [SerializeField] private Transform _recoverySkillPos;
@@ -33,25 +30,20 @@ namespace ET.UI.SkillsView
             };
         }
 
-        public void UpdateAfterLaunch(PlayerSkillsController playerSkills)
-        {
-            _playerSkills = playerSkills.RecoverySkill;
-        }
-
-        private void SetPositionCooldownObjects(int skillID)
+        private void SetPositionCooldownObjects(int skillKey)
         {
             foreach (var skillsPos in _skillsPosition)
             {
-                if (skillsPos.Key == skillID)
+                if (skillsPos.Key == skillKey)
                 {
                     _cooldownHighground.transform.localPosition = skillsPos.Value.localPosition;
                 }
             }
         }
 
-        public void DisplaySkills(float cooldownTime, int skillID)
+        public void DisplaySkills(float cooldownTime, int skillIndex)
         {
-            SetPositionCooldownObjects(skillID);
+            SetPositionCooldownObjects(skillIndex);
 
             _cooldownHighground.gameObject.SetActive(true);
 

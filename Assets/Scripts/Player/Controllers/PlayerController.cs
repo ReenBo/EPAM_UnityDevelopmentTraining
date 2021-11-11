@@ -5,8 +5,6 @@ using UnityEngine.UI;
 using ET.Scenes;
 using ET.Core.Stats;
 using System;
-using ET.Core.UIRoot;
-using ET.Player.Skills;
 
 namespace ET.Player
 {
@@ -14,8 +12,6 @@ namespace ET.Player
     {
         private Animator _animator = null;
         private BoxCollider _boxCollider = null;
-
-        private PlayerSkillsController _playerSkills = null;
 
         [Header("Parameters Object")]
         [SerializeField] private Transform _playerPosition;
@@ -32,7 +28,6 @@ namespace ET.Player
         public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
         public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
         public Transform PlayerPosition { get => _playerPosition; }
-        public PlayerSkillsController PlayerSkills { get => _playerSkills; }
 
         protected void Awake()
         {
@@ -41,7 +36,6 @@ namespace ET.Player
 
             _animator = GetComponent<Animator>();
             _boxCollider = GetComponent<BoxCollider>();
-            _playerSkills = GetComponent<PlayerSkillsController>();
         }
 
         public void Damage(float amount)
@@ -77,7 +71,7 @@ namespace ET.Player
             }
         }
 
-        public Action<WindowType> onPlayerDied;
+        public event Action<bool> OnPlayerIsDying; //!!!!
 
         private void PlayerIsDying()
         {
@@ -89,12 +83,13 @@ namespace ET.Player
             {
                 _isDead = true;
 
+                OnPlayerIsDying?.Invoke(_isDead); //!!!!
+
                 _boxCollider.isTrigger = true;
                 gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                UIRoot.Instance.OpenWindow(WindowType.GAME_OVER);
-                //onPlayerDied.Invoke(WindowType.GAME_OVER); ???? Crash !!!!
+                GameManager.Instance.GameOverView.GameOver();
 
                 //Destroy(gameObject, 3);
             }
