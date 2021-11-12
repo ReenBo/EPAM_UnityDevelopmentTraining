@@ -43,5 +43,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a95694c853067479e70a37eb2026fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loadingViewGameObject: {fileID: 0}
-  _loadingView: {fileID: 0}

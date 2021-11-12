@@ -62,7 +62,7 @@ namespace ET.Weapons
 
         protected void Start()
         {
-            GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+            //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
 
             _muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
         }
@@ -110,7 +110,7 @@ namespace ET.Weapons
 
             _ammoCounter = _numberRoundsInMagazine;
             _getAmmo = true;
-            GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+            //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
         }
 
         private void CalculateAmmos()
@@ -118,7 +118,7 @@ namespace ET.Weapons
             if (_ammoCounter > 0)
             {
                 _ammoCounter -= 1;
-                GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+                //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
             }
             else _getAmmo = false;
         }

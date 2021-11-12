@@ -5,18 +5,14 @@ using UnityEngine.SceneManagement;
 using ET.Scenes;
 using ET.Core.LevelInfo;
 using ET.UI.LoadingView;
+using ET.Core.UIRoot;
+using ET.UI.WindowTypes;
 
 namespace ET.Scenes.Preloader
 {
     public class PreloaderScene : MonoBehaviour
     {
-        private AsyncOperation loading;
-
-        [SerializeField] private GameObject _loadingViewGameObject;
-        [SerializeField] private LoadingViewController _loadingView;
-
-        //private readonly string _preLevel = "_PreLevel";
-        private readonly string _gameSession = "_GameSession";
+        private AsyncOperation _loading;
 
         protected void Awake()
         {
@@ -26,12 +22,10 @@ namespace ET.Scenes.Preloader
         protected void Start()
         {
             //SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
-            SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString());
+            SceneManager.LoadSceneAsync(SceneName.MainMenu);
         }
 
         private static Action onLoaderCallback;
-
-        public AsyncOperation Loading { get => loading; }
 
         public void Load(SceneIndex scene)
         {
@@ -54,24 +48,22 @@ namespace ET.Scenes.Preloader
 
         private IEnumerator AsyncLoading(SceneIndex scene)
         {
-            _loadingViewGameObject.SetActive(true);
-            //_loadingView.ShowLoadingScreen(true);
+            UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
 
-            loading = SceneManager.LoadSceneAsync(_gameSession);
-            yield return loading;
+            _loading = SceneManager.LoadSceneAsync(SceneName.GameSession);
+            yield return _loading;
 
-            loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
-            yield return loading;
+            _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);
+            yield return _loading;
 
             var levelInfo = GameObject.FindGameObjectWithTag(Tags.LEVEL_INFO);
             InfoSceneObjects infoSceneObjects = levelInfo.GetComponent<InfoSceneObjects>();
 
             yield return GameManager.Instance.InitGame(infoSceneObjects); //
 
-            _loadingViewGameObject.SetActive(false);
-            //_loadingView.ShowLoadingScreen(false);
+            UIRoot.Instance.CloseWindow(WindowType.LOADING_SCREEN);
 
-            if (loading.isDone)
+            if (_loading.isDone)
             {
                 GameManager.Instance.StartGameSession(true);
             }

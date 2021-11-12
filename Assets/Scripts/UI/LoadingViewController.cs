@@ -1,3 +1,4 @@
+using ET.Interface.UI;
 using ET.Scenes.Preloader;
 using System;
 using System.Collections;
@@ -6,15 +7,20 @@ using UnityEngine.UI;
 
 namespace ET.UI.LoadingView
 {
-    public class LoadingViewController : MonoBehaviour
+    public class LoadingViewController : MonoBehaviour, IUIScreenable
     {
         [SerializeField] private Image _loadingLine;
 
-        public void ShowLoadingScreen(bool processing)
+        public void Show()
         {
-            gameObject.SetActive(processing);
-            
-            StartCoroutine(FillLoadingLine(processing));
+            gameObject.SetActive(true);
+            StartCoroutine(FillLoadingLine(true));
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+            StopAllCoroutines();
         }
 
         private IEnumerator FillLoadingLine(bool isDone)

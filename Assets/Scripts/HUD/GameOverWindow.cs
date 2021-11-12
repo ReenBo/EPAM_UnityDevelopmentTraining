@@ -4,12 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ET.UI.GameOverWindow
+namespace ET.UI.GameOver
 {
     public class GameOverWindow : MonoBehaviour, IUIScreenable
     {
-        //[SerializeField] private GameObject _gameOverPrefab;
-
         private float _resetTimeGameLevel = 50f;
 
         public void Show()

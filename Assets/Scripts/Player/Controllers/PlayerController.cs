@@ -7,6 +7,7 @@ using ET.Core.Stats;
 using System;
 using ET.Core.UIRoot;
 using ET.Player.Skills;
+using ET.UI.WindowTypes;
 
 namespace ET.Player
 {
@@ -56,7 +57,7 @@ namespace ET.Player
                 if(_currentArmor > 0f)
                 {
                     _currentArmor -= amount;
-                    GameManager.Instance.PlayerStatsViem.SetArmorView(amount, (int)_currentArmor);
+                    //GameManager.Instance.PlayerStatsViem.SetArmorView(amount, (int)_currentArmor);
                 }
                 else if(_currentArmor <= 0f)
                 {
@@ -65,7 +66,7 @@ namespace ET.Player
                         _currentArmor = 0f;
 
                         _currentHealth -= amount;
-                        GameManager.Instance.PlayerStatsViem.SetHealthView(amount, (int)_currentHealth);
+                        //GameManager.Instance.PlayerStatsViem.SetHealthView(amount, (int)_currentHealth);
                     }
                     else if (_currentHealth <= 0f)
                     {
@@ -93,7 +94,7 @@ namespace ET.Player
                 gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                UIRoot.Instance.OpenWindow(WindowType.GAME_OVER);
+                //UIRoot.Instance.OpenWindow(WindowType.GAME_OVER);
                 //onPlayerDied.Invoke(WindowType.GAME_OVER); ???? Crash !!!!
 
                 //Destroy(gameObject, 3);

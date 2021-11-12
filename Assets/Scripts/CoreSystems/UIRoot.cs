@@ -1,10 +1,10 @@
 using ET.Interface.UI;
 using ET.Player;
-using ET.Player.UI.ExperienceView;
-using ET.Player.UI.StatsView;
-using ET.UI.GameOverWindow;
-using ET.UI.PauseMenu;
+using ET.UI.HUD;
+using ET.UI.LoadingView;
+using ET.UI.Popups;
 using ET.UI.SkillsView;
+using ET.UI.WindowTypes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,12 +12,6 @@ using UnityEngine;
 
 namespace ET.Core.UIRoot
 {
-    public enum WindowType
-    {
-        PAUSE_MENU,
-        GAME_OVER
-    }
-
     public class UIRoot : MonoBehaviour
     {
         private static UIRoot _instance = null;
@@ -35,35 +29,23 @@ namespace ET.Core.UIRoot
             }
         }
 
-        private Dictionary<WindowType, IUIScreenable> _UIObjects;
-
         [Header("References to the Player Components")]
         private PlayerController _playerController = null;
 
         [Header("References to the UI Components")]
-        [SerializeField] private PauseMenuWindow _pauseMenuWindow;
-        [SerializeField] private GameOverWindow _gameOverWindow;
-
-        [SerializeField] private PlayerStatsView _playerStatsView;
-        [SerializeField] private PlayerExperienceView _playerExperienceView;
-        [SerializeField] private PlayerSkillsView _playerSkillsView;
+        [SerializeField] private Popup _popup;
+        [SerializeField] private HUD _hUD;
 
         private bool _isVisible = false;
+
+        public Popup Popup { get => _popup; }
+        public HUD HUD { get => _hUD; }
 
         protected void Awake()
         {
             _instance = this;
 
             DontDestroyOnLoad(gameObject);
-        }
-
-        protected void Start()
-        {
-            _UIObjects = new Dictionary<WindowType, IUIScreenable>
-            {
-                { WindowType.PAUSE_MENU, _pauseMenuWindow },
-                { WindowType.GAME_OVER, _gameOverWindow }
-            };
         }
 
         public event Action<WindowType> onOpenPauseMenu;
@@ -97,7 +79,7 @@ namespace ET.Core.UIRoot
         {
             if (!_isVisible)
             {
-                _UIObjects[window].Show();
+                _popup.UIObjects[window].Show();
                 _isVisible = true;
             }
         }
@@ -106,7 +88,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                _UIObjects[window].Hide();
+                _popup.UIObjects[window].Hide();
                 _isVisible = false;
             }
         }
@@ -115,7 +97,7 @@ namespace ET.Core.UIRoot
         {
             if (_isVisible)
             {
-                foreach (var pair in _UIObjects.Values)
+                foreach (var pair in _popup.UIObjects.Values)
                 {
                     pair.Hide();
                 }

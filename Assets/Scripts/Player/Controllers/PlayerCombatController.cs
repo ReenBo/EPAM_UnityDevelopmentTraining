@@ -70,8 +70,7 @@ namespace ET.Player.Combat
                 KeyCode.Alpha3,
             };
 
-            GameManager.Instance.WeaponView.
-                DisplayWeapon(_timeDelay, _nameWeapon, ((int)_weapomType) - 1);
+            //GameManager.Instance.WeaponView.DisplayWeapon(_timeDelay, _nameWeapon, ((int)_weapomType) - 1);
         }
 
         protected void Update()
@@ -126,11 +125,9 @@ namespace ET.Player.Combat
 
                     _selectedWeapon = i;
 
-                    GameManager.Instance.WeaponView.
-                        DisplayWeapon(_timeDelay, _nameWeapon, i - 1);
+                    //GameManager.Instance.WeaponView.DisplayWeapon(_timeDelay, _nameWeapon, i - 1);
 
-                    GameManager.Instance.PlayerStatsViem.
-                        SetAmmoCountViem(_amountBullets, _amountAmmo);
+                    //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_amountBullets, _amountAmmo);
                 }
             }
         }

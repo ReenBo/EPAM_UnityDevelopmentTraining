@@ -111,10 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351503b0422da844bad02fe999dd7207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedBullet: 9
+  _speedBullet: 15
   _lifeTimeBullet: 5
   _damageBullet: 25
-  _hitAudio: {fileID: 8300000, guid: 5d1867f97277f3f4d9f947578224354d, type: 3}
 --- !u!96 &-7604818319436208664
 TrailRenderer:
   serializedVersion: 2

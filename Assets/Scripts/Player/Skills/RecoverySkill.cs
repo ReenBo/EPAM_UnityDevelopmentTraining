@@ -29,7 +29,7 @@ namespace ET.Player.Skills
                 StartCoroutine(EnableResetTimer(_healthTimeCounter));
                 onDisplaySkill.Invoke(_healthTimeCounter, 1);
 
-                GameManager.Instance.PlayerSkillsView.DisplaySkills(_healthTimeCounter, 1);
+                //GameManager.Instance.PlayerSkillsView.DisplaySkills(_healthTimeCounter, 1);
             }
         }
 
@@ -42,8 +42,8 @@ namespace ET.Player.Skills
                 amountHealth += cooldownTime;
                 _playerController.CurrentHealth = Mathf.Clamp(amountHealth, 0, _maxHealth);
 
-                GameManager.Instance.PlayerStatsViem.SetHealthView(
-                    Mathf.Clamp(amountHealth, 0, _maxHealth), cooldownTime);
+                //GameManager.Instance.PlayerStatsViem.SetHealthView(
+                //    Mathf.Clamp(amountHealth, 0, _maxHealth), cooldownTime);
 
                 yield return new WaitForSeconds(0.5f);
             }

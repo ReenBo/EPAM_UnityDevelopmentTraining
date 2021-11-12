@@ -58,20 +58,16 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraFollowPlayer.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyAttacksController.cs" />
+    <Compile Include="Assets\Scripts\Player\UI\WindowType.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_BulletHoleDecal.cs" />
     <Compile Include="Assets\Scripts\Scene\SceneController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Controllers\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Enemy\AI\AIStates.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\CFX_LightIntensityFade.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerSkillsView.cs" />
     <Compile Include="Assets\Scripts\Player\Skills\RecoverySkill.cs" />
-=======
-    <Compile Include="Assets\Scripts\Camera\GameManager.cs" />
-    <Compile Include="Assets\Scripts\Interfaces\IDamageable.cs" />
->>>>>>> Stashed changes
     <Compile Include="Assets\Scripts\Enemy\AI\EnemyStateController.cs" />
     <Compile Include="Assets\Scripts\Enemy\Managers\EnemyManager.cs" />
     <Compile Include="Assets\Scripts\Scene\PreloaderScene.cs" />
@@ -80,23 +76,18 @@
     <Compile Include="Assets\Scripts\Weapons\ApplyPosWeapon.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Scripts\WFX_LightFlicker.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\LevelSystem.cs" />
-    <Compile Include="Assets\Scripts\CoreSystems\GameManager.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup.cs" />
+    <Compile Include="Assets\Scripts\UI\LoadingViewController.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerStatsView.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Assets\Scripts\Scene\Scenes.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\InputSystem.cs" />
-=======
->>>>>>> Stashed changes
     <Compile Include="Assets\Scripts\Weapons\WeaponsController.cs" />
     <Compile Include="Assets\JMO Assets\WarFX\Spawn System\CFX_SpawnSystem.cs" />
     <Compile Include="Assets\Scripts\Player\Managers\PlayerSpawner.cs" />
     <Compile Include="Assets\Scripts\Bullets\BulletsController.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Assets\Scripts\Interfaces\ICommand.cs" />
     <Compile Include="Assets\Scripts\HUD\GameOverWindow.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\UIRoot.cs" />
-=======
->>>>>>> Stashed changes
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\HealthSystem.cs" />
     <Compile Include="Assets\Scripts\LevelInfo\InfoSceneObjects.cs" />
@@ -104,13 +95,12 @@
     <Compile Include="Assets\Scripts\TagsAndLayer\AnimationsTags.cs" />
     <Compile Include="Assets\Scripts\CoreSystems\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\HUD\PlayerExperienceView.cs" />
-<<<<<<< Updated upstream
     <Compile Include="Assets\Scripts\Interfaces\IUIScreenable.cs" />
     <Compile Include="Assets\Scripts\Player\Controllers\PlayerSkillsController.cs" />
-=======
->>>>>>> Stashed changes
     <Compile Include="Assets\Scripts\CoreSystems\CharacterStats.cs" />
+    <Compile Include="Assets\Scripts\HUD\PauseMenuWindow.cs" />
     <Compile Include="Assets\Scripts\HUD\WeaponView.cs" />
+    <Compile Include="Assets\Scripts\UI\HUD.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />

@@ -10,13 +10,8 @@ using ET.Core.SaveSystem;
 using ET.Weapons;
 using ET.Core.LevelSystem;
 using System;
-using ET.UI.GameOverWindow;
 using ET.Enemy.AI;
-using ET.UI.WeaponView;
 using ET.Player.Combat;
-using ET.Player.UI.StatsView;
-using ET.Player.UI.ExperienceView;
-using ET.UI.SkillsView;
 using ET.Core.UIRoot;
 using ET.Core.LevelInfo;
 
@@ -46,8 +41,6 @@ namespace ET
 
         [Header("References to the GameObjects")]
         [SerializeField] private GameObject _enemyManagerPrefab;
-        [SerializeField] private GameObject _hUD;
-        [SerializeField] private GameObject _mainCamera;
 
         [Header("References to the Components")]
         [SerializeField] private EnemyManager _enemyManager;
@@ -57,31 +50,20 @@ namespace ET
         [SerializeField] private SceneController _sceneController;
         [SerializeField] private CameraFollowPlayer _camera;
 
-        [SerializeField] private PlayerStatsView _playerStatsViem;
-        [SerializeField] private PlayerExperienceView _playerExpView;
-        [SerializeField] private WeaponView _weaponView;
-        [SerializeField] private PlayerSkillsView _playerSkillsView;
-
         private PlayerController _playerController;
-        private PlayerCombatController _playerCombatController ;
+        private PlayerCombatController _playerCombatController;
         private Transform _playerPosition;
 
         private LevelSystem _levelSystem;
         private CharacterStats _stats;
-
 
         public SceneController SceneController { get => _sceneController; private set => _sceneController = value; }
 
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
 
-        public PlayerStatsView PlayerStatsViem { get => _playerStatsViem; set => _playerStatsViem = value; }
         public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
-        public PlayerExperienceView PlayerExpView { get => _playerExpView; set => _playerExpView = value; }
-        public GameObject HUD { get => _hUD; set => _hUD = value; }
         public EnemyManager EnemyManager { get => _enemyManager; }
-        public WeaponView WeaponView { get => _weaponView; set => _weaponView = value; }
-        public PlayerSkillsView PlayerSkillsView { get => _playerSkillsView; set => _playerSkillsView = value; }
 
         public bool GameHasStarted { get => _gameHasStarted; }
 
@@ -117,6 +99,7 @@ namespace ET
         public void FinishGameSession()
         {
             _gameHasStarted = false;
+            UIRoot.Instance.HUD.InvolveDisplay(false);
         }
 
         public IEnumerator InitGame(InfoSceneObjects info)
@@ -128,10 +111,12 @@ namespace ET
 
             _camera.GetPlayerPosition(_playerPosition);
 
+            UIRoot.Instance.CloseAllWindow();
+            UIRoot.Instance.HUD.InvolveDisplay(true);
+            UIRoot.Instance.UpdateAfterLaunch(_playerController);
+
             _enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
             EnemyManager.GetPlayerPosition(_playerPosition);
-
-            //UIRoot.Instance.UpdateAfterLaunch(_playerController);
 
             _levelSystem = new LevelSystem();
 

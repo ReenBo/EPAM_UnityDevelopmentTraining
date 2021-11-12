@@ -9,8 +9,6 @@ namespace ET.UI.PauseMenu
 {
     public class PauseMenuWindow : MonoBehaviour, IUIScreenable
     {
-        //[SerializeField] private GameObject _gameMenuPrefab;
-
         private bool _isPaused = false;
 
         public void Show()
