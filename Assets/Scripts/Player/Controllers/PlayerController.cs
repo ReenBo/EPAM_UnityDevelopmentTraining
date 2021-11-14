@@ -94,8 +94,7 @@ namespace ET.Player
                 gameObject.GetComponent<PlayerMovement>().enabled = false;
                 _animator.SetTrigger(AnimationsTags.DEATH_TRIGGER);
 
-                //UIRoot.Instance.OpenWindow(WindowType.GAME_OVER);
-                //onPlayerDied.Invoke(WindowType.GAME_OVER); ???? Crash !!!!
+                onPlayerDied.Invoke(WindowType.GAME_OVER);
 
                 //Destroy(gameObject, 3);
             }

@@ -36,6 +36,9 @@ namespace ET.Core.UIRoot
         [SerializeField] private Popup _popup;
         [SerializeField] private HUD _hUD;
 
+        public event Action<WindowType> onOpenWindow;
+        public event Action<WindowType> onCloseWindow;
+
         private bool _isVisible = false;
 
         public Popup Popup { get => _popup; }
@@ -48,20 +51,17 @@ namespace ET.Core.UIRoot
             DontDestroyOnLoad(gameObject);
         }
 
-        public event Action<WindowType> onOpenPauseMenu;
-        public event Action<WindowType> onClosePauseMenu;
-
         protected void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (!_isVisible)
+                if (!_isVisible) 
                 {
-                    onOpenPauseMenu.Invoke(WindowType.PAUSE_MENU);
+                    onOpenWindow.Invoke(WindowType.PAUSE_MENU);
                 }
                 else
                 {
-                    onClosePauseMenu.Invoke(WindowType.PAUSE_MENU);
+                    onCloseWindow.Invoke(WindowType.PAUSE_MENU);
                 }
             }
         }
@@ -69,10 +69,22 @@ namespace ET.Core.UIRoot
         public void UpdateAfterLaunch(PlayerController playerController)
         {
             _playerController = playerController;
-            //_playerController.onPlayerDied += OpenWindow; !!!CRASH!!!
+        }
 
-            onOpenPauseMenu += OpenWindow;
-            onClosePauseMenu += CloseWindow;
+        public void ReceiveStatusOfSubscribersHandler(bool status)
+        {
+            if (status)
+            {
+                onOpenWindow += OpenWindow;
+                onCloseWindow += CloseWindow;
+                _playerController.onPlayerDied += CloseWindow;
+            }
+            else
+            {
+                onOpenWindow -= OpenWindow;
+                onCloseWindow -= CloseWindow;
+                _playerController.onPlayerDied -= CloseWindow;
+            }
         }
 
         public void OpenWindow(WindowType window)

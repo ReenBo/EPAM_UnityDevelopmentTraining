@@ -9,10 +9,7 @@ namespace ET.Player.InputSystem
 {
     public class InputSystem : MonoBehaviour
     {
-        private ICommand _recoveryHealthCommand;
-        private ICommand _command;
-
-        private Action _onNoneEvent = null;
+        private event Action<ICommand> _onRecoverySkill;
 
         private PlayerSkillsController _skillsController;
 
@@ -22,11 +19,9 @@ namespace ET.Player.InputSystem
         {
             _skillsController = GetComponent<PlayerSkillsController>();
 
-            _recoveryHealthCommand = _skillsController.RecoverySkill;
-
             _commands = new Dictionary<KeyCode, ICommand>()
             {
-                { KeyCode.Q, _recoveryHealthCommand }
+                { KeyCode.Q, _skillsController.RecoverySkill }
             };
         }
 

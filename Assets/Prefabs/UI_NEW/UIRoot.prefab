@@ -448,6 +448,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3144218035523333509}
     m_Modifications:
+    - target: {fileID: 73137449, guid: 416708df09f581342bbd555230b3d0ce, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6279370579716377500, guid: 416708df09f581342bbd555230b3d0ce, type: 3}
       propertyPath: m_Name
       value: Popup

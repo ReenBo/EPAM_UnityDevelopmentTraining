@@ -28,7 +28,6 @@ namespace ET.Scenes
         public void Restart()
         {
             _preloaderScene.Load(_currentLevel);
-            UIRoot.Instance.CloseAllWindow();
         }
 
         public void ReturnMainMenu()

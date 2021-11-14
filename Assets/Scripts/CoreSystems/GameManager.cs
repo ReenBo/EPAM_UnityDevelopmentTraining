@@ -14,6 +14,7 @@ using ET.Enemy.AI;
 using ET.Player.Combat;
 using ET.Core.UIRoot;
 using ET.Core.LevelInfo;
+using ET.UI.WindowTypes;
 
 namespace ET
 {
@@ -57,11 +58,9 @@ namespace ET
         private LevelSystem _levelSystem;
         private CharacterStats _stats;
 
-        public SceneController SceneController { get => _sceneController; private set => _sceneController = value; }
-
+        public SceneController SceneController { get => _sceneController; }
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
-
         public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
         public EnemyManager EnemyManager { get => _enemyManager; }
 
@@ -84,23 +83,19 @@ namespace ET
         {
             _controlSubsystems = new object[]
             {
-                _camera.enabled,
-                _sceneController.enabled,
-                _enemyManager.enabled,
-                _playerSpawner.enabled,
+                _camera.enabled = value,
+                _sceneController.enabled = value,
+                _enemyManager.enabled = value,
+                _playerSpawner.enabled = value
             };
         }
 
-        public void StartGameSession(bool gameState)
+        public void GameSessionStatus(bool status)
         {
-            _gameHasStarted = gameState;
+            _gameHasStarted = status;
+            UIRoot.Instance.HUD.InvolveDisplay(status);
+            UIRoot.Instance.ReceiveStatusOfSubscribersHandler(status);
         }        
-        
-        public void FinishGameSession()
-        {
-            _gameHasStarted = false;
-            UIRoot.Instance.HUD.InvolveDisplay(false);
-        }
 
         public IEnumerator InitGame(InfoSceneObjects info)
         {
@@ -111,8 +106,6 @@ namespace ET
 
             _camera.GetPlayerPosition(_playerPosition);
 
-            UIRoot.Instance.CloseAllWindow();
-            UIRoot.Instance.HUD.InvolveDisplay(true);
             UIRoot.Instance.UpdateAfterLaunch(_playerController);
 
             _enemyManager = Instantiate(_enemyManagerPrefab).GetComponent<EnemyManager>();
