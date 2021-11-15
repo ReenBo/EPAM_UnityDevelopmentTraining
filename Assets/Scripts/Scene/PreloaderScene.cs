@@ -15,19 +15,16 @@ namespace ET.Scenes.Preloader
     {
         private AsyncOperation _loading = null;
 
-        private LoadingViewController _LoadingLineView;
+        [SerializeField] private LoadingViewController _LoadingLineView;
 
         protected void Awake()
         {
             DontDestroyOnLoad(gameObject);
-
-            _LoadingLineView = GetComponent<LoadingViewController>();
         }
 
         protected void Start()
         {
             SceneManager.LoadSceneAsync(SceneIndex._MainMenu.ToString(), LoadSceneMode.Additive);
-            //SceneManager.LoadSceneAsync(SceneName.MainMenu);
         }
 
         private static Action onLoaderCallback;
@@ -55,21 +52,20 @@ namespace ET.Scenes.Preloader
         {
             UIRoot.Instance.OpenWindow(WindowType.LOADING_SCREEN);
 
-            _loading = SceneManager.LoadSceneAsync(SceneIndex._GameSession.ToString());
+            _loading = SceneManager.LoadSceneAsync(SceneName.GameSession);
 
-            //_loading.allowSceneActivation = false;
-            //Debug.Log($"Loading progress: {_loading.progress}");
+            _loading.allowSceneActivation = false;
 
-            //while (!_loading.isDone)
-            //{
-            //    _LoadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
+            while (!_loading.isDone)
+            {
+                _LoadingLineView.LoadingLine.fillAmount += Mathf.Clamp01(1e-3f);
 
-            //    if(_loading.progress >= 0.9f)
-            //    {
-            //        _loading.allowSceneActivation = true;
-            //    }
-            //    yield return null;
-            //}
+                if (_loading.progress >= 0.9f)
+                {
+                    _loading.allowSceneActivation = true;
+                }
+                yield return null;
+            }
             yield return _loading;
 
             _loading = SceneManager.LoadSceneAsync(scene.ToString(), LoadSceneMode.Additive);

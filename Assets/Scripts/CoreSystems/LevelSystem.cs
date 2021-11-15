@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace ET.Core.LevelSystem
         private float _currentExperience = 0;
         private int _minExperience = 0;
         private int _maxExperience = 0;
+
+        public event Action<float, float, int, int> onExperiencePlayerChange;
 
         #region Properties
         public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
@@ -36,11 +39,7 @@ namespace ET.Core.LevelSystem
                 _currentLevel += _levelUp;
             }
 
-            //GameManager.Instance.PlayerExpView.SetExperience(
-            //    experience,
-            //    _currentExperience,
-            //    _maxExperience,
-            //    _currentLevel);
+            onExperiencePlayerChange.Invoke(experience, _currentExperience, _maxExperience, _currentLevel);
         }
     }
 }

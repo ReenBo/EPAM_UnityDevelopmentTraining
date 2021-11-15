@@ -15,10 +15,11 @@ namespace ET.Player.Skills
         private bool _resetIsAvailable = true;
 
         public Action<float, int> onDisplaySkill;
+        public Action<float, float> onHealthViewChange;
 
         protected void Start()
         {
-            _playerController = GetComponent<PlayerController>();
+            _playerController = GetComponentInParent<PlayerController>();
         }
 
         public void ExecuteCommand()
@@ -28,8 +29,6 @@ namespace ET.Player.Skills
                 StartCoroutine(RestoreHealth(_playerController.CurrentHealth));
                 StartCoroutine(EnableResetTimer(_healthTimeCounter));
                 onDisplaySkill.Invoke(_healthTimeCounter, 1);
-
-                //GameManager.Instance.PlayerSkillsView.DisplaySkills(_healthTimeCounter, 1);
             }
         }
 
@@ -42,8 +41,7 @@ namespace ET.Player.Skills
                 amountHealth += cooldownTime;
                 _playerController.CurrentHealth = Mathf.Clamp(amountHealth, 0, _maxHealth);
 
-                //GameManager.Instance.PlayerStatsViem.SetHealthView(
-                //    Mathf.Clamp(amountHealth, 0, _maxHealth), cooldownTime);
+                onHealthViewChange.Invoke(Mathf.Clamp(amountHealth, 0, _maxHealth), cooldownTime);
 
                 yield return new WaitForSeconds(0.5f);
             }

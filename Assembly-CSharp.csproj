@@ -101,6 +101,7 @@
     <Compile Include="Assets\Scripts\HUD\PauseMenuWindow.cs" />
     <Compile Include="Assets\Scripts\HUD\WeaponView.cs" />
     <Compile Include="Assets\Scripts\UI\HUD.cs" />
+    <Compile Include="Assets\StarterGameSession.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\JMO Assets\WarFX\Shaders\WFX_S Multiply Soft.shader" />

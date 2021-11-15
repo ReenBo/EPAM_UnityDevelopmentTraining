@@ -18,7 +18,11 @@ namespace ET.Scenes
             _preloaderScene = _preLoaderGameObject.GetComponent<PreloaderScene>();
         }
 
-        public void UpdateAfterLaunch(SceneIndex index) => _currentLevel = index;
+        public void UpdateAfterLaunch(SceneIndex index)
+        {
+            _currentLevel = index;
+            Debug.Log("_currentLevel" + _currentLevel);
+        }
 
         public void StartGame()
         {

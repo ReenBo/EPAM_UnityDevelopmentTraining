@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ET.Weapons;
+using System;
+using ET.Core.UIRoot;
 
 namespace ET.Player.Combat
 {
@@ -15,6 +17,9 @@ namespace ET.Player.Combat
 
         [Header("List of weapons")]
         [SerializeField] private List<GameObject> _weaponsList;
+
+        public event Action<float, string, int> onWeaponViewChange;
+        public event Action<int, int> onPlayerStatsViewChange;
 
         private float _delayShoot = 0f;
         private float _timeDelay = 0f;
@@ -44,6 +49,7 @@ namespace ET.Player.Combat
             get => _bulletIDNumber;
             set => _bulletIDNumber = Mathf.Clamp(value, 0, numberBulletPlayerHas);
         }
+        public WeaponsController WeaponsController { get => _weaponsController; }
 
         #region Animations Hash Code
         private int _shooting = Animator.StringToHash(AnimationsTags.SHOOTING);
@@ -69,8 +75,6 @@ namespace ET.Player.Combat
                 KeyCode.Alpha2,
                 KeyCode.Alpha3,
             };
-
-            //GameManager.Instance.WeaponView.DisplayWeapon(_timeDelay, _nameWeapon, ((int)_weapomType) - 1);
         }
 
         protected void Update()
@@ -125,9 +129,8 @@ namespace ET.Player.Combat
 
                     _selectedWeapon = i;
 
-                    //GameManager.Instance.WeaponView.DisplayWeapon(_timeDelay, _nameWeapon, i - 1);
-
-                    //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_amountBullets, _amountAmmo);
+                    onWeaponViewChange.Invoke(_timeDelay, _nameWeapon, i - 1);
+                    onPlayerStatsViewChange.Invoke(_amountBullets, _amountAmmo);
                 }
             }
         }

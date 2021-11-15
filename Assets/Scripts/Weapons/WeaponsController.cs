@@ -39,6 +39,8 @@ namespace ET.Weapons
 
         [SerializeField] private GameObject[] _arrayBullets = new GameObject[4];
 
+        public event Action<int, int> onAmmoCountViemChange;
+
         private ParticleSystem _muzzleFlashes = null;
         private Transform _bulletSpawn;
         private bool _getAmmo = true;
@@ -62,7 +64,7 @@ namespace ET.Weapons
 
         protected void Start()
         {
-            //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+            //onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
 
             _muzzleFlashes = _muzzleFlashesPrefab.GetComponent<ParticleSystem>();
         }
@@ -110,7 +112,7 @@ namespace ET.Weapons
 
             _ammoCounter = _numberRoundsInMagazine;
             _getAmmo = true;
-            //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+            onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
         }
 
         private void CalculateAmmos()
@@ -118,7 +120,7 @@ namespace ET.Weapons
             if (_ammoCounter > 0)
             {
                 _ammoCounter -= 1;
-                //GameManager.Instance.PlayerStatsViem.SetAmmoCountViem(_numberRoundsInMagazine, _ammoCounter);
+                onAmmoCountViemChange.Invoke(_numberRoundsInMagazine, _ammoCounter);
             }
             else _getAmmo = false;
         }

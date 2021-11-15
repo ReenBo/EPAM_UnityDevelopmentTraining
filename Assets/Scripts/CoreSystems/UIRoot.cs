@@ -29,7 +29,6 @@ namespace ET.Core.UIRoot
             }
         }
 
-        [Header("References to the Player Components")]
         private PlayerController _playerController = null;
 
         [Header("References to the UI Components")]
@@ -77,12 +76,14 @@ namespace ET.Core.UIRoot
             {
                 onOpenWindow += OpenWindow;
                 onCloseWindow += CloseWindow;
+                //GameManager.Instance.PlayerController.onPlayerDied += CloseWindow;
                 _playerController.onPlayerDied += CloseWindow;
             }
             else
             {
                 onOpenWindow -= OpenWindow;
                 onCloseWindow -= CloseWindow;
+                //GameManager.Instance.PlayerController.onPlayerDied += CloseWindow;
                 _playerController.onPlayerDied -= CloseWindow;
             }
         }

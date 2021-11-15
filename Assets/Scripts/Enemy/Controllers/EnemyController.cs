@@ -23,6 +23,8 @@ namespace ET.Enemy
         [SerializeField] private AudioClip _deadAudio;
         [SerializeField] private AudioClip _hitAudio;
 
+        public event Action<float> onExperiencePlayerChange;
+
         private bool _isDeath = false;
         //private bool _isResurrection = false;
         #endregion

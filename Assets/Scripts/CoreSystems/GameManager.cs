@@ -15,6 +15,7 @@ using ET.Player.Combat;
 using ET.Core.UIRoot;
 using ET.Core.LevelInfo;
 using ET.UI.WindowTypes;
+using ET.Player.Skills;
 
 namespace ET
 {
@@ -53,6 +54,8 @@ namespace ET
 
         private PlayerController _playerController;
         private PlayerCombatController _playerCombatController;
+        private WeaponsController _weaponsController;
+        private RecoverySkill _recoverySkill;
         private Transform _playerPosition;
 
         private LevelSystem _levelSystem;
@@ -60,11 +63,14 @@ namespace ET
 
         public SceneController SceneController { get => _sceneController; }
         public PlayerController PlayerController { get => _playerController; private set => _playerController = value; }
+        public PlayerCombatController PlayerCombatController { get => _playerCombatController; }
         public CharacterStats Stats { get => _stats; set => _stats = value; }
         public LevelSystem LevelSystem { get => _levelSystem; set => _levelSystem = value; }
         public EnemyManager EnemyManager { get => _enemyManager; }
 
-        public bool GameHasStarted { get => _gameHasStarted; }
+        //public bool GameHasStarted { get => _gameHasStarted; }
+        public WeaponsController WeaponsController { get => _weaponsController; }
+        public RecoverySkill RecoverySkill { get => _recoverySkill; set => _recoverySkill = value; }
 
         protected void Awake()
         {
@@ -93,8 +99,10 @@ namespace ET
         public void GameSessionStatus(bool status)
         {
             _gameHasStarted = status;
-            UIRoot.Instance.HUD.InvolveDisplay(status);
+
             UIRoot.Instance.ReceiveStatusOfSubscribersHandler(status);
+            UIRoot.Instance.HUD.InvolveDisplay(status);
+            UIRoot.Instance.HUD.ReceiveStatusOfSubscribersHandler(status);
         }        
 
         public IEnumerator InitGame(InfoSceneObjects info)
@@ -103,6 +111,9 @@ namespace ET
 
             _playerController = _playerSpawner.CreatePlayerInSession(info.PlayerSpawnTarget);
             _playerPosition = _playerController.PlayerPosition;
+            _playerCombatController = _playerController.transform.GetComponent<PlayerCombatController>();
+            _weaponsController = _playerController.transform.GetComponentInChildren<WeaponsController>();
+            _recoverySkill = _playerController.transform.GetComponentInChildren<RecoverySkill>();
 
             _camera.GetPlayerPosition(_playerPosition);
 

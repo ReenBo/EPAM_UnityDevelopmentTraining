@@ -8,6 +8,7 @@ using System;
 using ET.Core.UIRoot;
 using ET.Player.Skills;
 using ET.UI.WindowTypes;
+using ET.Player.Combat;
 
 namespace ET.Player
 {
@@ -16,6 +17,7 @@ namespace ET.Player
         private Animator _animator = null;
         private BoxCollider _boxCollider = null;
 
+        private PlayerCombatController _playerCombat = null;
         private PlayerSkillsController _playerSkills = null;
 
         [Header("Parameters Object")]
@@ -25,6 +27,10 @@ namespace ET.Player
         [Range(0, 100)]
         [SerializeField] private float _maxArmor = 0;
 
+        public event Action<float, int> onArmorViewChange;
+        public event Action<float, int> onHealthViewChange;
+        public event Action<WindowType> onPlayerDied;
+
         private float _currentHealth = 0;
         private float _currentArmor = 0;
 
@@ -33,6 +39,7 @@ namespace ET.Player
         public float CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
         public float CurrentArmor { get => _currentArmor; set => _currentArmor = value; }
         public Transform PlayerPosition { get => _playerPosition; }
+        public PlayerCombatController PlayerCombat { get => _playerCombat; }
         public PlayerSkillsController PlayerSkills { get => _playerSkills; }
 
         protected void Awake()
@@ -42,6 +49,7 @@ namespace ET.Player
 
             _animator = GetComponent<Animator>();
             _boxCollider = GetComponent<BoxCollider>();
+            _playerCombat = GetComponent<PlayerCombatController>();
             _playerSkills = GetComponent<PlayerSkillsController>();
         }
 
@@ -57,7 +65,8 @@ namespace ET.Player
                 if(_currentArmor > 0f)
                 {
                     _currentArmor -= amount;
-                    //GameManager.Instance.PlayerStatsViem.SetArmorView(amount, (int)_currentArmor);
+
+                    onArmorViewChange.Invoke(amount, (int)_currentArmor);
                 }
                 else if(_currentArmor <= 0f)
                 {
@@ -66,7 +75,8 @@ namespace ET.Player
                         _currentArmor = 0f;
 
                         _currentHealth -= amount;
-                        //GameManager.Instance.PlayerStatsViem.SetHealthView(amount, (int)_currentHealth);
+
+                        onHealthViewChange.Invoke(amount, (int)_currentHealth);
                     }
                     else if (_currentHealth <= 0f)
                     {
@@ -77,8 +87,6 @@ namespace ET.Player
                 }
             }
         }
-
-        public Action<WindowType> onPlayerDied;
 
         private void PlayerIsDying()
         {
