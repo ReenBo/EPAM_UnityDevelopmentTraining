@@ -183,7 +183,7 @@ RectTransform:
   m_GameObject: {fileID: 1935402026332461206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1935402026910177913}
   - {fileID: 1935402026564634638}
@@ -269,10 +269,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efdc978852cfab24cb725e349d7a7860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerStatsView: {fileID: 0}
-  _weaponView: {fileID: 0}
-  _playerExperienceView: {fileID: 0}
-  _playerSkillsView: {fileID: 0}
+  _playerStatsView: {fileID: 1935402026910177912}
+  _playerExperienceView: {fileID: 1935402026564634633}
+  _playerSkillsView: {fileID: 1935402026978506311}
+  _weaponView: {fileID: 1935402026910177914}
 --- !u!1 &1935402026460282726
 GameObject:
   m_ObjectHideFlags: 0
